@@ -15,7 +15,7 @@ let request = indexedDB.open("FarmData", 2);
 request.onupgradeneeded = function(event) {
     let db = event.target.result;
     if (!db.objectStoreNames.contains("Sensors")) {
-        let booksStore = db.createObjectStore("Sensors", { autoIncrement: false });
+        let booksStore = db.createObjectStore("Sensors");
         booksStore.createIndex("SensorReading", "SensorReading", { unique: false });
         booksStore.createIndex("Image", "Image", { unique: false });
         booksStore.createIndex("Notes", "Notes", { unique: false });
