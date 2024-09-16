@@ -53,28 +53,6 @@
     };
   }
 
-  function isVailSensorReadings(sensorReadings){
-    // Temperature should be -100 to 200 and humidity should be 0 - 100
-    return !(sensorReadings[0] < -100 || sensorReadings[0] > 200 || sensorReadings[1] < 0 || sensorReadings[1] > 100);
-  }
-
-  function isValidBase64DataURL(dataURL) {
-    // Regular expression to match data URL prefix and Base64 part
-    const dataURLRegex = /^data:([a-zA-Z0-9-+/.]+);base64,(.*)$/;
-
-    // Check if the string matches the data URL format
-    const match = dataURL.match(dataURLRegex);
-    if (!match) {
-      return false;
-    }
-
-    // Extract the Base64 part
-    const base64Part = match[2];
-
-    // Check if the Base64 part is valid
-    return isValidBase64(base64Part);
-  }
-
 
 
 
