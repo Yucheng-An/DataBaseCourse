@@ -11,6 +11,7 @@ let data = {
     "GPS": gpsCoordinates,
     "Date": timestamp
 };
+let key = crypto.randomUUID()
 let request = indexedDB.open("FarmData", 2);
 request.onupgradeneeded = function(event) {
     let db = event.target.result;
