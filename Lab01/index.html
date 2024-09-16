@@ -24,7 +24,7 @@
       let db = event.target.result;
       // Create the object store for "Books" if it doesn't already exist
       if (!db.objectStoreNames.contains("Sensors")) {
-        let booksStore = db.createObjectStore("Sensors", { autoIncrement: true });
+        let booksStore = db.createObjectStore("Sensors", { autoIncrement: false });
         booksStore.createIndex("SensorReading", "SensorReading", { unique: false });
         booksStore.createIndex("Image", "Image", { unique: false });
         booksStore.createIndex("Notes", "Notes", { unique: false });
