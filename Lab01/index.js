@@ -28,7 +28,7 @@ request.onsuccess = function (event) {
     let db = event.target.result;
     let transaction = db.transaction("Sensors", "readwrite");
     let store = transaction.objectStore("Sensors");
-    store.add(data);
+    store.add(data,key);
     console.log("New data has been stored!")
 
     console.log("Retrieve the stored data from FarmData.......")
