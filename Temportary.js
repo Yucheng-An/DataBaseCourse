@@ -5,9 +5,10 @@ req.onsuccess = function(e){
     console.log("Success");
 }
 
-// trigger when creating database first time 
+// trigger when creating database first time
 req.onupgradeneeded = function(e){}
 
+// trigger when starting or refreshing the website
 req.onsuccess = function(e){}
 
 req.onerror = function(e){}
