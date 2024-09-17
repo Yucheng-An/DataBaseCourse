@@ -15,6 +15,9 @@ req.onsuccess = function(event){
     // Need to create a transaction to perform any operation on the database
     let transactionBook = db.getObjectStore("book").transaction("book", "readwrite")
     let bookObjectStore = transcationBook.getObjectStore("book")
+    let book = {
+        
+    }
 
 }
 
