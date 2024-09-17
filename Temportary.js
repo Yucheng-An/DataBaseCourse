@@ -13,7 +13,7 @@ req.onupgradeneeded = function(event){
 req.onsuccess = function(event){
     let db = event.target.result
     // Need to create a transaction to perform any operation on the database
-    let transactionBook = db.get("book").transaction("book", "readwrite")
+    let transactionBook = db.getObjectStore("book").transaction("book", "readwrite")
     let bookObjectStore = transcationBook.get
 
 }
