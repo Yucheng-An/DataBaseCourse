@@ -11,6 +11,7 @@ req.onupgradeneeded = function(event){
 
 // trigger when starting or refreshing the website
 req.onsuccess = function(event){
+    let db = event.target.result
     
 }
 
