@@ -7,5 +7,7 @@ req.onsuccess = function(e){
 
 req.onupgradeneeded = function(e){}
 
-req.ons
+req.onsuccess = function(e){}
+
+req.onerror = function(e){}
 
