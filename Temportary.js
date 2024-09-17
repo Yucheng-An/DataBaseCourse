@@ -1,8 +1,8 @@
 // create the indexedDB
 let req = indexedDB.open("BookDB",1)
 req.onsuccess = function(e){
-    db = req.result;
-    console.log("Success");
+    let db = event.target.result
+    
 }
 
 // trigger when creating database first time
