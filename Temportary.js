@@ -10,7 +10,9 @@ req.onupgradeneeded = function(event){
 }
 
 // trigger when starting or refreshing the website
-req.onsuccess = function(event){}
+req.onsuccess = function(event){
+    
+}
 
 
 // trigger when starting or refreshing the website
