@@ -19,7 +19,7 @@ req.onsuccess = function(event){
         "uuid": crypto.randomUUID(),
         "author": "J.K. Rowling", // Author of the book
         "title": "Harry Potter and the Philosopher's Stone", // Title of the book
-        "description": "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eye
+        "description": "Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed
     }
 
 }
