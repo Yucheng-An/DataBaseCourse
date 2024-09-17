@@ -17,7 +17,7 @@ req.onsuccess = function(event){
     let bookObjectStore = transactionBook.getObjectStore("book")
     let book = {
         "uuid": crypto.randomUUID(),
-        "author": "J.K. Rowling",
+        "author": "J.K. Rowling", // A
         "title": "Harry Potter and the Philosopher's Stone",
     }
 
