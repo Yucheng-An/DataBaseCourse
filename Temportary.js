@@ -4,7 +4,7 @@ let req = indexedDB.open("BookDB",1)
 // trigger when creating database first time
 req.onupgradeneeded = function(event){
     let db = event.target.result
-    
+    db.
 }
 
 // trigger when starting or refreshing the website
