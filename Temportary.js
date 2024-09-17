@@ -5,6 +5,7 @@ req.onsuccess = function(e){
     console.log("Success");
 }
 
+// trigger when creating database 
 req.onupgradeneeded = function(e){}
 
 req.onsuccess = function(e){}
