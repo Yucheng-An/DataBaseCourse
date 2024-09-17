@@ -1,1 +1,1 @@
-let req = indexedDB.open("BookDB")
+let req = indexedDB.open("BookDB",1)
