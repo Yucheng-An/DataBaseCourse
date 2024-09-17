@@ -6,12 +6,12 @@ req.onsuccess = function(event){
 }
 
 // trigger when creating database first time
-req.onupgradeneeded = function(e){}
+req.onupgradeneeded = function(event){}
 
 // trigger when starting or refreshing the website
-req.onsuccess = function(e){}
+req.onsuccess = function(event){}
 
 
 // trigger when starting or refreshing the website
-req.onerror = function(e){}
+req.onerror = function(event){}
 
