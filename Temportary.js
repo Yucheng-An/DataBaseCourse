@@ -5,6 +5,7 @@ let req = indexedDB.open("BookDB",1)
 req.onupgradeneeded = function(event){
     let db = event.target.result
     db.createObjectStore("book", {keyPath: "uuid"})
+    
 }
 
 // trigger when starting or refreshing the website
