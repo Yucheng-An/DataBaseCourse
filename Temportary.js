@@ -18,7 +18,7 @@ req.onsuccess = function(event){
     let book = {
         "uuid": crypto.randomUUID(),
         "author": "J.K. Rowling", // Author of the book
-        "title": "Harry Potter and the Philosopher's Stone",
+        "title": "Harry Potter and the Philosopher's Stone", // Title of the book
     }
 
 }
