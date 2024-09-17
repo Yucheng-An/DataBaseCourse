@@ -42,4 +42,6 @@ req.onsuccess = function(event) {
 req.onerror = function(event){}
 
 
-// Mongo
+// MongoDB
+// Create a new database
+
