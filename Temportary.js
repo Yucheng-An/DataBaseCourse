@@ -11,5 +11,7 @@ req.onupgradeneeded = function(e){}
 // trigger when starting or refreshing the website
 req.onsuccess = function(e){}
 
+
+// trigger when starting or refreshing the website
 req.onerror = function(e){}
 
