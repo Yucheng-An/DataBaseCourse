@@ -103,7 +103,6 @@ requestTransform.onsuccess = function(event) {
     let os = transaction.objectStore("patient");
     patient.name = patient.name.trim()=== "" ? "unset" : patient.name.trim();
     os.add(patient);
-    patient.name = patient.name.trim()=== "" ? "unset" : patient.name.trim();
 
 }
 
