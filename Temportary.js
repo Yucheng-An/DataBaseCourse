@@ -71,7 +71,7 @@ req.onerror = function(event){}
 let patine = {
     "uuid":crypto.randomUUID(),
     "name": "asdf"
-
+        ...
 }
 
 
