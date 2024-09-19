@@ -83,7 +83,9 @@ requestExtract.onupgradeneeded = function(event) {
     db.createObjectStore("patinent", { keyPath: "uuid" })
 }
 
-requestExtract
+requestExtract.onsuccess = function(event) {
+    
+}
 
 
 
