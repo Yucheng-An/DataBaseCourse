@@ -69,7 +69,9 @@ req.onerror = function(event){}
 //db.dropDatabase
 
 let patine = {
-    "uuid":crypto.randomUUID()
+    "uuid":crypto.randomUUID(),
+    "name":
+
 }
 
 
