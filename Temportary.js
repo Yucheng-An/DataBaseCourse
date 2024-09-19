@@ -59,6 +59,14 @@ req.onerror = function(event){}
 // Update the document
 //db.book.updateOne(
 //    { "uuid": "123" },
+//    { $set: { "description": "Something else" } }
+//);
+// Delete the document
+//db.book.deleteOne({ "uuid": "123" });
+// Drop the collection
+//db.book.drop();
+// Drop the database
+//db.dropDatabase
 
 
 
