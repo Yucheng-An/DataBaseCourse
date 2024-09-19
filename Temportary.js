@@ -45,6 +45,21 @@ req.onerror = function(event){}
 // MongoDB
 // Create a new database
 //use BookDB;
-//
+// Create a new collection
+//db.createCollection("book");
+// Insert a new document
+//db.book.insertOne({
+//    "uuid": "123",
+//    "author": "J.K. Rowling",
+//    "title": "Harry Potter and the Philosopher's Stone",
+//    "description": "Something"
+//});
+// Find the document
+//db.book.find({ "uuid": "123" });
+// Update the document
+//db.book.updateOne(
+//    { "uuid": "123" },
+
+
 
 
