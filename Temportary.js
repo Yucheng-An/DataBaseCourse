@@ -98,7 +98,12 @@ requestExtract.onsuccess = function(event) {
 }
 
 requestTransform.onsuccess = function(event) {
-    
+    let db = event.target.result;
+    let transaction = db.transaction("patient", "readwrite");
+    let os = transaction.objectStore("patient");
+    os.add(patient);
+    patient.name = patient.name.trim()=== "" ? "unset" : patient.name.trim();
+
 }
 
 
