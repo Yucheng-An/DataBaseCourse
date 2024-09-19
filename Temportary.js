@@ -93,10 +93,7 @@ requestExtract.onsuccess = function(event) {
     let transaction = db.transaction("patient", "readwrite");
     let os = transaction.objectStore("patient");
     os.add(patient);
-    let patient = {
-        "uuid": crypto.randomUUID(),
-        "name": "John Doe",
-        "dob": "1990-01-01",
+    patient.name = patient.name
 }
 
 
