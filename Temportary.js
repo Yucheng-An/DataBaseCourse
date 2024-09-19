@@ -83,6 +83,11 @@ requestExtract.onupgradeneeded = function(event) {
     db.createObjectStore("patient", { keyPath: "uuid" })
 }
 
+request.onupgradeneeded = function(event) {
+    let db = event.target.result;
+    db.createObjectStore("patient", { keyPath: "uuid" })
+}
+
 requestExtract.onsuccess = function(event) {
     let db = event.target.result;
     let transaction = db.transaction("patient", "readwrite");
