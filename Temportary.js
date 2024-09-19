@@ -74,7 +74,7 @@ let patine = {
         ...
 }
 
-
+let requestExtract  = indexedDB.open(patinentDbE)
 
 
 
