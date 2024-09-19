@@ -84,7 +84,14 @@ requestExtract.onupgradeneeded = function(event) {
 }
 
 requestExtract.onsuccess = function(event) {
-    
+    let db = event.target.result;
+    let transaction = db.transaction("patinent", "readwrite");
+    let objectStore = transaction.objectStore("patinent");
+
+    let patinent = {
+        "uuid": crypto.randomUUID(),
+        "name": "John Doe",
+        "dob": "1990-01-01",
 }
 
 
