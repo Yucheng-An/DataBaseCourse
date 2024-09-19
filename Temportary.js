@@ -80,13 +80,13 @@ let requestLoad      = indexedDB.open("patinentDbLoad", 1);
 
 requestExtract.onupgradeneeded = function(event) {
     let db = event.target.result;
-    db.createObjectStore("patinent", { keyPath: "uuid" })
+    db.createObjectStore("patient", { keyPath: "uuid" })
 }
 
 requestExtract.onsuccess = function(event) {
     let db = event.target.result;
-    let transaction = db.transaction("patinent", "readwrite");
-    let objectStore = transaction.objectStore("patinent");
+    let transaction = db.transaction("patient", "readwrite");
+    let objectStore = transaction.objectStore("patient");
 
     let patinent = {
         "uuid": crypto.randomUUID(),
