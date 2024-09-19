@@ -21,4 +21,4 @@ async function createChecksum(data) {
 }
 
 // Example usage:
-createChecksum('patientRecord').then(checksum => console.log('Checksum:', checksum));
+createChecksum('i').then(checksum => console.log('Checksum:', checksum));
