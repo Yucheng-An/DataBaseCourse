@@ -21,8 +21,7 @@ async function createChecksum(oneVehicle) {
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
 }
-
-// Function to add a checksum to each vehicle object
+// Go throught the vehicles array and add checksum to each vehicle
 async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
         const checksum = await createChecksum(JSON.stringify(vehicle));
