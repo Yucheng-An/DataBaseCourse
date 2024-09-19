@@ -20,4 +20,4 @@ async function createChecksum(data) {
 }
 
 // Example usage:
-createChecksum('i').then(checksum => console.log('Checksum:', checksum));
+createChecksum("Hello").then(checksum => console.log('Checksum:', checksum));
