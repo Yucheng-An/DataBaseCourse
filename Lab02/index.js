@@ -26,8 +26,8 @@ async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
         vehicle.checksum = await createChecksum(JSON.stringify(vehicle));
     }
+    console.log(vehicles);
 }
 
 addChecksumsToVehicles(vehicles);
-
 
