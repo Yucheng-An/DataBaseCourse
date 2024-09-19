@@ -24,8 +24,7 @@ async function createChecksum(oneVehicle) {
 // Go through the vehicles array and add checksum to each vehicle
 async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
-        const checksum = await createChecksum(JSON.stringify(vehicle));
-        vehicle.checksum = checksum;
+        vehicle.checksum = await createChecksum(JSON.stringify(vehicle));
     }
     console.log(vehicles);
 }
