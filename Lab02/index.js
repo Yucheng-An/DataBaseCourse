@@ -18,7 +18,5 @@ async function createChecksum(data) {
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
 }
-
-// Example usage:
 createChecksum(vehicles).then(checksum => console.log('Checksum:', checksum));
 
