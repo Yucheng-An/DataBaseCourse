@@ -78,7 +78,7 @@ function getVehicleSumMilage(vehicles) {
     }
     return sum;
 }
-
+console.log(getVehicleSumMilage(vehicles));
 
 
 
