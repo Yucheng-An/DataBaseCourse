@@ -68,6 +68,6 @@ req.onerror = function(event){}
 // Drop the database
 //db.dropDatabase
 
-
+let patine 1 
 
 
