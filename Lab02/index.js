@@ -22,16 +22,3 @@ async function createChecksum(data) {
 // Example usage:
 createChecksum("Hello").then(checksum => console.log('Checksum:', checksum));
 
-import hashlib
-def create_checksum(data):
-# Convert data to bytes
-data_as_bytes = data.encode('utf-8')
-# Create SHA-256 hash
-hash_object = hashlib.sha256(data_as_bytes)
-# Convert hash to hexadecimal format
-hash_hex = hash_object.hexdigest()
-return hash_hex
-
-# Example usage
-checksum = create_checksum('patientRecord')
-print('Checksum:', checksum)
