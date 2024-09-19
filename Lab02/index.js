@@ -23,7 +23,6 @@ async function createChecksum(data) {
 // Function to add a checksum to each vehicle object
 async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
-                // Create a checksum based on the stringified vehicle object
         const checksum = await createChecksum(JSON.stringify(vehicle));
         // Add the checksum to the vehicle object
         vehicle.checksum = checksum;
