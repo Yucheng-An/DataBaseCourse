@@ -28,6 +28,6 @@ async function addChecksumsToVehicles(vehicles) {
     }
     return vehicles
 }
-vehiclesAfteraddChecksumsToVehicles(vehicles)
+vehiclesAfterCheckSum = addChecksumsToVehicles(vehicles)
 console.log(addChecksumsToVehicles(vehicles))
 
