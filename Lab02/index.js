@@ -14,10 +14,9 @@ console.log("Total mileage:" + getVehicleSumMileage(vehicles));
 async function createChecksum(data) {
     const dataAsBytes = new TextEncoder().encode(data);
     const hashBuffer = await crypto.subtle.digest('SHA-256', dataAsBytes);
-    const hashHex = Array.from(new Uint8Array(hashBuffer))
+    return Array.from(new Uint8Array(hashBuffer))
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
-    return hashHex;
 }
 
 // Example usage:
