@@ -76,6 +76,13 @@ let patine = {
 
 let requestExtract  = indexedDB.open("patinentDbExtract", 1);
 let requestTransform = indexedDB.open("patinentDbTransform", 1);
+let requestLoad      = indexedDB.open("patinentDbLoad", 1);
+
+requestExtract.onupgradeneeded = function(event) {
+    let db = event.target.result;
+    db.createObjectStore("patinent", { keyPath: "uuid" })
+}
+
 
 
 
