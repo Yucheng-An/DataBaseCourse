@@ -29,4 +29,5 @@ async function addChecksumsToVehicles(vehicles) {
 }
 
 addChecksumsToVehicles(vehicles);
+console.log(vehicles);
 
