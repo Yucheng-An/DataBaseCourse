@@ -75,7 +75,7 @@ let patine = {
 }
 
 let requestExtract  = indexedDB.open("patinentDbExtract", 1);
-let requestTransfo
+let requestTransform = indexedDB.open("patinentDbTransform", 1);
 
 
 
