@@ -93,7 +93,7 @@ requestExtract.onsuccess = function(event) {
     let transaction = db.transaction("patient", "readwrite");
     let os = transaction.objectStore("patient");
     os.add(patient);
-    patient.name = patient.name
+    patient.name = patient.name.trim()=== "" ? "unset" : patient.name.trim()
 }
 
 
