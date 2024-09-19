@@ -28,6 +28,6 @@ async function addChecksumsToVehicles(vehicles) {
     }
     return vehicles
 }
-vehiclesAfterCheckSum = addChecksumsToVehicles(vehicles)
+const vehiclesAfterCheckSum = addChecksumsToVehicles(vehicles)
 console.log(addChecksumsToVehicles(vehicles))
 
