@@ -6,4 +6,4 @@ function getVehicleSumMileage(vehicles) {
     }
     return sum;
 }
-console.log(getVehicleSumMilage(vehicles));
+console.log(getVehicleSumMileage(vehicles));
