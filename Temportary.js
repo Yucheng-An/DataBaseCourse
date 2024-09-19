@@ -44,6 +44,7 @@ req.onerror = function(event){}
 
 // MongoDB
 // Create a new database
-use BookDB;
+//use BookDB;
+//
 
 
