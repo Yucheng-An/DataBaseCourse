@@ -37,7 +37,7 @@ async function addChecksumsToVehicles(vehicles) {
     return vehicles
 }
 // print out in console
-addChecksumsToVehicles(vehicles).then(result => console.log(result));
+// addChecksumsToVehicles(vehicles).then(result => console.log(result));
 console.log("-------------------------")
 //Question 4
 function checkVilde(vehicles) {
