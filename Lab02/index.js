@@ -59,19 +59,22 @@ function checkVilde(vehicles) {
         }
     }
 
-function checkMake(info) {
-    const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
-    return typeof info === 'string' && allowedMakes.includes(info);
-}
-function checkYear(info) {
-    const currentYear = new Date().getFullYear()
-    return typeof info === 'number' && info >= 1886 && info <= currentYear
-}
-function checkLSD(info) {
-    const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
-    const serviceDate = new Date(info);
-    const currentDate = new Date();
-    return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
+    function checkMake(info) {
+        const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
+        return typeof info === 'string' && allowedMakes.includes(info);
+    }
+
+    function checkYear(info) {
+        const currentYear = new Date().getFullYear()
+        return typeof info === 'number' && info >= 1886 && info <= currentYear
+    }
+
+    function checkLSD(info) {
+        const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
+        const serviceDate = new Date(info);
+        const currentDate = new Date();
+        return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
+    }
 }
 
 // console.log(checkVilde("2024-01-01"))
