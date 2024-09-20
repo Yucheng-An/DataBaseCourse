@@ -57,8 +57,8 @@ function checkVilde(vehicles) {
         if (checkLSD(vehicle.lastServiceDate)) {
             console.log(`Last service date is in the future: ${vehicle.lastServiceDate}`);
         }
-    })
     }
+
 function checkMake(info) {
     const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
     return typeof info === 'string' && allowedMakes.includes(info);
