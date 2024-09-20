@@ -28,6 +28,7 @@ async function addChecksumsToVehicles(vehicles) {
     }
     return vehicles
 }
+// print it out in console
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
 // console.log(vehiclesAfterCheckSum)
 
