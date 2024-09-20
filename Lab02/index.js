@@ -50,7 +50,7 @@ function checkVilde(vehicles) {
     })
 }
 
-function verifyYear(year) {
+function checkYear(year) {
     const currentYear = new Date().getFullYear()
     return typeof year === 'number' && year >= 1886 && year <= currentYear
 }
