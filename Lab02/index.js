@@ -24,7 +24,7 @@ console.log("Total mileage:" + getVehicleSumMileage(vehicles));
 //Checksum one object of Vehicle
 async function createChecksum(oneVehicle) {
     const dataAsBytes = new TextEncoder().encode(oneVehicle);
-    const hashBuffer = crypto.subtle.digest('SHA-256', dataAsBytes);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', dataAsBytes);
     return Array.from(new Uint8Array(hashBuffer))
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
@@ -32,7 +32,7 @@ async function createChecksum(oneVehicle) {
 // Go through all vehicles and add checksum to each vehicle
 async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
-        vehicle.checksum = createChecksum(JSON.stringify(vehicle));
+        vehicle.checksum = await createChecksum(JSON.stringify(vehicle));
     }
     return vehicles
 }
