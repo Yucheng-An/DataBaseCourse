@@ -59,7 +59,7 @@ function checkYear(info) {
 }
 function checkLSD(info) {
     const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
-    if (!regex.test(lastServiceDate)) return false; // Check format
+    if (!regex.test(info)) return false; // Check format
 
     const serviceDate = new Date(lastServiceDate);
     const currentDate = new Date();
