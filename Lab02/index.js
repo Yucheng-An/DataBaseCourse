@@ -65,7 +65,7 @@ function checkVilde(vehicles) {
         return typeof info === 'string' && brands.includes(info);
     }
     function checkYear(info) {
-        const currentYear = new Date().getFullYear()
+        const currentYear = new Date().getFullYear() // Get current year
         return typeof info === 'number' && info >= 1886 && info <= currentYear
     }
     function checkLSD(info) {
