@@ -8,7 +8,7 @@ const vehicles = [
     {"id": "V005", "make": "Chevrolet", "model": "Bolt EV", "year": 2021, "mileage": 12000, "fuelType": "Electric", "color": "Green", "owner": "Sarah Smith", "lastServiceDate": "2024-07-30", "isElectric": true}
 ]
 
-
+console.log(typeof vehicles)
 //Question 2
 function getVehicleSumMileage(vehicles) {
     let sum = 0;
