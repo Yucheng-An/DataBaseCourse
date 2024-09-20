@@ -47,7 +47,6 @@ function checkVilde(vehicles) {
         if (new Date(vehicle.lastServiceDate) > lastServiceDate) {
             console.log(`Last service date is in the future: ${vehicle.lastServiceDate}`);
         }
-    });
     })
 }
 
