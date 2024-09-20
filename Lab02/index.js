@@ -49,11 +49,6 @@ function checkVilde(vehicles) {
         }
     })
 }
-
-function checkYear(year) {
-    const currentYear = new Date().getFullYear()
-    return typeof year === 'number' && year >= 1886 && year <= currentYear
-}
 function checkMake(make) {
     const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
     return typeof make === 'string' && allowedMakes.includes(make);
