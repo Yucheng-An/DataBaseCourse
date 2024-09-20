@@ -32,7 +32,7 @@ async function createChecksum(oneVehicle) {
 // Go through all vehicles and add checksum to each vehicle
 async function addChecksumsToVehicles(vehicles) {
     for (let vehicle of vehicles) {
-        vehicle.checksum = await createChecksum(JSON.stringify(vehicle));
+        vehicle.checksum = createChecksum(JSON.stringify(vehicle));
     }
     return vehicles
 }
