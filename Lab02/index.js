@@ -51,7 +51,7 @@ function checkVilde(vehicles) {
 }
 function checkMake(info) {
     const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
-    return typeof make === 'string' && allowedMakes.includes(make);
+    return typeof info === 'string' && allowedMakes.includes(make);
 }
 function checkYear(year) {
     const currentYear = new Date().getFullYear()
