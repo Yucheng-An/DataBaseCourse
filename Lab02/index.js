@@ -33,9 +33,5 @@ addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
 function checkVilde(vehicle) {
-    if (vehicle.isElectric) {
-        return "Electric";
-    } else {
-        return "Gasoline";
-    }
+    // Go th
 }
