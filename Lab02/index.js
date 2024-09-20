@@ -41,7 +41,7 @@ function checkVilde(vehicles) {
         if (!checkMake(vehicle.make)) {
             console.log(`Invalid make: ${vehicle.make}`);
         }
-        if (!regex.test(vehicle.lastServiceDate)) {
+        if (!checkYear(vehicle.year)) {
             console.log(`Invalid date: ${vehicle.lastServiceDate}`);
         }
         if (new Date(vehicle.lastServiceDate) > lastServiceDate) {
