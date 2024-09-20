@@ -32,7 +32,11 @@ async function addChecksumsToVehicles(vehicles) {
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
-function checkVilde(vehicle) {
+function checkVilde(vehicles) {
     // Go through all vehicles and add checksum to each vehicle
-    for ()
+    for (let vehicle of vehicles) {
+        if (vehicle.checksum !== createChecksum(JSON.stringify(vehicle))) {
+            return false;
+        }
+    }
 }
