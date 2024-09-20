@@ -17,7 +17,7 @@ function getVehicleSumMileage(vehicles) {
     }
     return sum;
 }
-console.log("Total mileage:" + getVehicleSumMileage(vehicles));
+// console.log("Total mileage:" + getVehicleSumMileage(vehicles));
 
 
 //Question 3
