@@ -35,7 +35,7 @@ addChecksumsToVehicles(vehicles).then(result => console.log(result));
 function checkVilde(vehicles) {
     const brands = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"];
     const lastServiceDate = new Date("2024-01-01");
-    const years = [19];
+    const years = [1960 - 2024];
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
             if (brands.includes(vehicle.make) && new Date(vehicle.lastServiceDate) > lastServiceDate) {
