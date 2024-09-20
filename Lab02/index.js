@@ -32,4 +32,4 @@ async function addChecksumsToVehicles(vehicles) {
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
-function checkVilde
+function checkVilde()
