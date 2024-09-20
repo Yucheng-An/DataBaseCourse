@@ -47,9 +47,7 @@ function checkVilde(vehicles) {
     const lastServiceDate = new Date("2024-01-01");
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     // Go through all vehicles and add checksum to each vehicle
-    vehicles.forEach(vehicle => {
-       
-}
+    for ()
 function checkMake(info) {
     const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
     return typeof info === 'string' && allowedMakes.includes(info);
