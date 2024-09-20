@@ -60,9 +60,4 @@ function checkYear(info) {
 function checkLSD(info) {
     const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
     if (!regex.test(info)) return false; // Check format
-
-    const serviceDate = new Date(info);
-    const currentDate = new Date();
-
-    return serviceDate instanceof Date && !isNaN(serviceDate) && serviceDate <= currentDate;
 }
