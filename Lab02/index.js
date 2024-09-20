@@ -43,3 +43,4 @@ function checkVilde(vehicles) {
         }
     }
 }
+
