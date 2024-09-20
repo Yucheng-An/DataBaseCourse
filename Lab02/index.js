@@ -37,11 +37,7 @@ function checkVilde(vehicles) {
     const lastServiceDate = new Date("2024-01-01");
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     // Go through all vehicles and add checksum to each vehicle
-    for (let vehicle of vehicles) {
-            if (brands.includes(vehicle.make) && new Date(vehicle.lastServiceDate) > lastServiceDate) {
-            return false;
-        }
-    }
+    
 }
 
 function verifyYear(year) {
