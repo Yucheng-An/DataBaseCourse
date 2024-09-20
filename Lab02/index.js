@@ -64,4 +64,4 @@ function checkLSD(info) {
     return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
 }
 
-console.log(checkVilde("2"));
+console.log(checkVilde("2024-01-01"));
