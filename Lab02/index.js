@@ -43,9 +43,6 @@ addChecksumsToVehicles(vehicles).then(result => console.log(result));
 console.log(typeof vehicles)
 //Question 4
 function checkVilde(vehicles) {
-    const brands = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"];
-    const lastServiceDate = new Date("2024-01-01");
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
         if (!checkMake(vehicle.make)) {
