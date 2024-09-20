@@ -43,6 +43,7 @@ console.log("-------------------------")
 function checkVilde(vehicles) {
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
+        console.log(vehicle.id)
         if (!checkMake(vehicle.make)) {
             console.log(`Invalid make: ${vehicle.make}`);
         }
