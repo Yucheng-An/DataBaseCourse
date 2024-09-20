@@ -59,7 +59,6 @@ function checkVilde(vehicles) {
         }else{
             console.assert(checkLSD(vehicle.lastServiceDate), `Invalid lastServiceDate: ${vehicle.lastServiceDate}`);
         }
-
     }
     function checkMake(info) {
         const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
