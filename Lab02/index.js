@@ -41,7 +41,7 @@ async function addChecksumsToVehicles(vehicles) {
 
 //Question 4
 function checkVilde(vehicles) {
-    // Go through all vehicles and add checksum to each vehicle
+    // Go through all vehicles
     for (let vehicle of vehicles) {
         console.log(vehicle.id)
         if (checkMake(vehicle.make)) {
