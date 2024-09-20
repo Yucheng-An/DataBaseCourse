@@ -30,3 +30,6 @@ async function addChecksumsToVehicles(vehicles) {
 }
 // print out in console
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
+
+//Question 4
+function 
