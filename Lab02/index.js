@@ -33,5 +33,6 @@ addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
 function checkVilde(vehicle) {
-    // Go th
+    // Go through all vehicles and add checksum to each vehicle
+    
 }
