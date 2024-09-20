@@ -62,5 +62,5 @@ function checkLSD(info) {
     const serviceDate = new Date(info);
     const currentDate = new Date();
 
-    return typeof info === 'string' && regex.test(info)// Check format
+    return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
 }
