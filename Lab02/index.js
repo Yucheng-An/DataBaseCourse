@@ -44,3 +44,7 @@ function checkVilde(vehicles) {
     }
 }
 
+function verifyMake(make) {
+    const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
+    return typeof make === 'string' && make.trim() !== '' && allowedMakes.includes(make);
+}
