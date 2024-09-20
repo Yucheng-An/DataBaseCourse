@@ -59,5 +59,5 @@ function checkYear(info) {
 }
 function checkLSD(info) {
     const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
-    return typeof info === 'string' && regex.test(info) && ; // Check format
+    return typeof info === 'string' && regex.test(info)// Check format
 }
