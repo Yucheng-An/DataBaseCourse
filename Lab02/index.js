@@ -53,6 +53,8 @@ function checkVilde(vehicles) {
         }
         if (checkYear(vehicle.year)) {
             console.log(`year check PASSED: ${vehicle.year}`);
+        }else{
+            console.assert(checkYear(vehicle.year), `Invalid year: ${vehicle.year}`);
         }
         if (checkLSD(vehicle.lastServiceDate)) {
             console.log(`Last service date is in the future: ${vehicle.lastServiceDate}`);
