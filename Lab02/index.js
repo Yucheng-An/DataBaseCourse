@@ -64,3 +64,4 @@ function checkLSD(info) {
     return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
 }
 
+print()
