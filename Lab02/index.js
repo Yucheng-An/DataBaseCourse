@@ -37,7 +37,7 @@ function checkVilde(vehicles) {
     const lastServiceDate = new Date("2024-01-01");
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
-            if () {
+            if (brands.includes(vehicle.make) && new Date(vehicle.lastServiceDate) > lastServiceDate) {
             return false;
         }
     }
