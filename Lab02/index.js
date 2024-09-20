@@ -70,5 +70,5 @@ function checkVilde(vehicles) {
         return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
     }
 }
-
+checkVilde(vehicles)
 // console.log(checkVilde("2024-01-01"))
