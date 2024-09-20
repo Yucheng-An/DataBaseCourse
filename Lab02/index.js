@@ -38,9 +38,7 @@ async function addChecksumsToVehicles(vehicles) {
 }
 // print out in console
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
-
-
-console.log(typeof vehicles)
+console.log("-------------------------")
 //Question 4
 function checkVilde(vehicles) {
     // Go through all vehicles and add checksum to each vehicle
