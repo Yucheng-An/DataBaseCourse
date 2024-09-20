@@ -31,6 +31,8 @@ async function addChecksumsToVehicles(vehicles) {
 // print out in console
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
+
+console.log(typeof vehicles)
 //Question 4
 function checkVilde(vehicles) {
     const brands = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"];
