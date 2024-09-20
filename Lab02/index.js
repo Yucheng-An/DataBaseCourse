@@ -58,7 +58,10 @@ function checkMake(make) {
     const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
     return typeof make === 'string' && allowedMakes.includes(make);
 }
-
+function checkYear(year) {
+    const currentYear = new Date().getFullYear()
+    return typeof year === 'number' && year >= 1886 && year <= currentYear
+}
 function verifyYear(year) {
     const currentYear = new Date().getFullYear(); // Get the current year
     return typeof year === 'number' && year >= 1886 && year <= currentYear;
