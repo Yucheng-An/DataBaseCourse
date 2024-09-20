@@ -33,6 +33,8 @@ addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
 function checkVilde(vehicles) {
+    brands = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"];
+    
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
         if (vehicle.checksum !== createChecksum(JSON.stringify(vehicle))) {
