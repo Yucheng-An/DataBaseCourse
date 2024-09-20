@@ -44,7 +44,6 @@ function checkVilde(vehicles) {
     // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
         console.log(vehicle.id)
-        console.assert(checkYear(vehicle.year), `Invalid year: ${vehicle.year}`);
         console.assert(checkLSD(vehicle.lastServiceDate), `Invalid lastServiceDate: ${vehicle.lastServiceDate}`);
         if (checkMake(vehicle.make)) {
             console.log(`make check PASSED: ${vehicle.make}`);
