@@ -38,7 +38,7 @@ function checkVilde(vehicles) {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     // Go through all vehicles and add checksum to each vehicle
     vehicles.forEach(vehicle => {
-        if (checkMake(vehicle.make)) {
+        if (!checkMake(vehicle.make)) {
             console.log(`Invalid make: ${vehicle.make}`);
         }
         if (!regex.test(vehicle.lastServiceDate)) {
