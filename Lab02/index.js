@@ -56,7 +56,7 @@ function checkVilde(vehicles) {
             console.assert(checkYear(vehicle.year), `Invalid year: ${vehicle.year}`);
         }
         if (checkLSD(vehicle.lastServiceDate)) {
-            console.log(`Last service date check PASSED`);
+            console.log(`Last service date check PASSED: ${vehicle.lastServiceDate}`);
         }
 
     }
