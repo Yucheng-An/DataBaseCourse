@@ -64,4 +64,4 @@ function checkLSD(info) {
     return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
 }
 
-print(checkLSD("2024-01-15"));
+console.log(checkVilde(vehicles));
