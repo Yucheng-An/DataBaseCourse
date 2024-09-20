@@ -48,7 +48,7 @@ function checkVilde(vehicles) {
         console.assert(checkYear(vehicle.year), `Invalid year: ${vehicle.year}`);
         console.assert(checkLSD(vehicle.lastServiceDate), `Invalid lastServiceDate: ${vehicle.lastServiceDate}`);
         if (checkMake(vehicle.make)) {
-            console.log(``);
+            console.log(`make check PASSED: ${vehicle.make}`);
         }
         if (checkYear(vehicle.year)) {
             console.log(`Invalid date: ${vehicle.lastServiceDate}`);
