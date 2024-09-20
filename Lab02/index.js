@@ -41,7 +41,7 @@ async function addChecksumsToVehicles(vehicles) {
 
 //Question 4
 function checkVilde(vehicles) {
-    // Go through all vehicles
+    // Go through all vehicles and add checksum to each vehicle
     for (let vehicle of vehicles) {
         console.log(vehicle.id)
         if (checkMake(vehicle.make)) {
@@ -61,8 +61,8 @@ function checkVilde(vehicles) {
         }
     }
     function checkMake(info) {
-        const allowedMakes = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // Define allowed makes
-        return typeof info === 'string' && allowedMakes.includes(info);
+        const brands = ["Toyota", "Honda", "Tesla", "Ford", "Chevrolet"]; // List brands
+        return typeof info === 'string' && brands.includes(info);
     }
     function checkYear(info) {
         const currentYear = new Date().getFullYear()
