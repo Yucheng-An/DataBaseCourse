@@ -61,6 +61,5 @@ function checkLSD(info) {
     const regex = /^\d{4}-\d{2}-\d{2}$/; // Regular expression for YYYY-MM-DD format
     const serviceDate = new Date(info);
     const currentDate = new Date();
-
     return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate// Check format
 }
