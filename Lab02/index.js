@@ -32,4 +32,10 @@ async function addChecksumsToVehicles(vehicles) {
 addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
-function checkVilde()
+function checkVilde(vehicle) {
+    if (vehicle.isElectric) {
+        return "Electric";
+    } else {
+        return "Gasoline";
+    }
+}
