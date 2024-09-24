@@ -17,8 +17,6 @@ function getVehicleSumMileage(vehicles) {
     }
     return sum;
 }
-// console.log("Total mileage:" + getVehicleSumMileage(vehicles));
-
 
 //Question 3
 //Checksum one object of Vehicle
@@ -36,8 +34,6 @@ async function addChecksumsToVehicles(vehicles) {
     }
     return vehicles
 }
-// print out in console
-// addChecksumsToVehicles(vehicles).then(result => console.log(result));
 
 //Question 4
 function checkVilde(vehicles) {
