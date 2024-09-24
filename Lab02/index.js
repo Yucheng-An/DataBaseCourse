@@ -73,10 +73,6 @@ function checkVilde(vehicles) {
         const serviceDate = new Date(info);
         const currentDate = new Date();
         return typeof info === 'string' && regex.test(info) && serviceDate <= currentDate
-
-
-
-        
     }
 }
 checkVilde(vehicles)
