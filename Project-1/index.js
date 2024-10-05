@@ -114,8 +114,8 @@ function readingObjectNames(db, storeName, callback) {
     };
 }
 
-// Function f2: Reading 100k object names using an index
-function f2(db, storeName, callback) {
+// Function readingObjectNameIndex: Reading 100k object names using an index
+function readingObjectNameIndex(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let index = objectStore.index("name");
@@ -167,12 +167,12 @@ function measurePerformance() {
                     TimeTakenMs: (end - start).toFixed(2)
                 });
 
-                // Measure performance of f2
+                // Measure performance of readingObjectNameIndex
                 start = performance.now();
-                f2(db, storeName, function (count) {
+                readingObjectNameIndex(db, storeName, function (count) {
                     end = performance.now();
                     performanceResults.push({
-                        Operation: "f2 (Index read 100k objects)",
+                        Operation: "readingObjectNameIndex (Index read 100k objects)",
                         TimeTakenMs: (end - start).toFixed(2)
                     });
 
