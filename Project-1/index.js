@@ -52,6 +52,7 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
+const statuses = ["in progress", "completed", "pending"];
 for (let i = 0; i < 10; i++) {
     let object = {
         id: i,
