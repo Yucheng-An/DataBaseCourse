@@ -1,4 +1,4 @@
-// Setup IndexedDB without recreating it on rerun
+
 function setupIndexedDB(dbName, storeName, callback) {
     let request = indexedDB.open(dbName, 1);
 
