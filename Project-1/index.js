@@ -97,8 +97,8 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
-// Function f1: Reading 100k object names
-function f1(db, storeName, callback) {
+// Function readingObjectNames: Reading 100k object names
+function readingObjectNames(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
     let count = 0;
@@ -159,12 +159,12 @@ function measurePerformance() {
         add100kObjects(db, storeName, function () {
             const performanceResults = [];
 
-            // Measure performance of f1
+            // Measure performance of readingObjectNames
             let start = performance.now();
-            f1(db, storeName, function (count) {
+            readingObjectNames(db, storeName, function (count) {
                 let end = performance.now();
                 performanceResults.push({
-                    Operation: "f1 (Read 100k objects)",
+                    Operation: "readingObjectNames (Read 100k objects)",
                     TimeTakenMs: (end - start).toFixed(2)
                 });
 
