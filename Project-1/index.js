@@ -32,7 +32,7 @@ function add100kObjects(db, storeName, callback) {
             "Fix bugs from review",
             "Complete project plan"
         ];
-        
+
         if (countRequest.result === 0) {
             let writeTransaction = db.transaction(storeName, "readwrite");
             let writeObjectStore = writeTransaction.objectStore(storeName);
@@ -67,7 +67,7 @@ const statuses = ["in progress", "completed", "pending"];
 for (let i = 0; i < 10; i++) {
     let object = {
         id: i,
-        task: `${Math.random().toString(36).substring(7)}`,
+        task: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
         status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000))
     }
