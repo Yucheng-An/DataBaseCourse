@@ -29,7 +29,8 @@ function add100kObjects(db, storeName, callback) {
                     id: i,
                     task: `Object_${i}`,
                     status: `SomeValue_${i}`,
-                    dueDate: new Date() };
+                    dueDate: new Date()
+                };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
