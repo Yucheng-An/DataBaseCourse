@@ -16,7 +16,6 @@ function setupIndexedDB(dbName, storeName, callback) {
     };
 }
 
-// Function to add 100k objects only if they don't already exist
 function add100kObjects(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
