@@ -133,8 +133,8 @@ function readingObjectNameIndex(db, storeName, callback) {
     };
 }
 
-// Function readingObjectNameR: Reading 100k objects with readonly transaction
-function readingObjectNameR(db, storeName, callback) {
+// Function readingObjectNameReadonlyTranscation: Reading 100k objects with readonly transaction
+function readingObjectNameReadonlyTranscation(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let count = 0;
@@ -176,12 +176,12 @@ function measurePerformance() {
                         TimeTakenMs: (end - start).toFixed(2)
                     });
 
-                    // Measure performance of readingObjectNameR
+                    // Measure performance of readingObjectNameReadonlyTranscation
                     start = performance.now();
-                    readingObjectNameR(db, storeName, function (count) {
+                    readingObjectNameReadonlyTranscation(db, storeName, function (count) {
                         end = performance.now();
                         performanceResults.push({
-                            Operation: "readingObjectNameR (Readonly read 100k objects)",
+                            Operation: "readingObjectNameReadonlyTranscation (Readonly read 100k objects)",
                             TimeTakenMs: (end - start).toFixed(2)
                         });
                         console.table(performanceResults);
