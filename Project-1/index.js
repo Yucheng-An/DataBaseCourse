@@ -57,5 +57,6 @@ for (let i = 0; i < 100000; i++) {
         task: `Task_${Math.random().toString(36).substring(7)}`, // Random string
         status: `Status_${Math.floor(Math.random() * 100)}`, // Random number between 0-99
         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)) // Random future date
-    };
-    
+    }
+    console.log(object)
+
