@@ -28,7 +28,7 @@ function add100kObjects(db, storeName, callback) {
             for (let i = 0; i < 100000; i++) {
                 let object = {
                     id: i,
-                    task: `Task_${Math.random().toString(36).substring(7)}`, 
+                    task: `Task_${Math.random().toString(36).substring(7)}`,
                     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
                     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
                 };
