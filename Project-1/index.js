@@ -4,7 +4,7 @@ function setupIndexedDB(dbName, storeName, callback) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
-            objectStore.createIndex("name", "name", { unique: false });
+            objectStore.createIndex("TodoList", "name", { unique: false });
         }
     };
     request.onsuccess = function (event) {
