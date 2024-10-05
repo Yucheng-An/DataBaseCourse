@@ -32,7 +32,6 @@ function add100kObjects(db, storeName, callback) {
                 console.log("100k objects added.");
                 callback();
             };
-
             writeTransaction.onerror = function (event) {
                 console.error("Error adding objects:", event);
             };
