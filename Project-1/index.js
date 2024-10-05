@@ -11,8 +11,8 @@ function setupIndexedDB(dbName, storeName, callback) {
         let db = event.target.result;
         callback(db);
     };
-
     request.onerror = function (event) {
         console.error("Error opening IndexedDB:", event);
     };
 }
+
