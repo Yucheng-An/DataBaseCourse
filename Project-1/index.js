@@ -181,7 +181,7 @@ function measurePerformance() {
                         end = performance.now();
                         performanceResults.push({
                             Operation: "readingObjectNameRT (Readonly read 100k objects)",
-                            TimeTakenMs: (end - start).toFixed(2)
+                            TimeTakenMs: (end - start).toFixed(5)
                         });
                         console.table(performanceResults);
                     });
