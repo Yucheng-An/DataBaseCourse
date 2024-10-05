@@ -25,7 +25,8 @@ function add100kObjects(db, storeName, callback) {
             let writeTransaction = db.transaction(storeName, "readwrite");
             let writeObjectStore = writeTransaction.objectStore(storeName);
             for (let i = 0; i < 100000; i++) {
-                let object = { id: i, task: `Object_${i}`, status: `SomeValue_${i}`, dueDate: new Date() };
+                let object = { id: i,
+                    task: `Object_${i}`, status: `SomeValue_${i}`, dueDate: new Date() };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
