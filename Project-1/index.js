@@ -57,7 +57,7 @@ for (let i = 0; i < 10; i++) {
     let object = {
         id: i,
         task: `${Math.random().toString(36).substring(7)}`,
-        status: `${Math.floor(Math.random() * 100)}`,
+        status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000))
     }
     console.log(object)
