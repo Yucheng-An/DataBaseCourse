@@ -21,16 +21,13 @@ function add100kObjects(db, storeName, callback) {
     let objectStore = transaction.objectStore(storeName);
     let countRequest = objectStore.count();
     countRequest.onsuccess = function () {
-        // Only add objects if the store is empty
         if (countRequest.result === 0) {
             let writeTransaction = db.transaction(storeName, "readwrite");
             let writeObjectStore = writeTransaction.objectStore(storeName);
-
             for (let i = 0; i < 100000; i++) {
                 let object = { id: i, name: `Object_${i}`, value: `SomeValue_${i}` };
                 writeObjectStore.add(object);
             }
-
             writeTransaction.oncomplete = function () {
                 console.log("100k objects added.");
                 callback();
