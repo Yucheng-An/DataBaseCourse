@@ -97,3 +97,104 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
+// Function f1: Reading 100k object names
+function f1(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readwrite");
+    let objectStore = transaction.objectStore(storeName);
+    let count = 0;
+
+    let request = objectStore.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
+
+// Function f2: Reading 100k object names using an index
+function f2(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readonly");
+    let objectStore = transaction.objectStore(storeName);
+    let index = objectStore.index("name");
+    let count = 0;
+
+    let request = index.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
+
+// Function f3: Reading 100k objects with readonly transaction
+function f3(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readonly");
+    let objectStore = transaction.objectStore(storeName);
+    let count = 0;
+
+    let request = objectStore.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
+
+// Function to measure performance of each operation
+function measurePerformance() {
+    const dbName = "TestDB";
+    const storeName = "TestStore";
+    setupIndexedDB(dbName, storeName, function (db) {
+        add100kObjects(db, storeName, function () {
+            const performanceResults = [];
+
+            // Measure performance of f1
+            let start = performance.now();
+            f1(db, storeName, function (count) {
+                let end = performance.now();
+                performanceResults.push({
+                    Operation: "f1 (Read 100k objects)",
+                    TimeTakenMs: (end - start).toFixed(2)
+                });
+
+                // Measure performance of f2
+                start = performance.now();
+                f2(db, storeName, function (count) {
+                    end = performance.now();
+                    performanceResults.push({
+                        Operation: "f2 (Index read 100k objects)",
+                        TimeTakenMs: (end - start).toFixed(2)
+                    });
+
+                    // Measure performance of f3
+                    start = performance.now();
+                    f3(db, storeName, function (count) {
+                        end = performance.now();
+                        performanceResults.push({
+                            Operation: "f3 (Readonly read 100k objects)",
+                            TimeTakenMs: (end - start).toFixed(2)
+                        });
+
+                        // Display results in table format
+                        console.table(performanceResults);
+                    });
+                });
+            });
+        });
+    });
+}
+
+// Call the function to measure and display performance
+measurePerformance();
