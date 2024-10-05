@@ -152,7 +152,6 @@ function f3(db, storeName, callback) {
     };
 }
 
-// Function to measure performance of each operation
 function measurePerformance() {
     const dbName = "TestDB";
     const storeName = "TestStore";
