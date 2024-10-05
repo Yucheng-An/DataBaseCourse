@@ -50,3 +50,4 @@ function add100kObjects(db, storeName, callback) {
         console.error("Error counting objects:", event);
     };
 }
+
