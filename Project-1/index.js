@@ -96,17 +96,6 @@ function add100kObjects(db, storeName, callback) {
         console.error("Error counting objects:", event);
     };
 }
-const tasks = [
-    "Finish the monthly report",
-    "Prepare presentation slides",
-    "Review code changes",
-    "Write documentation",
-    "Attend team meeting",
-    "Test new feature",
-    "Fix bugs from review",
-    "Complete project plan"
-];
-const statuses = ["in progress", "completed", "pending"];
 for (let i = 0; i < 10; i++) {
     let object = {
         id: i,
