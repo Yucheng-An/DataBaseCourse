@@ -20,7 +20,6 @@ function add100kObjects(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let countRequest = objectStore.count();
-
     countRequest.onsuccess = function () {
         // Only add objects if the store is empty
         if (countRequest.result === 0) {
