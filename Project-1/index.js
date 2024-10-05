@@ -59,4 +59,5 @@ for (let i = 0; i < 100000; i++) {
         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)) // Random future date
     }
     console.log(object)
+}
 
