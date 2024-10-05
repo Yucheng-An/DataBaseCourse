@@ -1,4 +1,4 @@
-
+const statuses = ["in progress", "completed", "pending"];
 const tasks = [
     "Finish the monthly report",
     "Prepare presentation slides",
