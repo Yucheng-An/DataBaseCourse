@@ -152,7 +152,7 @@ function readingObjectNameRT(db, storeName, callback) {
 
 function measurePerformance() {
     const dbName = "Project1DB";
-    const storeName = "TestStore";
+    const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
         add100kObjects(db, storeName, function () {
             const performanceResults = [];
