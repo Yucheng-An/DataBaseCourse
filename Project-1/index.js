@@ -22,6 +22,17 @@ function add100kObjects(db, storeName, callback) {
     let countRequest = objectStore.count();
     countRequest.onsuccess = function () {
         const statuses = ["in progress", "completed", "pending"];
+        const tasks = [
+            "Finish the monthly report",
+            "Prepare presentation slides",
+            "Review code changes",
+            "Write documentation",
+            "Attend team meeting",
+            "Test new feature",
+            "Fix bugs from review",
+            "Complete project plan"
+        ];
+        
         if (countRequest.result === 0) {
             let writeTransaction = db.transaction(storeName, "readwrite");
             let writeObjectStore = writeTransaction.objectStore(storeName);
