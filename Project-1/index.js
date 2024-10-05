@@ -30,7 +30,7 @@ function add100kObjects(db, storeName, callback) {
                     id: i,
                     task: `Task_${Math.random().toString(36).substring(7)}`, // Random string
                     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`, // Random number between 0-99
-                    dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)) // Random future date
+                    dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0] // Random future date
                 };
                 writeObjectStore.add(object);
             }
