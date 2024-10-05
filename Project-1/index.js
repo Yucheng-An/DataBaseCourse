@@ -138,7 +138,6 @@ function readingObjectNameRT(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let count = 0;
-
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
