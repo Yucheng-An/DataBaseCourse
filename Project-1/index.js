@@ -186,8 +186,6 @@ function measurePerformance() {
                             Operation: "f3 (Readonly read 100k objects)",
                             TimeTakenMs: (end - start).toFixed(2)
                         });
-
-                        // Display results in table format
                         console.table(performanceResults);
                     });
                 });
