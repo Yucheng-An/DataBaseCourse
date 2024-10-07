@@ -4,11 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IndexedDB Example</title>
+  <style>
+    #dataDisplay {
+      margin-top: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+    }
+    .object-item {
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+    }
+  </style>
 </head>
 <body>
 <h1>IndexedDB Object Generator</h1>
 <button id="generateBtn">Generate 1000 Objects</button>
 <p id="status">Click the button to generate and store 1000 objects in IndexedDB.</p>
+
+<div id="dataDisplay"></div> <!-- Div to display the generated data -->
 
 <script>
   // Function to generate a random UUID
@@ -96,6 +113,8 @@
 
     transaction.oncomplete = function() {
       document.getElementById('status').textContent = 'Successfully generated and stored 1000 objects in IndexedDB.';
+      // Show the data after storing
+      displayAllData();
     };
   }
 
@@ -106,6 +125,40 @@
       objects.push(generateObject());
     }
     storeObjectsInIndexedDB(objects);
+  }
+
+  // Function to display all data from IndexedDB
+  function displayAllData() {
+    const transaction = db.transaction(['objects'], 'readonly');
+    const objectStore = transaction.objectStore('objects');
+
+    const request = objectStore.getAll();
+
+    request.onsuccess = function(event) {
+      const allObjects = event.target.result;
+      const dataDisplayDiv = document.getElementById('dataDisplay');
+      dataDisplayDiv.innerHTML = ''; // Clear previous data
+
+      allObjects.forEach(object => {
+        const objectElement = document.createElement('div');
+        objectElement.classList.add('object-item');
+        objectElement.innerHTML = `
+                        <strong>UUID:</strong> ${object.uuid} <br>
+                        <strong>SourceDB:</strong> ${object.sourceDB} <br>
+                        <strong>Created Time:</strong> ${object.createdTime} <br>
+                        <strong>Updated Time:</strong> ${object.updatedTime} <br>
+                        <strong>Sensor ID:</strong> ${object.sensorID} <br>
+                        <strong>Sensor Location:</strong> Latitude: ${object.sensorLocation.latitude}, Longitude: ${object.sensorLocation.longitude} <br>
+                        <strong>Sensor Status:</strong> ${object.sensorStatus} <br>
+                        <hr>
+                    `;
+        dataDisplayDiv.appendChild(objectElement);
+      });
+    };
+
+    request.onerror = function(event) {
+      console.error('Error retrieving data:', event.target.errorCode);
+    };
   }
 
   // Event listener for button click
