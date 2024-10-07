@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IndexedDB Example</title>
+</head>
+<body>
+<h1>IndexedDB Object Generator</h1>
+<button id="generateBtn">Generate 1000 Objects</button>
+<p id="status">Click the button to generate and store 1000 objects in IndexedDB.</p>
+
+<script>
+  // Function to generate a random UUID
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  // Function to generate a random date
+  function getCurrentTimestamp() {
+    return new Date().toISOString();
+  }
+
+  // Function to generate a random 6-character alphanumeric string
+  function generateRandomID() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  }
+
+  // Function to generate random Latitude and Longitude
+  function generateRandomLocation() {
+    const latitude = (Math.random() * 180 - 90).toFixed(6);
+    const longitude = (Math.random() * 360 - 180).toFixed(6);
+    return { latitude, longitude };
+  }
+
+  // Function to generate random status
+  function generateRandomStatus() {
+    const statuses = ['working', 'maintenance', 'error'];
+    return statuses[Math.floor(Math.random() * statuses.length)];
+  }
+
+  // Function to generate an object
+  function generateObject() {
+    return {
+      uuid: generateUUID(),
+      sourceDB: "IndexedDB",
+      createdTime: getCurrentTimestamp(),
+      updatedTime: getCurrentTimestamp(),
+      sensorID: generateRandomID(),
+      sensorLocation: generateRandomLocation(),
+      sensorStatus: generateRandomStatus()
+    };
+  }
+
+  // IndexedDB Setup
+  let db;
+
+  function openIndexedDB() {
+    const request = indexedDB.open('ObjectStoreDB', 1);
+
+    request.onerror = function(event) {
+      console.error('Database error:', event.target.errorCode);
+    };
+
+    request.onsuccess = function(event) {
+      db = event.target.result;
+      console.log('IndexedDB opened successfully.');
+    };
+
+    request.onupgradeneeded = function(event) {
+      db = event.target.result;
+      const objectStore = db.createObjectStore('objects', { keyPath: 'uuid' });
+      console.log('Object store created.');
+    };
+  }
+
+  // Function to store objects in IndexedDB
+  function storeObjectsInIndexedDB(objects) {
+    const transaction = db.transaction(['objects'], 'readwrite');
+    const objectStore = transaction.objectStore('objects');
+
+    objects.forEach((object) => {
+      const request = objectStore.add(object);
+      request.onsuccess = function() {
+        console.log(`Object with UUID ${object.uuid} added.`);
+      };
+      request.onerror = function(event) {
+        console.error('Error adding object:', event.target.errorCode);
+      };
+    });
+
+    transaction.oncomplete = function() {
+      document.getElementById('status').textContent = 'Successfully generated and stored 1000 objects in IndexedDB.';
+    };
+  }
+
+  // Function to generate 1000 objects
+  function generateAndStoreObjects() {
+    const objects = [];
+    for (let i = 0; i < 1000; i++) {
+      objects.push(generateObject());
+    }
+    storeObjectsInIndexedDB(objects);
+  }
+
+  // Event listener for button click
+  document.getElementById('generateBtn').addEventListener('click', function() {
+    generateAndStoreObjects();
+  });
+
+  // Open the IndexedDB on page load
+  window.onload = openIndexedDB;
+</script>
+</body>
+</html>
