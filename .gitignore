@@ -5,3 +5,5 @@
 # Editor-based HTTP Client requests
 /httpRequests/
 .gitignore
+.venv
+.zip
