@@ -18,8 +18,6 @@
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
   }
-
-  // Function to generate random Latitude and Longitude
   function generateRandomLocation() {
     const latitude = (Math.random() * 180 - 90).toFixed(6);
     const longitude = (Math.random() * 360 - 180).toFixed(6);
