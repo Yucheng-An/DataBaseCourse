@@ -105,24 +105,18 @@
     };
   }
 
-  // Sync data from MongoDB to IndexedDB
   async function syncFromMongoDB() {
     const response = await fetch('http://localhost:3000/fetch');
     const mongoData = await response.json();
-
     let req = indexedDB.open("IndexDB", 1);
     req.onsuccess = function(event) {
       let db = event.target.result;
       let transaction = db.transaction("Sensor", "readwrite");
       let sensorStore = transaction.objectStore("Sensor");
-
-      // Fetch all data from IndexedDB
       let getAllRequest = sensorStore.getAll();
       getAllRequest.onsuccess = function() {
         const indexedDBData = getAllRequest.result;
         const indexedDBUuids = new Set(indexedDBData.map(item => item.uuid));
-
-        // Sync only MongoDB records that don't exist in IndexedDB
         mongoData.forEach(mongoItem => {
           if (!indexedDBUuids.has(mongoItem.uuid)) {
             sensorStore.add(mongoItem);
