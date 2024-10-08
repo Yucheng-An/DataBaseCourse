@@ -6,15 +6,14 @@ const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 const dbName = "lab3";
 const collectionName = "4449";
 
-
-
-// Fetch MongoDB data
+// Function to fetch MongoDB data
 async function getMongoDBData(client) {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
     const mongoData = await collection.find({}).toArray(); // Fetch all data from MongoDB
     return mongoData;
 }
+
 
 async function getIndexedDBData() {
     try {
