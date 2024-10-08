@@ -100,23 +100,43 @@ function add100kObjects(db, storeName, callback) {
 
 
 // Function readingCompletedObject: Reading 1000 completed objects
-function readingCompletedObject(db, storeName, callback) {
+function setStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let completedObjects = [];
-    let request = objectStore.openCursor();
-    request.onsuccess = function (event) {
+    let counter = 0;
+    let completedCounter = 0;
+    let progressCounter = 0;
+    let pendingCounter = 0;
+
+    objectStore.openCursor().onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            if (cursor.value.status === "completed") {
-                completedObjects.push(cursor.value)
+            let updatedValue = cursor.value;
+            if (completedCounter < completedNumber) {
+                updatedValue.status = "completed";
+                completedCounter++;
+            } else if (progressCounter < progressNumber) {
+                updatedValue.status = "in progress";
+                progressCounter++;
+            } else if (pendingCounter < pendingNumber) {
+                updatedValue.status = "pending";
+                pendingCounter++;
             }
+
+            counter++;
+            cursor.update(updatedValue);
             cursor.continue();
         } else {
-            callback(completedObjects);
+            console.log("Status update completed.");
+            callback();
         }
     };
+
+    transaction.onerror = function (event) {
+        console.error("Error updating statuses:", event);
+    };
 }
+
 
 
 // Function readingObjectNameIndex: Reading 100k object names using an index
