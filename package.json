@@ -14,6 +14,7 @@
   "dependencies": {
     "axios": "^1.7.7",
     "fake-indexeddb": "^6.0.0",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "uuid": "^10.0.0"
   }
 }
