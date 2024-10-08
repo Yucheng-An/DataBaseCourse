@@ -9,7 +9,6 @@ function loadIndexedDBData() {
 async function syncDataToMongoDB(data) {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
-        // Connect to MongoDB
         await client.connect();
         const db = client.db('lab3');
         const collection = db.collection('2109_MayureshMore');
