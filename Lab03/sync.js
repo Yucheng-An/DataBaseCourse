@@ -12,9 +12,7 @@ async function readData() {
     } catch (error) {
         console.error('Error reading data:', error);
     } finally {
-        // Close the connection to the MongoDB cluster
         await client.close();
     }
 }
-
 readData();
