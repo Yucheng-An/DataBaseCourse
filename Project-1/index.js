@@ -97,34 +97,23 @@ function add100kObjects(db, storeName, callback) {
 }
 
 // ----------------- 1.Set 1000 objects to status "completed" and the remaining ones to status "progress" -----------------
-function updateTaskStatuses(db, storeName, callback) {
+function readingCompletedObject(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let counter = 0;
-
-    objectStore.openCursor().onsuccess = function (event) {
+    let completedObjects = [];
+    let request = objectStore.openCursor();
+    request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            let updatedValue = cursor.value;
-            if (counter < 1000) {
-                updatedValue.status = "completed";
-            } else {
-                updatedValue.status = "in progress";
+            if (cursor.value.status === "completed") {
+                completedObjects.push(cursor.value)
             }
-            counter++;
-            cursor.update(updatedValue);
             cursor.continue();
         } else {
-            console.log("All tasks updated.");
-            callback();
+            callback(completedObjects);
         }
     };
-
-    transaction.onerror = function (event) {
-        console.error("Error updating statuses:", event);
-    };
 }
-
 
 // Function readingObjectNames: Reading 100k object names
 // function readingObjectNamesReadOnly(db, storeName, callback) {
