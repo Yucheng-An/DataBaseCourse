@@ -81,17 +81,11 @@
 
         allData.onsuccess = function () {
           const data = allData.result;
-
-          // Convert IndexedDB data to JSON string
           const jsonData = JSON.stringify(data, null, 2);
-
-          // Create a Blob from the JSON string
           const blob = new Blob([jsonData], { type: "application/json" });
-
-          // Create a link to download the JSON file
           const a = document.createElement("a");
           a.href = URL.createObjectURL(blob);
-          a.download = "indexeddb_export.json"; // The name of the file
+          a.download = "indexeddb_export.json";
 
           // Programmatically trigger the download
           document.body.appendChild(a);
