@@ -3,15 +3,15 @@ const { v4: uuidv4 } = require('uuid');
 const IndexedDB = require('fake-indexeddb'); // Simulating IndexedDB in Node.js
 const IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange'); // For IDBKeyRange
 
-// MongoDB connection
-const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net";
+// MongoDB connection URL and database details
+const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/";
 const dbName = "lab3";
 const collectionName = "4449";
 
 // Connect to MongoDB
 async function connectMongoDB() {
     try {
-        const client = new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = new MongoClient(mongoUrl); // No need for deprecated options
         await client.connect();
         console.log("Connected to MongoDB");
         return client.db(dbName).collection(collectionName);
