@@ -86,6 +86,7 @@ function add100kObjects(db, storeName, callback) {
             };
         } else {
             console.log("Objects already exist, skipping insertion.");
+            callback();
         }
     };
 
@@ -118,8 +119,9 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
 function main() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
-    setupIndexedDB(dbName, storeName)
-    add100kObjects(dbName, storeName)
+    setupIndexedDB(dbName, storeName, function (db) {
+        add100kObjects(db, storeName)
+    });
 }
 
 main()
