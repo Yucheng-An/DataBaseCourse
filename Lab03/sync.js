@@ -17,12 +17,10 @@ async function connectMongoDB() {
 async function openIndexedDB() {
     return new Promise((resolve, reject) => {
         const request = IndexedDB.open('IndexDB', 1);
-
         request.onupgradeneeded = function (event) {
             let db = event.target.result;
             db.createObjectStore('Sensor', { keyPath: 'uuid' });
         };
-
         request.onsuccess = function (event) {
             console.log("Opened IndexedDB");
             resolve(event.target.result);
