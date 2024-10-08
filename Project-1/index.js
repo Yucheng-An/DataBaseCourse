@@ -117,6 +117,8 @@ function readingCompletedObject(db, storeName, callback) {
         }
     };
 }
+
+
 // Function readingObjectNameIndex: Reading 100k object names using an index
 function readingObjectNameIndex(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
