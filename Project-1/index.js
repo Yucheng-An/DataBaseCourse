@@ -178,7 +178,7 @@ function measurePerformance() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
-        add100kObjects(db, storeName, function () {);
+        add100kObjects(db, storeName, function () );
 
     });
 }
