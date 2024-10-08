@@ -43,8 +43,6 @@ async function syncData() {
         await mongoClient.connect();
         const mongoDb = mongoClient.db(mongoDbName);
         const mongoCollection = mongoDb.collection(mongoCollectionName);
-
-        // Open IndexedDB and fetch all data
         const indexedDB = await openIndexedDB();
         const indexedDBData = await getIndexedDBData(indexedDB);
 
