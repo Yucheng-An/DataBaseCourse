@@ -27,3 +27,5 @@ async function indexDBExport() {
         };
     });
 }
+
+indexDBExport().then(() => {
