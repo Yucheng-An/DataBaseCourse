@@ -51,8 +51,6 @@
 
     // Access the object store
     let bookObjectStore = transactionBook.objectStore("Sensor"); // Fix: 'objectStore' not 'getObjectStore'
-
-    // Add the book to the object store
     bookObjectStore.add(generateObject());
   };
 
