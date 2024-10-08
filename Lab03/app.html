@@ -36,7 +36,40 @@
       sensorStatus: generateRandomStatus()
     };
   }
-  function startGernerate()
+  function startGernerate(){
+
+    let req = indexedDB.open("IndexDB", 1);
+    req.onupgradeneeded = function(event) {
+      let db = event.target.result;
+      db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
+
+    };
+    req.onsuccess = function(event) {
+      let db = event.target.result;
+      let transactionSensor = db.transaction("Sensor", "readonly");
+      let sensorObjectStore = transactionSensor.objectStore("Sensor");
+      let countRequest = sensorObjectStore.count();
+      countRequest.onsuccess = function() {
+        if (countRequest.result === 0) {
+          let transaction = db.transaction("Sensor", "readwrite");
+          let sensorObjectStoreWrite = transaction.objectStore("Sensor");
+          for (let i = 0; i < 1000; i++) {
+            sensorObjectStoreWrite.add(generateObject());
+          }
+          console.log('1000 sensors data have been added!!!');
+        } else {
+          console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
+        }
+      };
+
+      countRequest.onerror = function() {
+        console.error('Error counting records in object store');
+      };
+    };
+    req.onerror = function(event) {
+      console.error('Error opening IndexedDB:', event.target.errorCode);
+    };
+  }
 </script>
 </body>
 </html>
