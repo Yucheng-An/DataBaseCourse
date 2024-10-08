@@ -29,3 +29,5 @@ async function indexDBExport() {
 }
 
 indexDBExport().then(() => {
+    console.log('IndexedDB data exported successfully.');
+}
