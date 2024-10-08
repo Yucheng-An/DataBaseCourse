@@ -135,7 +135,28 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
     };
 }
 
-
+function setAllStatus(db, storeName, status, callback) {
+    let transaction = db.transaction(storeName, "readwrite");
+    let objectStore = transaction.objectStore(storeName);
+    let counter = 0;
+    let request = objectStore.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            let updatedValue = cursor.value;
+            updatedValue.status = status;
+            counter++;
+            cursor.update(updatedValue);
+            cursor.continue();
+        } else {
+            console.log("Status update completed.");
+            callback();
+        }
+    };
+    transaction.onerror = function (event) {
+        console.error("Error updating statuses:", event);
+    };
+}
 
 
 
