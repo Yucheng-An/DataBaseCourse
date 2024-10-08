@@ -181,7 +181,7 @@ function readingCompletedObject(db, storeName, callback) {
 
 
 
-function measurePerformance() {
+function main() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
