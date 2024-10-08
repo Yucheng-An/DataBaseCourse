@@ -1,5 +1,6 @@
 const { MongoClient } = require('mongodb');
 const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
