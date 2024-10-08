@@ -217,3 +217,4 @@ function main() {
     });
 }
 
+main();
