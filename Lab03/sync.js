@@ -19,7 +19,7 @@ async function syncDataToMongoDB() {
                 { upsert: true }
             );
         }
-        console.log('Data sync complete. IndexedDB data successfully synced to MongoDB.');
+        console.log('IndexedDB data successfully synced to MongoDB.');
     } catch (err) {
         console.error('Error syncing data to MongoDB:', err);
     } finally {
