@@ -115,63 +115,6 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
     };
 }
 
-// Function readingObjectNames: Reading 100k object names
-// function readingObjectNamesReadOnly(db, storeName, callback) {
-//     let transaction = db.transaction(storeName, "readonly");
-//     let objectStore = transaction.objectStore(storeName);
-//     let count = 0;
-//     let request = objectStore.openCursor();
-//     request.onsuccess = function (event) {
-//         let cursor = event.target.result;
-//         if (cursor) {
-//             if (cursor.value.status === "completed") {
-//                 count++;
-//             }
-//             cursor.continue();
-//         } else {
-//             callback(count);
-//         }
-//     };
-// }
-
-// Function readingObjectNameIndex: Reading 100k object names using an index
-function readingObjectNameIndex(db, storeName, callback) {
-    let transaction = db.transaction(storeName, "readonly");
-    let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("key");
-    let count = 0;
-    let request = index.openCursor();
-    request.onsuccess = function (event) {
-        let cursor = event.target.result;
-        if (cursor) {
-            if (cursor.value.status === "completed") {
-                count++;
-            }
-            cursor.continue();
-        } else {
-            callback(count);
-        }
-    };
-}
-
-// Function readingObjectNameRT: Reading 100k objects with readonly transaction
-function readingObjectNameRT(db, storeName, callback) {
-    let transaction = db.transaction(storeName, "readonly");
-    let objectStore = transaction.objectStore(storeName);
-    let count = 0;
-    let request = objectStore.openCursor();
-    request.onsuccess = function (event) {
-        let cursor = event.target.result;
-        if (cursor) {
-            if (cursor.value.status === "completed") {
-                count++;
-            }
-            cursor.continue();
-        } else {
-            callback(count);
-        }
-    };
-}
 
 
 
