@@ -60,6 +60,7 @@
           indexDBExport();
         } else {
           console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
+          indexDBExport();
         }
       };
 
