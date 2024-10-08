@@ -76,7 +76,7 @@
       const request = indexedDB.open('IndexDB', 1);
       request.onsuccess = async (event) => {
         const db = event.target.result;
-        const transaction = db.transaction('objects', 'readonly');
+        const transaction = db.transaction('Sensor', 'readonly');
         const objectStore = transaction.objectStore('objects');
         const allData = objectStore.getAll();
         allData.onsuccess = function () {
