@@ -50,7 +50,6 @@ function setupIndexedDB(dbName, storeName, callback) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
-            objectStore.createIndex("name", "name", { unique: false });
         }
     };
     request.onsuccess = function (event) {
@@ -74,7 +73,7 @@ function add100kObjects(db, storeName, callback) {
                 let object = {
                     id: i,
                     task: `${tasks[Math.floor(Math.random() * tasks.length)]}`,
-                    status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
+                    status: i < 1000 ? "completed" : "progress",
                     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
                 };
                 writeObjectStore.add(object);
@@ -97,22 +96,43 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
-// Function readingObjectNames: Reading 100k object names
-function readingObjectNames(db, storeName, callback) {
+// Function readingCompletedObject: Reading 1000 completed objects
+function readingCompletedObject(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let count = 0;
+    let completedObjects = [];
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            if (cursor.value.status === "completed") {
+                completedObjects.push(cursor.value)
+            }
             cursor.continue();
         } else {
-            callback(count);
+            callback(completedObjects);
         }
     };
 }
+
+// Function readingObjectNames: Reading 100k object names
+// function readingObjectNamesReadOnly(db, storeName, callback) {
+//     let transaction = db.transaction(storeName, "readonly");
+//     let objectStore = transaction.objectStore(storeName);
+//     let count = 0;
+//     let request = objectStore.openCursor();
+//     request.onsuccess = function (event) {
+//         let cursor = event.target.result;
+//         if (cursor) {
+//             if (cursor.value.status === "completed") {
+//                 count++;
+//             }
+//             cursor.continue();
+//         } else {
+//             callback(count);
+//         }
+//     };
+// }
 
 // Function readingObjectNameIndex: Reading 100k object names using an index
 function readingObjectNameIndex(db, storeName, callback) {
@@ -125,7 +145,9 @@ function readingObjectNameIndex(db, storeName, callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            if (cursor.value.status === "completed") {
+                count++;
+            }
             cursor.continue();
         } else {
             callback(count);
@@ -142,7 +164,9 @@ function readingObjectNameRT(db, storeName, callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            if (cursor.value.status === "completed") {
+                count++;
+            }
             cursor.continue();
         } else {
             callback(count);
@@ -153,19 +177,19 @@ function readingObjectNameRT(db, storeName, callback) {
 function measurePerformance() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
-    setupIndexedDB(dbName, storeName, function (db) {
-        add100kObjects(db, storeName, function () {
+    setupIndexedDB(dbName, storeName, function(db) {
+        add100kObjects(db, storeName, function() {
             const performanceResults = [];
 
-            // Measure performance of readingObjectNames
+            // Measure performance of readingCompletedObject
             let start = performance.now();
-            readingObjectNames(db, storeName, function (count) {
+            readingCompletedObject(db, storeName, function (completedObjects) {
                 let end = performance.now();
                 performanceResults.push({
                     Operation: "readingObjectNames (Read 100k objects)",
                     TimeTakenMs: (end - start).toFixed(2)
                 });
-
+                console.table("Performance for reading completed objects in ms", performanceResults[0].TimeTakenMs);
                 // Measure performance of readingObjectNameIndex
                 start = performance.now();
                 readingObjectNameIndex(db, storeName, function (count) {
@@ -184,6 +208,9 @@ function measurePerformance() {
                             TimeTakenMs: (end - start).toFixed(2)
                         });
                         console.table(performanceResults);
+
+                        let TodoListCompleted = [];
+                        todoList
                     });
                 });
             });
