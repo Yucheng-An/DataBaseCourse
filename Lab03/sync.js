@@ -4,7 +4,7 @@ const IndexedDB = require('fake-indexeddb'); // Simulating IndexedDB in Node.js
 const IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange'); // For IDBKeyRange
 
 // MongoDB connection
-const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net";
 const dbName = "lab3";
 const collectionName = "4449";
 
