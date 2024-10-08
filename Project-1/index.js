@@ -158,6 +158,7 @@ function setAllStatus(db, storeName, status, callback) {
     };
 }
 
+function readingCompletedObject(db, storeName, callback) {
 
 
 // Function readingObjectNameIndex: Reading 100k object names using an index
