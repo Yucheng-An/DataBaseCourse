@@ -5,6 +5,7 @@ const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 // Simulating IndexedDB data as a JSON file
 const indexedDBFile = './indexeddb.json';
 
+
 // Function to fetch MongoDB data
 async function fetchMongoDBData() {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
