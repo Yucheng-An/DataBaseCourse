@@ -114,5 +114,6 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
             callback(completedObjects);
         }
     };
+    console.log("1000 objects set to status 'completed' and the remaining ones set to status 'progress'.");
 }
 
