@@ -37,7 +37,6 @@
     };
   }
   function startGenerate(){
-
     let req = indexedDB.open("IndexDB", 1);
     req.onupgradeneeded = function(event) {
       let db = event.target.result;
