@@ -43,7 +43,7 @@
   req.onsuccess = function(event) {
     let db = event.target.result;
     let transactionBook = db.transaction("Sensor", "readwrite");
-    let ObjectStore = transactionBook.objectStore("Sensor");
+    let sensorObjectStore = transactionBook.objectStore("Sensor");
     for (let i = 0; i < 1000; i++) {
       sensorObjectStore.add(generateObject());
     }
