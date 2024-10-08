@@ -1,17 +1,15 @@
 const { MongoClient } = require('mongodb');
-const { indexedDB, IDBKeyRange } = require('fake-indexeddb');
+const { indexedDB } = require('fake-indexeddb');
 
+// MongoDB connection details
 const mongoUri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
-const mongoClient = new MongoClient(mongoUri);
-const mongoDbName = "lab3";
-const mongoCollectionName = "4449";
-
-const client = new MongoClient(mongoUri, {
+const mongoClient = new MongoClient(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000, // Adjust the timeout value as needed
+    serverSelectionTimeoutMS: 5000,
 });
-
+const mongoDbName = "lab3";
+const mongoCollectionName = "4449";
 
 // Initialize IndexedDB
 function openIndexedDB() {
@@ -55,8 +53,7 @@ function getIndexedDBData(db) {
 // Sync function to update MongoDB based on IndexedDB data
 async function syncData() {
     try {
-        await client.connect();
-        console.log("Connected to MongoDB!");
+        // Connect to MongoDB
         await mongoClient.connect();
         const mongoDb = mongoClient.db(mongoDbName);
         const mongoCollection = mongoDb.collection(mongoCollectionName);
@@ -65,32 +62,67 @@ async function syncData() {
         const indexedDB = await openIndexedDB();
         const indexedDBData = await getIndexedDBData(indexedDB);
 
-        // Loop over each entry in IndexedDB
+        // Sync IndexedDB to MongoDB
         for (let indexedObj of indexedDBData) {
-            const uuid = indexedObj.uuid;
+            if (indexedObj.sourceDB === "IndexedDB") {
+                const sensorID = indexedObj.sensorID;
+                const indexedUpdatedTime = new Date(indexedObj.updatedTime);
 
-            // Check if the record exists in MongoDB
-            const mongoRecord = await mongoCollection.findOne({ uuid });
+                // Find matching record in MongoDB by sensorID
+                const mongoRecord = await mongoCollection.findOne({ sensorID, sourceDB: "MongoDB" });
 
-            if (!mongoRecord) {
-                // Insert record if it doesn't exist in MongoDB
-                await mongoCollection.insertOne(indexedObj);
-                console.log(`Inserted new record with UUID: ${uuid} into MongoDB.`);
-            } else {
-                // Compare the `updatedTime` fields to see if an update is needed
-                const indexedTime = new Date(indexedObj.updatedTime);
-                const mongoTime = new Date(mongoRecord.updatedTime);
+                if (!mongoRecord) {
+                    // Insert into MongoDB if the record doesn't exist
+                    await mongoCollection.insertOne(indexedObj);
+                    console.log(`Inserted new record with sensorID: ${sensorID} from IndexedDB into MongoDB.`);
+                } else {
+                    const mongoUpdatedTime = new Date(mongoRecord.updatedTime);
 
-                if (indexedTime > mongoTime) {
-                    // Update MongoDB record if the IndexedDB record is more recent
-                    await mongoCollection.updateOne(
-                        { uuid },
-                        { $set: indexedObj }
-                    );
-                    console.log(`Updated record with UUID: ${uuid} in MongoDB.`);
+                    if (indexedUpdatedTime > mongoUpdatedTime) {
+                        // Update MongoDB if IndexedDB has more recent data
+                        await mongoCollection.updateOne(
+                            { sensorID, sourceDB: "MongoDB" },
+                            { $set: indexedObj }
+                        );
+                        console.log(`Updated record with sensorID: ${sensorID} in MongoDB from IndexedDB.`);
+                    }
                 }
             }
         }
+
+        // Sync MongoDB to IndexedDB
+        const mongoDataCursor = await mongoCollection.find({ sourceDB: "MongoDB" });
+        const mongoData = await mongoDataCursor.toArray();
+
+        const transaction = indexedDB.transaction("Sensor", "readwrite");
+        const indexedStore = transaction.objectStore("Sensor");
+
+        for (let mongoObj of mongoData) {
+            const sensorID = mongoObj.sensorID;
+
+            // Check if the record exists in IndexedDB
+            const indexedRecordRequest = indexedStore.index("sensorID").get(sensorID);
+
+            indexedRecordRequest.onsuccess = function (event) {
+                const indexedRecord = event.target.result;
+
+                if (!indexedRecord) {
+                    // Insert into IndexedDB if it doesn't exist
+                    indexedStore.add(mongoObj);
+                    console.log(`Inserted new record with sensorID: ${sensorID} from MongoDB into IndexedDB.`);
+                } else {
+                    const mongoUpdatedTime = new Date(mongoObj.updatedTime);
+                    const indexedUpdatedTime = new Date(indexedRecord.updatedTime);
+
+                    if (mongoUpdatedTime > indexedUpdatedTime) {
+                        // Update IndexedDB if MongoDB has more recent data
+                        indexedStore.put(mongoObj);
+                        console.log(`Updated record with sensorID: ${sensorID} in IndexedDB from MongoDB.`);
+                    }
+                }
+            };
+        }
+
         console.log("Data synchronization completed.");
     } catch (error) {
         console.error("Error during data synchronization:", error);
