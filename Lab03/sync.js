@@ -13,7 +13,7 @@ function readIndexDBJSONFile() {
 }
 
 async function syncDataToMongoDB() {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri);
     try {
         await client.connect();
         const db = client.db('lab3');
