@@ -17,31 +17,31 @@ async function fetchIndexedDBData() {
 const data1 = await fetchIndexedDBData()
 console.log(data1)
 
-async function syncData() {
-    try {
-        const indexedDBData = await fetchIndexedDBData();
-        await client.connect();
-        const database = client.db("lab3");
-        const collection = database.collection("9994");
-        for (let obj of indexedDBData) {
-            const existingObject = await collection.findOne({ UUID: obj.UUID });
-            if (existingObject) {
-                await collection.updateOne(
-                    { UUID: obj.UUID },
-                    { $set: { ...obj, updated_at: new Date() } }
-                );
-                console.log(`Updated object with UUID: ${obj.UUID}`);
-            } else {
-                await collection.insertOne(obj);
-                console.log(`Inserted new object with UUID: ${obj.UUID}`);
-            }
-        }
-        console.log("Data sync completed successfully.");
-    } catch (error) {
-        console.error("Error during data sync:", error);
-    } finally {
-        await client.close();
-    }
-}
-
-syncData();
+// async function syncData() {
+//     try {
+//         const indexedDBData = await fetchIndexedDBData();
+//         await client.connect();
+//         const database = client.db("lab3");
+//         const collection = database.collection("9994");
+//         for (let obj of indexedDBData) {
+//             const existingObject = await collection.findOne({ UUID: obj.UUID });
+//             if (existingObject) {
+//                 await collection.updateOne(
+//                     { UUID: obj.UUID },
+//                     { $set: { ...obj, updated_at: new Date() } }
+//                 );
+//                 console.log(`Updated object with UUID: ${obj.UUID}`);
+//             } else {
+//                 await collection.insertOne(obj);
+//                 console.log(`Inserted new object with UUID: ${obj.UUID}`);
+//             }
+//         }
+//         console.log("Data sync completed successfully.");
+//     } catch (error) {
+//         console.error("Error during data sync:", error);
+//     } finally {
+//         await client.close();
+//     }
+// }
+//
+// syncData();
