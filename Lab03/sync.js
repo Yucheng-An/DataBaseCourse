@@ -13,7 +13,7 @@ async function getMongoDBData(client) {
     const mongoData = await collection.find({}).toArray(); // Fetch all data from MongoDB
     return mongoData;
 }
-console.log()
+console.log(getMongoDBData())
 
 
 async function getIndexedDBData() {
