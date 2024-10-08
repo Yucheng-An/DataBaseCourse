@@ -25,7 +25,7 @@ async function syncData() {
 
         await client.connect();
         const database = client.db("lab3");
-        const collection = database.collection("7376_Sai_Sravan");
+        const collection = database.collection("99947376_Sai_Sravan");
 
 
         for (let obj of indexedDBData) {
