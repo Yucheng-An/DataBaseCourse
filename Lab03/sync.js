@@ -8,7 +8,6 @@ app.use(cors())
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
-
 const mongoUrl = "mongodb://localhost:27017";
 const dbName = "lab3";
 const collectionName = "4449";
