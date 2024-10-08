@@ -1,7 +1,7 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
-const app = express();mongodb://localhost:27017/
+const app = express();
 const cors = require('cors');
 
 app.use(cors())
