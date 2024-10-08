@@ -149,7 +149,7 @@ function setAllStatus(db, storeName, status, callback) {
             cursor.update(updatedValue);
             cursor.continue();
         } else {
-            console.log("Status update completed.");
+            console.log("Set all sStatus update completed.");
             callback();
         }
     };
