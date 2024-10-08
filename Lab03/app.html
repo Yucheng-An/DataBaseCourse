@@ -35,54 +35,19 @@
       sensorStatus: generateRandomStatus()
     };
   }
-
   let req = indexedDB.open("IndexDB", 1);
-
   req.onupgradeneeded = function(event) {
     let db = event.target.result;
-    let objectStore = db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
-    objectStore.createIndex("sensorStatus", "sensorStatus", { unique: false });
-    objectStore.createIndex("createdTime", "createdTime", { unique: false });
+    db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
   };
-
   req.onsuccess = function(event) {
     let db = event.target.result;
-    let transaction = db.transaction("Sensor", "readonly");
-    let objectStore = transaction.objectStore("Sensor");
-
-    // Check if data already exists in the store
-    let countRequest = objectStore.count();
-    countRequest.onsuccess = function() {
-      if (countRequest.result === 0) {
-        // If no data, generate and add 1000 objects
-        addData(db);
-      } else {
-        console.log(`Database already contains ${countRequest.result} records, no new data generated.`);
-      }
-    };
-    countRequest.onerror = function() {
-      console.error('Failed to count records in store');
-    };
-  };
-
-  req.onerror = function(event) {
-    console.error('Error opening IndexedDB:', event.target.errorCode);
-  };
-
-  function addData(db) {
-    let transaction = db.transaction("Sensor", "readwrite");
-    let objectStore = transaction.objectStore("Sensor");
-
+    let transactionBook = db.transaction("Sensor", "readwrite");
+    let bookObjectStore = transactionBook.objectStore("Sensor");
     for (let i = 0; i < 1000; i++) {
-      let request = objectStore.add(generateObject());
-      request.onerror = function() {
-        console.error('Failed to add object to store');
-      };
-      request.onsuccess = function() {
-        console.log('Object added successfully');
-      };
+      bookObjectStore.add(generateObject());
     }
-  }
+  };
 </script>
 </body>
 </html>
