@@ -44,7 +44,6 @@ function getIndexedDBData(db) {
 
 async function syncData() {
     try {
-        // Connect to MongoDB
         await mongoClient.connect();
         const mongoDb = mongoClient.db(mongoDbName);
         const mongoCollection = mongoDb.collection(mongoCollectionName);
