@@ -15,7 +15,7 @@ async function syncDataToMongoDB(data) {
         for (const obj of data) {
             await collection.updateOne(
                 { uuid: obj.uuid },
-                { $set: obj },      // Updating the document with the new data
+                { $set: obj },
                 { upsert: true }    // Insert if it does not exist
             );
         }
