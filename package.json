@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "fake-indexeddb": "^6.0.0",
     "mongodb": "^6.9.0"
   }
 }
