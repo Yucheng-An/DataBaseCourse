@@ -107,6 +107,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
     let completedCounter = 0;
     let progressCounter = 0;
     let pendingCounter = 0;
+    let request = objectStore.openCursor();
     objectStore.openCursor().onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
@@ -185,7 +186,7 @@ function measurePerformance() {
 
         //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
         let startTime = performance.now();
-        
+
 
     });
 }
