@@ -41,32 +41,7 @@
 
   let req = indexedDB.open("BookDB", 1);
 
-  function openIndexedDB() {
-    const request = indexedDB.open('ObjectStoreDB', 1);
-
-    request.onerror = function(event) {
-      console.error('Database error:', event.target.errorCode);
-    };
-
-    request.onsuccess = function(event) {
-      db = event.target.result;
-      console.log('IndexedDB opened successfully.');
-    };
-
-    request.onupgradeneeded = function(event) {
-      db = event.target.result;
-      const objectStore = db.createObjectStore('objects', { keyPath: 'uuid' });
-      console.log('Object store created.');
-    };
-  }
-
-  // Function to store objects in IndexedDB
-  function storeObjectsInIndexedDB(objects) {
-    const transaction = db.transaction(['objects'], 'readwrite');
-    const objectStore = transaction.objectStore('objects');
-
-    objects.forEach((object) => {
-
+  
 </script>
 </body>
 </html>
