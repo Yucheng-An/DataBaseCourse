@@ -14,7 +14,6 @@
   function getCurrentTimestamp() {
     return new Date().toISOString();
   }
-  // Function to generate a random 6-character alphanumeric string
   function generateRandomID() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
