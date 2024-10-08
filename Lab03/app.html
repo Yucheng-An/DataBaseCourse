@@ -50,7 +50,7 @@
     let transactionBook = db.transaction("Sensor", "readwrite"); // Fix: 'transaction' should be invoked on 'db'
 
     // Access the object store
-    let bookObjectStore = transactionBook.objectStore("Sensor"); // Fix: 'objectStore' not 'getObjectStore'
+    let bookObjectStore = transactionBook.objectStore("Sensor");
     bookObjectStore.add(generateObject());
   };
 
