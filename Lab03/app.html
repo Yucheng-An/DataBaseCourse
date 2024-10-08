@@ -45,7 +45,7 @@
 
   req.onsuccess = function(event) {
     let db = event.target.result;
-    let transactionBook = db.transaction("Sensor", "readwrite"); // Fix: 'transaction' should be invoked on 'db'
+    let transactionBook = db.transaction("Sensor", "readwrite");
 
     // Access the object store
     let bookObjectStore = transactionBook.objectStore("Sensor"); // Fix: 'objectStore' not 'getObjectStore'
