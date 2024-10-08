@@ -25,4 +25,4 @@ async function getIndexedDBData() {
         return [];
     }
 }
-/console.log(getIndexedDBData())
+console.log(getIndexedDBData())
