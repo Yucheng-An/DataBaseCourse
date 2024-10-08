@@ -18,7 +18,7 @@ const collectionName = "4449";
 
 async function getIndexedDBData() {
     try {
-        const response = await axios.get('http://localhost:63343/Database%20Managment%20Course/Lab03/app.html?_ijt=3evqdkoj2i9t4i8rbfna1igfdo&_ij_reload=RELOAD_ON_SAVE');
+        const response = await axios.get('file:///Users/yuchengan/Database%20Managment%20Course/Lab03/app.html');
         return response.data; // Assuming the data is returned in the response body
     } catch (error) {
         console.error("Error fetching IndexedDB data: ", error);
