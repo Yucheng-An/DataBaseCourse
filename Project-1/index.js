@@ -129,7 +129,6 @@ function setStatus(db, storeName, completedNumber, progressNumber, pendingNumber
             callback();
         }
     };
-
     transaction.onerror = function (event) {
         console.error("Error updating statuses:", event);
     };
