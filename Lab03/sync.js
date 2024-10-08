@@ -7,7 +7,6 @@ const mongoUrl = "mongodb://localhost:27017/";
 const dbName = "lab3";
 const collectionName = "4449";
 
-// Connect to MongoDB
 async function connectMongoDB() {
     const client = new MongoClient(mongoUrl);
     await client.connect();
