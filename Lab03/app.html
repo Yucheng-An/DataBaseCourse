@@ -91,7 +91,6 @@
           a.click();
           document.body.removeChild(a);
           resolve();
-          alert('IndexedDB data has been exported to a JSON file.');
         };
         allData.onerror = function () {
           reject('Failed to retrieve data from IndexedDB.');
