@@ -70,6 +70,18 @@
       console.error('Error opening IndexedDB:', event.target.errorCode);
     };
   }
+  function runSync() {
+    // Dynamically load sync.js
+    let script = document.createElement('script');
+    script.src = 'sync.js';  // Ensure sync.js is in the same directory or adjust the path accordingly
+    script.onload = function() {
+      console.log('sync.js loaded and executed');
+    };
+    script.onerror = function() {
+      console.error('Error loading sync.js');
+    };
+    document.body.appendChild(script);
+  }
 </script>
 </body>
 </html>
