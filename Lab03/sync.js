@@ -26,4 +26,4 @@ async function getIndexedDBData() {
     }
 }
 data1 = getIndexedDBData()
-console.log(getIndexedDBData())
+console.log(data1)
