@@ -3,5 +3,6 @@ const url = 'mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3/4449?retr
 const sensorSchema = new mongoose.Schema({
     uuid: String,
     sourceDB: String,
-    important: Boolean,
+    createdTime: Date,
+    
 })
