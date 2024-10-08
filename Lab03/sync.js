@@ -12,8 +12,6 @@ async function fetchIndexedDBData() {
         {
             UUID: uuidv4(),
             source_db: "IndexedDB",
-            created_at: new Date(),
-            updated_at: new Date(),
         }
     ];
 }
