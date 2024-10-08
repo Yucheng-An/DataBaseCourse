@@ -96,6 +96,8 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
+
+
 // Function readingCompletedObject: Reading 1000 completed objects
 function readingCompletedObject(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
