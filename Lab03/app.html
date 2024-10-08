@@ -78,9 +78,9 @@
         const db = event.target.result;
         const transaction = db.transaction('Sensor', 'readonly');
         const objectStore = transaction.objectStore('Sensor');
-        const allData = objectStore.getAll();
-        allData.onsuccess = function () {
-          const data = allData.result;
+        const allIndexData = objectStore.getAll();
+        allIndexData.onsuccess = function () {
+          const data = allIndexData.result;
           const jsonData = JSON.stringify(data, null, 2);
           const blob = new Blob([jsonData], { type: "application/json" });
           const temp1 = document.createElement("a");
@@ -91,7 +91,7 @@
           document.body.removeChild(temp1);
           resolve();
         };
-        allData.onerror = function () {
+        allIndexData.onerror = function () {
           reject('Failed to retrieve data from IndexedDB.');
         };
       };
