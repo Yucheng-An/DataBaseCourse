@@ -9,7 +9,7 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function fetchIndexedDBData() {
     return [
         {
-            UUID: uuidv4(),
+            UUID: crypto.randomUUID(),
             source_db: "IndexedDB",
         }
     ];
