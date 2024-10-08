@@ -27,8 +27,6 @@
     const statuses = ['working', 'maintenance', 'error'];
     return statuses[Math.floor(Math.random() * statuses.length)];
   }
-
-  // Function to generate an object
   function generateObject() {
     return {
       uuid: crypto.randomUUID(),
