@@ -1,111 +1,97 @@
 const { MongoClient } = require('mongodb');
-const fs = require('fs');
-const path = require('path');
+const { indexedDB, IDBKeyRange } = require('fake-indexeddb');
 
-const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3?retryWrites=true&w=majority&tls=true";
-const indexedDBFile = path.join(__dirname, 'indexeddb.json');  // Path to the JSON file representing IndexedDB
+// MongoDB connection details
+const mongoUri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+const mongoClient = new MongoClient(mongoUri);
+const mongoDbName = "lab3";
+const mongoCollectionName = "4449";
 
-async function fetchMongoDBData() {
-    const client = new MongoClient(uri);  // Removed deprecated options
-    try {
-        await client.connect();
-        const db = client.db('lab3');
-        const collection = db.collection('4449');
+// Initialize IndexedDB
+function openIndexedDB() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open("IndexDB", 1);
 
-        // Fetch all data from MongoDB
-        const mongoData = await collection.find({}).toArray();
-        console.log('MongoDB Data fetched successfully.');
-        return mongoData;
-    } finally {
-        await client.close();
-    }
-}
+        request.onupgradeneeded = function (event) {
+            let db = event.target.result;
+            if (!db.objectStoreNames.contains("Sensor")) {
+                db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
+            }
+        };
 
-// Function to fetch IndexedDB data (from the JSON file)
-function fetchIndexedDBData() {
-    if (fs.existsSync(indexedDBFile)) {
-        const indexedDBData = JSON.parse(fs.readFileSync(indexedDBFile, 'utf8'));
-        console.log('IndexedDB Data fetched successfully.');
-        return indexedDBData;
-    } else {
-        console.log('IndexedDB data file not found.');
-        return [];
-    }
-}
+        request.onsuccess = function (event) {
+            resolve(event.target.result);
+        };
 
-// Function to sync data between IndexedDB and MongoDB
-async function syncData() {
-    const mongoData = await fetchMongoDBData();
-    const indexedDBData = fetchIndexedDBData();
-
-    // Create maps for easier comparison
-    const mongoMap = new Map(mongoData.map(item => [item.uuid, item]));
-    const indexedDBMap = new Map(indexedDBData.map(item => [item.uuid, item]));
-
-    const newRecords = [];
-    const updatedRecords = [];
-
-    // Compare data from IndexedDB to MongoDB
-    indexedDBData.forEach(item => {
-        if (!mongoMap.has(item.uuid)) {
-            newRecords.push(item); // New records that don't exist in MongoDB
-        } else if (JSON.stringify(mongoMap.get(item.uuid)) !== JSON.stringify(item)) {
-            updatedRecords.push(item); // Records that need to be updated in MongoDB
-        }
+        request.onerror = function (event) {
+            reject(event.target.error);
+        };
     });
-
-    if (newRecords.length > 0 || updatedRecords.length > 0) {
-        console.log(`New records to sync: ${newRecords.length}`);
-        console.log(`Records to update: ${updatedRecords.length}`);
-    } else {
-        console.log('IndexedDB and MongoDB are already in sync.');
-    }
-
-    // Insert new records into MongoDB
-    if (newRecords.length > 0) {
-        await insertNewRecords(newRecords);
-    }
-
-    // Update existing records in MongoDB
-    if (updatedRecords.length > 0) {
-        await updateRecords(updatedRecords);
-    }
 }
 
-// Function to insert new records into MongoDB
-async function insertNewRecords(newRecords) {
-    const client = new MongoClient(uri);
-    try {
-        await client.connect();
-        const db = client.db('lab3');
-        const collection = db.collection('4449');
+// Fetch all data from IndexedDB
+function getIndexedDBData(db) {
+    return new Promise((resolve, reject) => {
+        const transaction = db.transaction("Sensor", "readonly");
+        const store = transaction.objectStore("Sensor");
+        const request = store.getAll();
 
-        await collection.insertMany(newRecords);
-        console.log(`${newRecords.length} new records inserted into MongoDB.`);
-    } finally {
-        await client.close();
-    }
+        request.onsuccess = function (event) {
+            resolve(event.target.result);
+        };
+
+        request.onerror = function (event) {
+            reject(event.target.error);
+        };
+    });
 }
 
-// Function to update existing records in MongoDB
-async function updateRecords(updatedRecords) {
-    const client = new MongoClient(uri);
+// Sync function to update MongoDB based on IndexedDB data
+async function syncData() {
     try {
-        await client.connect();
-        const db = client.db('lab3');
-        const collection = db.collection('4449');
+        // Connect to MongoDB
+        await mongoClient.connect();
+        const mongoDb = mongoClient.db(mongoDbName);
+        const mongoCollection = mongoDb.collection(mongoCollectionName);
 
-        for (const record of updatedRecords) {
-            await collection.updateOne(
-                { uuid: record.uuid },
-                { $set: record }
-            );
+        // Open IndexedDB and fetch all data
+        const indexedDB = await openIndexedDB();
+        const indexedDBData = await getIndexedDBData(indexedDB);
+
+        // Loop over each entry in IndexedDB
+        for (let indexedObj of indexedDBData) {
+            const uuid = indexedObj.uuid;
+
+            // Check if the record exists in MongoDB
+            const mongoRecord = await mongoCollection.findOne({ uuid });
+
+            if (!mongoRecord) {
+                // Insert record if it doesn't exist in MongoDB
+                await mongoCollection.insertOne(indexedObj);
+                console.log(`Inserted new record with UUID: ${uuid} into MongoDB.`);
+            } else {
+                // Compare the `updatedTime` fields to see if an update is needed
+                const indexedTime = new Date(indexedObj.updatedTime);
+                const mongoTime = new Date(mongoRecord.updatedTime);
+
+                if (indexedTime > mongoTime) {
+                    // Update MongoDB record if the IndexedDB record is more recent
+                    await mongoCollection.updateOne(
+                        { uuid },
+                        { $set: indexedObj }
+                    );
+                    console.log(`Updated record with UUID: ${uuid} in MongoDB.`);
+                }
+            }
         }
-        console.log(`${updatedRecords.length} records updated in MongoDB.`);
+
+        console.log("Data synchronization completed.");
+    } catch (error) {
+        console.error("Error during data synchronization:", error);
     } finally {
-        await client.close();
+        await mongoClient.close();
     }
 }
 
-// Run sync
-syncData().catch(console.error);
+// Run the sync process
+syncData();
