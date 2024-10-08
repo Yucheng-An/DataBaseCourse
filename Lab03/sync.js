@@ -41,7 +41,7 @@ async function syncData() {
 
     const newRecords = [];
     const updatedRecords = [];
-    
+
     indexedDBData.forEach(item => {
         if (!mongoMap.has(item.uuid)) {
             newRecords.push(item); // New records to insert in MongoDB
@@ -58,5 +58,4 @@ async function syncData() {
     }
 }
 
-// Run sync
 syncData().catch(console.error);
