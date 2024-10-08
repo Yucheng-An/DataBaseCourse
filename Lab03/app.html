@@ -39,10 +39,11 @@
   req.onupgradeneeded = function(event) {
     let db = event.target.result;
     db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
-    console.log(db)
+
   };
   req.onsuccess = function(event) {
     let db = event.target.result;
+    console.log(db)
     let transactionBook = db.transaction("Sensor", "readwrite");
     let sensorObjectStore = transactionBook.objectStore("Sensor");
     // console.log(sensorObjectStore.count().result)
