@@ -202,7 +202,7 @@ function measurePerformance() {
     setupIndexedDB(dbName, storeName, function (db) {
         // add 100k objects
         add100kObjects(db, storeName, function () {});
-        
+
         // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
         setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
 
@@ -212,6 +212,7 @@ function measurePerformance() {
             let endTime = performance.now();
             console.log(`Time to set all objects to "completed": ${endTime - startTime} ms`);
         });
+        
 
 
 
