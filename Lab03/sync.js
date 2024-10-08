@@ -6,6 +6,12 @@ const mongoClient = new MongoClient(mongoUri);
 const mongoDbName = "lab3";
 const mongoCollectionName = "4449";
 
+const client = new MongoClient(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Adjust the timeout value as needed
+});
+
 
 // Initialize IndexedDB
 function openIndexedDB() {
