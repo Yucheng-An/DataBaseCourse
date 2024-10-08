@@ -227,7 +227,7 @@ function main() {
             let startTimeIndex = performance.now();
             indexField(db, storeName, function (count) {
                 let endTimeIndex = performance.now();
-                console.log(`Time to read all objects with index: ${endTimeIndex - startTimeIndex} ms`);
+                console.log(`Time to read all objects with index: ${(endTimeIndex - startTimeIndex)} ms`);
             });
 
             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
