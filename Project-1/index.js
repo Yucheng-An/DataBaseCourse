@@ -187,13 +187,10 @@ function measurePerformance() {
 
 
                     // Measure performance of readingObjectNameRT
-                   
+
                         console.table(performanceResults);
                     });
                 });
-            });
-        });
-    });
 }
 
 measurePerformance();
