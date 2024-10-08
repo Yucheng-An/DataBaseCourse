@@ -80,14 +80,12 @@ function add100kObjects(db, storeName, callback) {
             }
             writeTransaction.oncomplete = function () {
                 console.log("100k objects added.");
-                callback();
             };
             writeTransaction.onerror = function (event) {
                 console.error("Error adding objects:", event);
             };
         } else {
             console.log("Objects already exist, skipping insertion.");
-            callback();
         }
     };
 
