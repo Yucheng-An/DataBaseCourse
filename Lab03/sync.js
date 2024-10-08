@@ -10,7 +10,7 @@ const sensorSchema = new mongoose.Schema({
     sensorStatus:String
 })
 const Sensor = mongoose.model('4449', sensorSchema)
-Task.find({}).then(result => {
+Sensor.find({}).then(result => {
     result.forEach(task => {
         console.log(task)
     })
