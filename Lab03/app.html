@@ -77,7 +77,7 @@
       request.onsuccess = async (event) => {
         const db = event.target.result;
         const transaction = db.transaction('Sensor', 'readonly');
-        const objectStore = transaction.objectStore('objects');
+        const objectStore = transaction.objectStore('Sensor');
         const allData = objectStore.getAll();
         allData.onsuccess = function () {
           const data = allData.result;
