@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
+const cors = require('cors');
 
 const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 const dbName = "lab3";
