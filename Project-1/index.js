@@ -119,8 +119,7 @@ function main() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName)
-    add100kObjects(db, storeName)
-    });
+    add100kObjects(dbName, storeName)
 }
 
 main()
