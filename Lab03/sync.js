@@ -23,11 +23,8 @@ async function syncData() {
         await client.connect();
         const database = client.db("lab3");
         const collection = database.collection("9994");
-
-
         for (let obj of indexedDBData) {
             const existingObject = await collection.findOne({ UUID: obj.UUID });
-
             if (existingObject) {
                 await collection.updateOne(
                     { UUID: obj.UUID },
