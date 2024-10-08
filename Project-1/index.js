@@ -118,4 +118,3 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
 
 
 
-measurePerformance();
