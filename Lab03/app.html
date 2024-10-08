@@ -83,7 +83,7 @@
           const data = allData.result;
           const jsonData = JSON.stringify(data, null, 2);
           const blob = new Blob([jsonData], { type: "application/json" });
-          const temp = document.createElement("a");
+          const temp1 = document.createElement("a");
           temp.href = URL.createObjectURL(blob);
           temp.download = "indexeddb_export.json";
           document.body.appendChild(temp);
