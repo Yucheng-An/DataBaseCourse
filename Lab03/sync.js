@@ -10,3 +10,21 @@ const sensorSchema = new mongoose.Schema({
     sensorStatus:String
 })
 const Sensor = mongoose.model('4449', sensorSchema)
+mongoose
+    .connect(url)
+    .then((result) => {
+        console.log('connected')
+
+        const task = new Task({
+            content: 'Practice coding interview problems',
+            date: new Date(),
+            important: true,
+        })
+
+        return task.save()
+    })
+    .then(() => {
+        console.log('task saved!')
+        return mongoose.connection.close()
+    })
+    .catch((err) => console.log(err))
