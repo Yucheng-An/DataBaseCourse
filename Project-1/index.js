@@ -44,7 +44,7 @@ const tasks = [
     "Perform system integration tests"
 ];
 
-// Function setupIndexedDB: Setting up IndexedDB
+// Function setupIndexedDB: Setting up IndexedDB and add100kObjects adding 100k objects
 function setupIndexedDB(dbName, storeName, callback) {
     let request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = function (event) {
