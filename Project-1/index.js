@@ -226,7 +226,10 @@ function main() {
 
         //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
         let startTimeIndex = performance.now();
-        
+        indexField(db, storeName, function (count) {
+            let endTimeIndex = performance.now();
+            console.log(`Time to read all objects with index: ${endTimeIndex - startTimeIndex} ms`);
+        });
 
         // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
         // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
