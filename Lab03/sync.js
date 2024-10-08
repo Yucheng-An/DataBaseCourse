@@ -45,7 +45,6 @@ async function syncData() {
         const mongoCollection = mongoDb.collection(mongoCollectionName);
         const indexedDB = await openIndexedDB();
         const indexedDBData = await getIndexedDBData(indexedDB);
-
         // Loop over each entry in IndexedDB
         for (let indexedObj of indexedDBData) {
             const uuid = indexedObj.uuid;
