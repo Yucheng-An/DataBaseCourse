@@ -118,11 +118,7 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
 }
 
 function main() {
-    setupIndexedDB("project1", "tasks", function (db) {
-        add100kObjects(db, "tasks", function () {
-            set1000CompletedRemainingProgress(db, "tasks", function (completedObjects) {
-                console.log(completedObjects);
-            });
-        });
-    });
+    const dbName = "Project1DB";
+    const storeName = "TodoList";
+    
 }
