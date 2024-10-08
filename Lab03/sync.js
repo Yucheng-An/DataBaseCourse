@@ -5,7 +5,6 @@ function readIndexDBJSONFile() {
     const data = fs.readFileSync('browserIndexDBSensors', 'utf8');
     return JSON.parse(data);
 }
-// Function to sync IndexedDB data to MongoDB
 async function syncDataToMongoDB(data) {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
