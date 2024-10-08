@@ -29,11 +29,9 @@ function getIndexedDBData(db) {
         const transaction = db.transaction("Sensor", "readonly");
         const store = transaction.objectStore("Sensor");
         const request = store.getAll();
-
         request.onsuccess = function (event) {
             resolve(event.target.result);
         };
-
         request.onerror = function (event) {
             reject(event.target.error);
         };
