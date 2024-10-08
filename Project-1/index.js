@@ -99,23 +99,24 @@ function add100kObjects(db, storeName, callback) {
 
 
 
-// Function readingObjectNames: Reading 100k object names
-function readingObjectNames(db, storeName, callback) {
+// Function readingCompletedObject: Reading 1000 completed objects
+function readingCompletedObject(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let count = 0;
+    let completedObjects = [];
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            if (cursor.value.status === "completed") {
+                completedObjects.push(cursor.value)
+            }
             cursor.continue();
         } else {
-            callback(count);
+            callback(completedObjects);
         }
     };
 }
-
 // Function readingObjectNameIndex: Reading 100k object names using an index
 function readingObjectNameIndex(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
