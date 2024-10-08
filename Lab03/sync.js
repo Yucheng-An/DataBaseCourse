@@ -1,18 +1,31 @@
-const mongoose = require('mongoose').set('strictQuery', true)
-const url = 'mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3/4449/?retryWrites=true&w=majority'
-const sensorSchema = new mongoose.Schema({
-    uuid: String,
-    sourceDB: String,
-    createdTime: Date,
-    updatedTime: Date,
-    sensorID:String,
-    sensorLocation:Array,
-    sensorStatus:String
-})
+const { MongoClient } = require('mongodb');
 
-mongoose
-    .connect(url).then(result => {
-        console.log('connected to MongoDB')
-    }).catch((error) => {
-        console.log('error connecting to MongoDB:', error.message)
-    })
+// MongoDB connection URL
+const uri = 'mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3';
+
+// Create a new MongoClient
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+async function readData() {
+    try {
+        // Connect to the MongoDB cluster
+        await client.connect();
+
+        // Access the database and collection
+        const database = client.db('lab3');
+        const collection = database.collection('4449');
+
+        // Query for data (e.g., find all documents in the collection)
+        const results = await collection.find({}).toArray();
+
+        // Output the results
+        console.log('Documents:', results);
+    } catch (error) {
+        console.error('Error reading data:', error);
+    } finally {
+        // Close the connection to the MongoDB cluster
+        await client.close();
+    }
+}
+
+readData();
