@@ -18,7 +18,7 @@ const collectionName = "4449";
 
 async function getIndexedDBData() {
     try {
-        const response = await axios.get('https://se4cps.github.io/lab/dms2/#/250'); // Adjust this API URL to fetch your IndexedDB data
+        const response = await axios.get('https://se4cps.github.io/lab/dms2/#/250');
         return response.data; // Assuming the data is returned in the response body
     } catch (error) {
         console.error("Error fetching IndexedDB data: ", error);
