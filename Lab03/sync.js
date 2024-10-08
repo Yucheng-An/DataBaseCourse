@@ -24,8 +24,7 @@ async function openIndexedDB() {
         request.onsuccess = function (event) {
             console.log("Opened IndexedDB");
             resolve(event.target.result);
-        };
-
+        }
         request.onerror = function (event) {
             console.error('Error opening IndexedDB:', event.target.errorCode);
             reject(event.target.errorCode);
