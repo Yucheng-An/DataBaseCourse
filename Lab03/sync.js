@@ -1,6 +1,6 @@
 
-const { MongoClient } = require('mongodb');const fs = require('fs');
-
+const { MongoClient } = require('mongodb');
+const fs = require('fs');
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 function loadIndexedDBData() {
     const data = fs.readFileSync('indexeddb_export.json', 'utf8');
