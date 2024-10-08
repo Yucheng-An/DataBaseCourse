@@ -8,7 +8,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 
-const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+const mongoUrl = "mongodb://localhost:27017/lab3";
 const dbName = "lab3";
 const collectionName = "4449";
 
