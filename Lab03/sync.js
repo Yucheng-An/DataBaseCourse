@@ -12,8 +12,6 @@ async function syncDataToMongoDB(data) {
         await client.connect();
         const db = client.db('lab3');
         const collection = db.collection('2109_MayureshMore');
-
-        // Insert data into MongoDB, assuming UUID is the unique identifier
         for (const obj of data) {
             // Upsert the document in MongoDB (insert or update if exists)
             await collection.updateOne(
