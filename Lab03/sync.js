@@ -52,19 +52,7 @@ async function syncData() {
             if (!mongoRecord) {
                 await mongoCollection.insertOne(indexedObj);
                 console.log(`Inserted new record with UUID: ${uuid} into MongoDB.`);
-            } else {
-                // Compare the `updatedTime` fields to see if an update is needed
-                const indexedTime = new Date(indexedObj.updatedTime);
-                const mongoTime = new Date(mongoRecord.updatedTime);
-
-                if (indexedTime > mongoTime) {
-                    // Update MongoDB record if the IndexedDB record is more recent
-                    await mongoCollection.updateOne(
-                        { uuid },
-                        { $set: indexedObj }
-                    );
-                    console.log(`Updated record with UUID: ${uuid} in MongoDB.`);
-                }
+            }
             }
         }
 
