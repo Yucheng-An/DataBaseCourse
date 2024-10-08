@@ -1,9 +1,5 @@
 const { MongoClient } = require('mongodb');
-
-// MongoDB connection URL
 const uri = 'mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3';
-
-// Create a new MongoClient
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function readData() {
