@@ -15,6 +15,7 @@ async function fetchIndexedDBData() {
     ];
 }
 const data1 = await fetchIndexedDBData()
+console.log(data1)
 
 async function syncData() {
     try {
