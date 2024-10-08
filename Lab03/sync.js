@@ -21,7 +21,7 @@ async function connectMongoDB() {
 }
 
 app.post('/sync', async (req, res) => {
-    const sensorData = req.body; // Array of sensor data from IndexedDB
+    const sensorData = req.body;
     if (!Array.isArray(sensorData) || sensorData.length === 0) {
         return res.status(400).json({ message: 'Invalid data' });
     }
