@@ -11,7 +11,9 @@ const sensorSchema = new mongoose.Schema({
 })
 
 mongoose
-    .connect(url)
+    .connect(url).then(result => {
+        console.log('connected to MongoDB')
+    })
 const Sensor = mongoose.model('4449', sensorSchema)
 Sensor.find({}).then(result => {
     result.forEach(task => {
