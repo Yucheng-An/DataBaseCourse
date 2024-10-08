@@ -1,91 +1,94 @@
-const express = require('express');
 const { MongoClient } = require('mongodb');
-const bodyParser = require('body-parser');
+const { v4: uuidv4 } = require('uuid');
+const IndexedDB = require('fake-indexeddb'); // Simulating IndexedDB in Node.js
+const IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange'); // For IDBKeyRange
 
-const app = express();
-app.use(bodyParser.json()); // Parse JSON request bodies
-
-// MongoDB connection details
-const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+// MongoDB connection
+const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 const dbName = "lab3";
 const collectionName = "4449";
 
-// Function to fetch MongoDB data
-async function getMongoDBData(client) {
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-    const mongoData = await collection.find({}).toArray();
-    return mongoData;
+// Connect to MongoDB
+async function connectMongoDB() {
+    const client = new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+    await client.connect();
+    console.log("Connected to MongoDB");
+    return client.db(dbName).collection(collectionName);
 }
 
-// Compare and sync MongoDB and IndexedDB data
-async function syncData(indexedDBData) {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// Open IndexedDB
+async function openIndexedDB() {
+    return new Promise((resolve, reject) => {
+        const request = IndexedDB.open('IndexDB', 1);
+
+        request.onupgradeneeded = function (event) {
+            let db = event.target.result;
+            db.createObjectStore('Sensor', { keyPath: 'uuid' });
+        };
+
+        request.onsuccess = function (event) {
+            console.log("Opened IndexedDB");
+            resolve(event.target.result);
+        };
+
+        request.onerror = function (event) {
+            console.error('Error opening IndexedDB:', event.target.errorCode);
+            reject(event.target.errorCode);
+        };
+    });
+}
+
+// Sync function to check and update data between MongoDB and IndexedDB
+async function syncData() {
     try {
-        await client.connect();
-        console.log('Connected to MongoDB');
+        const collection = await connectMongoDB();
+        const indexedDB = await openIndexedDB();
 
-        // Fetch MongoDB data
-        const mongoData = await getMongoDBData(client);
-        console.log(`Fetched ${mongoData.length} records from MongoDB.`);
+        // Read all MongoDB data
+        const mongoData = await collection.find({}).toArray();
+        console.log(`MongoDB Data Count: ${mongoData.length}`);
 
-        const mongoDataMap = new Map(mongoData.map(item => [item.uuid, item]));
-        const indexedDBMap = new Map(indexedDBData.map(item => [item.uuid, item]));
+        // Read all IndexedDB data
+        const transaction = indexedDB.transaction('Sensor', 'readonly');
+        const sensorStore = transaction.objectStore('Sensor');
 
-        const updatesToMongo = [];
-        const updatesToIndexedDB = [];
+        const indexedDBData = await new Promise((resolve, reject) => {
+            const request = sensorStore.getAll();
+            request.onsuccess = (event) => resolve(event.target.result);
+            request.onerror = (event) => reject(event.target.errorCode);
+        });
 
-        // Compare and update MongoDB and IndexedDB
-        for (const [uuid, indexedDBItem] of indexedDBMap) {
-            const mongoItem = mongoDataMap.get(uuid);
-            if (!mongoItem) {
-                updatesToMongo.push({ ...indexedDBItem, sourceDB: 'IndexedDB' });
-            } else if (new Date(indexedDBItem.updatedTime) > new Date(mongoItem.updatedTime)) {
-                updatesToMongo.push({ ...indexedDBItem, sourceDB: 'IndexedDB' });
-            }
+        console.log(`IndexedDB Data Count: ${indexedDBData.length}`);
+
+        // Sync logic: Check differences and update accordingly
+        const indexedDBUuids = new Set(indexedDBData.map(item => item.uuid));
+        const mongoUuids = new Set(mongoData.map(item => item.uuid));
+
+        // Sync from MongoDB to IndexedDB
+        const toInsertInIndexedDB = mongoData.filter(item => !indexedDBUuids.has(item.uuid));
+        if (toInsertInIndexedDB.length > 0) {
+            console.log(`Inserting ${toInsertInIndexedDB.length} items into IndexedDB`);
+            const transactionWrite = indexedDB.transaction('Sensor', 'readwrite');
+            const sensorStoreWrite = transactionWrite.objectStore('Sensor');
+            toInsertInIndexedDB.forEach(item => sensorStoreWrite.add(item));
+        } else {
+            console.log("No new data to insert into IndexedDB");
         }
 
-        for (const [uuid, mongoItem] of mongoDataMap) {
-            const indexedDBItem = indexedDBMap.get(uuid);
-            if (!indexedDBItem) {
-                updatesToIndexedDB.push({ ...mongoItem, sourceDB: 'MongoDB' });
-            } else if (new Date(mongoItem.updatedTime) > new Date(indexedDBItem.updatedTime)) {
-                updatesToIndexedDB.push({ ...mongoItem, sourceDB: 'MongoDB' });
-            }
+        // Sync from IndexedDB to MongoDB
+        const toInsertInMongoDB = indexedDBData.filter(item => !mongoUuids.has(item.uuid));
+        if (toInsertInMongoDB.length > 0) {
+            console.log(`Inserting ${toInsertInMongoDB.length} items into MongoDB`);
+            await collection.insertMany(toInsertInMongoDB);
+        } else {
+            console.log("No new data to insert into MongoDB");
         }
 
-        console.log(`Updates to MongoDB: ${updatesToMongo.length}`);
-        console.log(`Updates to IndexedDB: ${updatesToIndexedDB.length}`);
-
-        // Update MongoDB
-        if (updatesToMongo.length > 0) {
-            const collection = client.db(dbName).collection(collectionName);
-            for (const update of updatesToMongo) {
-                await collection.updateOne({ uuid: update.uuid }, { $set: update }, { upsert: true });
-            }
-            console.log('MongoDB synced.');
-        }
-
-        return updatesToIndexedDB;
+        console.log("Sync completed successfully.");
     } catch (error) {
-        console.error('Error during sync: ', error);
-    } finally {
-        await client.close();
+        console.error('Sync Error:', error);
     }
 }
 
-// Endpoint to receive IndexedDB data
-app.post('/sync-indexeddb', async (req, res) => {
-    const indexedDBData = req.body;
-    console.log(`Received ${indexedDBData.length} records from IndexedDB.`);
-
-    const updatesToIndexedDB = await syncData(indexedDBData);
-
-    res.json({ message: 'Sync completed', updatesToIndexedDB });
-});
-
-// Start server
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+// Start sync process
+syncData();
