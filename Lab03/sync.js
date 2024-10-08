@@ -14,14 +14,6 @@ mongoose
     .connect(url)
     .then((result) => {
         console.log('MongoDB has been connected')
-
-        const task = new Task({
-            content: 'Practice coding interview problems',
-            date: new Date(),
-            important: true,
-        })
-
-        return task.save()
     })
     .then(() => {
         console.log('task saved!')
