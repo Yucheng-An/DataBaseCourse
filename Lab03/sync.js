@@ -31,7 +31,7 @@ function fetchIndexedDBData() {
     }
 }
 
-// Sync function to compare and sync data
+
 async function syncData() {
     const mongoData = await fetchMongoDBData();
     const indexedDBData = fetchIndexedDBData();
