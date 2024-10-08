@@ -125,7 +125,11 @@ function main() {
     });
 
     // Setting 1000 objects to status "completed" and the remaining ones to status "progress"
-    
+    setupIndexedDB(dbName, storeName, function (db) {
+        set1000CompletedRemainingProgress(db, storeName, function (completedObjects) {
+            console.log(completedObjects);
+        });
+    });
 }
 
 main()
