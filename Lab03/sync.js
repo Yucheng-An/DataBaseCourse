@@ -16,7 +16,7 @@ async function syncDataToMongoDB(data) {
             await collection.updateOne(
                 { uuid: obj.uuid },
                 { $set: obj },
-                { upsert: true }    // Insert if it does not exist
+                { upsert: true }
             );
         }
         console.log('Data sync complete. IndexedDB data successfully synced to MongoDB.');
