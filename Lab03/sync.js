@@ -2,10 +2,10 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const app = express();
-
 const cors = require('cors');
 
-app.use(cors()); // Enable CORS for all routes
+app.use(cors())
+app.use(bodyParser.json())
 
 
 const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
