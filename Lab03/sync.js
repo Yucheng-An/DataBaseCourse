@@ -48,10 +48,7 @@ async function syncData() {
         // Loop over each entry in IndexedDB
         for (let indexedObj of indexedDBData) {
             const uuid = indexedObj.uuid;
-
-            // Check if the record exists in MongoDB
             const mongoRecord = await mongoCollection.findOne({ uuid });
-
             if (!mongoRecord) {
                 // Insert record if it doesn't exist in MongoDB
                 await mongoCollection.insertOne(indexedObj);
