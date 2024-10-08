@@ -40,7 +40,7 @@
 
   req.onupgradeneeded = function(event) {
     let db = event.target.result;
-    db.createObjectStore("Sensor", { keyPath: "id" });
+    db.createObjectStore("Sensor", { keyPath: "id" },);
   };
 
   req.onsuccess = function(event) {
