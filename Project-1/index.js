@@ -230,6 +230,7 @@ function measurePerformance() {
             console.log(`Time to set all objects to "completed": ${endTime - startTime} ms`);
         });
 
+        // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
         
 
 
