@@ -177,41 +177,9 @@ function readingCompletedObject(db, storeName, callback) {
 }
 
 
-// Function readingObjectNameIndex: Reading 100k object names using an index
-function readingObjectNameIndex(db, storeName, callback) {
-    let transaction = db.transaction(storeName, "readonly");
-    let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("name");
-    let count = 0;
 
-    let request = index.openCursor();
-    request.onsuccess = function (event) {
-        let cursor = event.target.result;
-        if (cursor) {
-            count++;
-            cursor.continue();
-        } else {
-            callback(count);
-        }
-    };
-}
 
-// Function readingObjectNameRT: Reading 100k objects with readonly transaction
-function readingObjectNameRT(db, storeName, callback) {
-    let transaction = db.transaction(storeName, "readonly");
-    let objectStore = transaction.objectStore(storeName);
-    let count = 0;
-    let request = objectStore.openCursor();
-    request.onsuccess = function (event) {
-        let cursor = event.target.result;
-        if (cursor) {
-            count++;
-            cursor.continue();
-        } else {
-            callback(count);
-        }
-    };
-}
+
 
 function measurePerformance() {
     const dbName = "Project1DB";
@@ -242,7 +210,7 @@ function measurePerformance() {
 
         // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
         // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
-        
+
 
 
 
