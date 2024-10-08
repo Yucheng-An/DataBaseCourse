@@ -217,4 +217,4 @@ function main() {
     });
 }
 
-measurePerformance();
+main();
