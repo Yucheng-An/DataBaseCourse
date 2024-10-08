@@ -13,7 +13,6 @@ async function syncDataToMongoDB(data) {
         const db = client.db('lab3');
         const collection = db.collection('4449');
         for (const obj of data) {
-            // Upsert the document in MongoDB (insert or update if exists)
             await collection.updateOne(
                 { uuid: obj.uuid }, // Matching the unique UUID
                 { $set: obj },      // Updating the document with the new data
