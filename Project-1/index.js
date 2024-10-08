@@ -128,3 +128,5 @@ function main() {
         });
     });
 }
+
+main()
