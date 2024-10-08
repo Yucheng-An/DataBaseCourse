@@ -9,4 +9,4 @@ const sensorSchema = new mongoose.Schema({
     sensorLocation:Array,
     sensorStatus:String
 })
-const sensor = mongoose.model('4449', sensorSchema)
+const Sensor = mongoose.model('4449', sensorSchema)
