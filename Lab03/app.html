@@ -57,6 +57,7 @@
             sensorObjectStoreWrite.add(generateObject());
           }
           console.log('1000 sensors data have been added!!!');
+          console.log('Total sensors data in the database:', i);
         } else {
           console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
         }
