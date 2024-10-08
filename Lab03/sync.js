@@ -9,6 +9,9 @@ const sensorSchema = new mongoose.Schema({
     sensorLocation:Array,
     sensorStatus:String
 })
+
+mongoose
+    .connect(url)
 const Sensor = mongoose.model('4449', sensorSchema)
 Sensor.find({}).then(result => {
     result.forEach(task => {
