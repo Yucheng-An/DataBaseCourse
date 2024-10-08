@@ -7,6 +7,5 @@ const sensorSchema = new mongoose.Schema({
     updatedTime: Date,
     sensorID:String,
     sensorLocation:Array,
-    
-
+    sensorStatus:String
 })
