@@ -10,7 +10,6 @@ const mongoClient = new MongoClient(mongoUri, {
 const mongoDbName = "lab3";
 const mongoCollectionName = "4449";
 
-// Initialize IndexedDB
 function openIndexedDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("IndexDB", 1);
