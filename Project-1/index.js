@@ -96,6 +96,7 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
+
 // ----------------- 1.Set 1000 objects to status "completed" and the remaining ones to status "progress" -----------------
 function set1000CompletedRemainingProgress(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
