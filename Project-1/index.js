@@ -61,7 +61,6 @@ function setupIndexedDB(dbName, storeName, callback) {
         console.error("Error opening IndexedDB:", event);
     };
 }
-
 function add100kObjects(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
