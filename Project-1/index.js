@@ -237,6 +237,8 @@ function measurePerformance() {
             console.log(`Time to read all objects with readonly transaction: ${endTimeRT - startTimeRT} ms`);
         });
 
+        // 4. Create an index on the `name` property of the object store and measure and display the time to read all object names using the index on the console or the browser.
+
 
 
     });
