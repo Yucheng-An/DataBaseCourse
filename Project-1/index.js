@@ -184,16 +184,10 @@ function measurePerformance() {
             // Measure performance of readingObjectNames
 
                 // Measure performance of readingObjectNameIndex
-                
+
 
                     // Measure performance of readingObjectNameRT
-                    start = performance.now();
-                    readingObjectNameRT(db, storeName, function (count) {
-                        end = performance.now();
-                        performanceResults.push({
-                            Operation: "readingObjectNameRT (Readonly read 100k objects)",
-                            TimeTakenMs: (end - start).toFixed(2)
-                        });
+                   
                         console.table(performanceResults);
                     });
                 });
