@@ -84,11 +84,11 @@
           const jsonData = JSON.stringify(data, null, 2);
           const blob = new Blob([jsonData], { type: "application/json" });
           const temp1 = document.createElement("a");
-          temp.href = URL.createObjectURL(blob);
-          temp.download = "indexeddb_export.json";
-          document.body.appendChild(temp);
-          temp.click();
-          document.body.removeChild(temp);
+          temp1.href = URL.createObjectURL(blob);
+          temp1.download = "indexeddb_export.json";
+          document.body.appendChild(temp1);
+          temp1.click();
+          document.body.removeChild(temp1);
           resolve();
         };
         allData.onerror = function () {
