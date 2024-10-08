@@ -40,7 +40,6 @@
     let db = event.target.result;
     db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
   };
-
   req.onsuccess = function(event) {
     let db = event.target.result;
     let transactionBook = db.transaction("Sensor", "readwrite");
