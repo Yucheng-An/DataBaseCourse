@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
-function loadIndexedDBData() {
+function read() {
     const data = fs.readFileSync('browserIndexDBSensors', 'utf8');
     return JSON.parse(data);
 }
@@ -27,5 +27,5 @@ async function syncDataToMongoDB(data) {
     }
 }
 // Load data from IndexedDB export and sync to MongoDB
-const indexedDBData = loadIndexedDBData();
+const indexedDBData = read();
 syncDataToMongoDB(indexedDBData);
