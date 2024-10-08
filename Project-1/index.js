@@ -176,6 +176,7 @@ function readingCompletedObject(db, storeName, callback) {
     };
 }
 
+
 function f2(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
