@@ -14,7 +14,6 @@ async function fetchIndexedDBData() {
             source_db: "IndexedDB",
             created_at: new Date(),
             updated_at: new Date(),
-            crop_type: ...,
             weather: "Sunny",
             soil_moisture_level: 6.5
         }
