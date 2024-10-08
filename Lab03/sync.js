@@ -44,5 +44,3 @@ async function syncData() {
     }
 }
 
-// Call the sync function
-syncData();
