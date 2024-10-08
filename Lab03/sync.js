@@ -3,7 +3,6 @@ const { v4: uuidv4 } = require('uuid');
 const IndexedDB = require('fake-indexeddb'); // Simulating IndexedDB in Node.js
 const IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange'); // For IDBKeyRange
 
-// MongoDB connection
 const mongoUrl = "mongodb://localhost:27017/";
 const dbName = "lab3";
 const collectionName = "4449";
