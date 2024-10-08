@@ -89,15 +89,12 @@
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
-
           resolve();
         };
-
         allData.onerror = function () {
           reject('Failed to retrieve data from IndexedDB.');
         };
       };
-
       request.onerror = function (event) {
         reject('Error opening IndexedDB: ' + event.target.errorCode);
       };
