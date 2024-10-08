@@ -77,17 +77,13 @@
   }
   async function syncData() {
     let req = indexedDB.open("IndexDB", 1);
-
     req.onsuccess = async function(event) {
       let db = event.target.result;
       let transaction = db.transaction("Sensor", "readonly");
       let sensorStore = transaction.objectStore("Sensor");
-
       let getAllRequest = sensorStore.getAll();
       getAllRequest.onsuccess = async function() {
         const sensorData = getAllRequest.result;
-
-        // Send data to Node.js server
         const response = await fetch('http://localhost:3000/sync', {
           method: 'POST',
           headers: {
