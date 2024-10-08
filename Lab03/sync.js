@@ -91,7 +91,6 @@ async function syncData() {
                 }
             }
         }
-
         console.log("Data synchronization completed.");
     } catch (error) {
         console.error("Error during data synchronization:", error);
