@@ -179,33 +179,7 @@ function measurePerformance() {
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
         add100kObjects(db, storeName, function () {
-            const performanceResults = [];
-
-            // Measure performance of readingObjectNames
-            let start = performance.now();
-            readingObjectNames(db, storeName, function (count) {
-                let end = performance.now();
-                performanceResults.push({
-                    Operation: "readingObjectNames (Read 100k objects)",
-                    TimeTakenMs: (end - start).toFixed(2)
-                });
-
-                // Measure performance of readingObjectNameIndex
-                start = performance.now();
-                readingObjectNameIndex(db, storeName, function (count) {
-                    end = performance.now();
-                    performanceResults.push({
-                        Operation: "readingObjectNameIndex (Index read 100k objects)",
-                        TimeTakenMs: (end - start).toFixed(2)
-                    });
-
-                    // Measure performance of readingObjectNameRT
-                    start = performance.now();
-                    readingObjectNameRT(db, storeName, function (count) {
-                        end = performance.now();
-                        performanceResults.push({
-                            Operation: "readingObjectNameRT (Readonly read 100k objects)",
-                            TimeTakenMs: (end - start).toFixed(2)
+            
                         });
                         console.table(performanceResults);
                     });
