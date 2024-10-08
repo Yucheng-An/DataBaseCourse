@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 const { v4: uuidv4 } = require('uuid');
-const IndexedDB = require('fake-indexeddb'); 
+const IndexedDB = require('fake-indexeddb');
 const IDBKeyRange = require('fake-indexeddb/lib/FDBKeyRange'); // For IDBKeyRange
 
 const mongoUrl = "mongodb://localhost:27017/";
