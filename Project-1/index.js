@@ -204,9 +204,7 @@ function measurePerformance() {
         add100kObjects(db, storeName, function () {});
 
         // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
-        setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {
-            
-        });
+        setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
 
         //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
         let startTime = performance.now();
@@ -214,7 +212,7 @@ function measurePerformance() {
             let endTime = performance.now();
             console.log(`Time to set all objects to "completed": ${endTime - startTime} ms`);
         });
-
+        
 
 
 
