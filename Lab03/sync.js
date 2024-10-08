@@ -1,15 +1,13 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
-
 const app = express();
-app.use(bodyParser.json()); // To handle JSON data
+app.use(bodyParser.json());
 
 const mongoUrl = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
 const dbName = "lab3";
 const collectionName = "4449";
 
-// Function to connect to MongoDB
 async function connectMongoDB() {
     try {
         const client = new MongoClient(mongoUrl);
@@ -22,7 +20,6 @@ async function connectMongoDB() {
     }
 }
 
-// Endpoint to handle sync from IndexedDB
 app.post('/sync', async (req, res) => {
     const sensorData = req.body; // Array of sensor data from IndexedDB
 
