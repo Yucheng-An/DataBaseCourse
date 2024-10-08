@@ -45,7 +45,7 @@
     let db = event.target.result;
     let transactionSensor = db.transaction("Sensor", "readwrite");
     let sensorObjectStore = transactionSensor.objectStore("Sensor");
-    console.log(sensorObjectStore.getAll().result.length)
+    console.log(sensorObjectStore.getAll())
     // console.log(sensorObjectStore.count().result)
     for (let i = 0; i < 1000; i++) {
       sensorObjectStore.add(generateObject());
