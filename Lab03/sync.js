@@ -48,7 +48,7 @@ async function syncData() {
         }
     });
 
-    if (newRecords.length || updatedRecords.length) {
+    if (newRecords.length || updatedRecords.length)
         console.log(`New records to sync: ${newRecords.length}`);
         console.log(`Records to update: ${updatedRecords.length}`);
     } else {
