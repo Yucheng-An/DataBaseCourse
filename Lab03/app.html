@@ -39,7 +39,7 @@
     };
   }
 
-  let db;
+  let req = indexedDB.open("BookDB", 1);
 
   function openIndexedDB() {
     const request = indexedDB.open('ObjectStoreDB', 1);
