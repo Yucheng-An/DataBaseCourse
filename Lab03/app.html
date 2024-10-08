@@ -86,7 +86,7 @@
           const blob = new Blob([jsonData], { type: "application/json" });
           const temp1 = document.createElement("a");
           temp1.href = URL.createObjectURL(blob);
-          temp1.download = "./browserIndexDBSensors.json";
+          temp1.download = "browserIndexDBSensors.json";
           document.body.appendChild(temp1);
           temp1.click();
           document.body.removeChild(temp1);
