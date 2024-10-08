@@ -11,7 +11,7 @@ async function syncDataToMongoDB(data) {
     try {
         await client.connect();
         const db = client.db('lab3');
-        const collection = db.collection('2109_MayureshMore');
+        const collection = db.collection('4449');
         for (const obj of data) {
             // Upsert the document in MongoDB (insert or update if exists)
             await collection.updateOne(
