@@ -24,7 +24,6 @@ function openIndexedDB() {
     });
 }
 
-// Fetch all data from IndexedDB
 function getIndexedDBData(db) {
     return new Promise((resolve, reject) => {
         const transaction = db.transaction("Sensor", "readonly");
