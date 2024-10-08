@@ -19,12 +19,10 @@ async function syncDataToMongoDB() {
         const db = client.db('lab3');
         const collection = db.collection('4449');
         const indexDBData = readIndexDBJSONFile();
-
         if (!indexDBData) {
             console.error('No data to sync.');
             return;
         }
-
         const bulkOps = indexDBData.map(obj => ({
             updateOne: {
                 filter: { uuid: obj.uuid },
@@ -32,7 +30,6 @@ async function syncDataToMongoDB() {
                 upsert: true
             }
         }));
-
         if (bulkOps.length > 0) {
             await collection.bulkWrite(bulkOps);
             console.log('IndexedDB synced to MongoDB.');
