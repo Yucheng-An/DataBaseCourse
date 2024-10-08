@@ -6,5 +6,5 @@ const sensorSchema = new mongoose.Schema({
     createdTime: Date,
     updatedTime: Date,
     sensorID:String,
-    
+    sensorLocation
 })
