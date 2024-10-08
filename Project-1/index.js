@@ -181,8 +181,8 @@ function measurePerformance() {
         // add 100k objects
         add100kObjects(db, storeName, function () {});
         // Reading 1000 completed objects
-        setCentainStatus(db, storeName, 1000, 0, 100000-1000, function () {});
-
+        setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
+        
 
     });
 }
