@@ -180,7 +180,7 @@ function measurePerformance() {
     setupIndexedDB(dbName, storeName, function (db) {
         // add 100k objects
         add100kObjects(db, storeName, function () {});
-        // 1. Reading 1000 completed objects
+        // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
         setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
 
 
