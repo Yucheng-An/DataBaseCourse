@@ -26,4 +26,4 @@ async function syncDataToMongoDB() {
         await client.close();
     }
 }
-syncDataToMongoDB(indexedDBData);
+syncDataToMongoDB();
