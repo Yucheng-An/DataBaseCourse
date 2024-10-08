@@ -19,7 +19,7 @@ const indexDBLocation = "./app.html";
 
 async function getIndexedDBData() {
     try {
-        const response = await axios.get('file:///Users/yuchengan/Database%20Managment%20Course/Lab03/app.html');
+        const response = await axios.get('./app.html');
         return response.data; // Assuming the data is returned in the response body
     } catch (error) {
         console.error("Error fetching IndexedDB data: ", error);
