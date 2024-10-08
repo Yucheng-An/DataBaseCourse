@@ -4,8 +4,6 @@ const path = require('path');
 
 // MongoDB connection URI
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3?retryWrites=true&w=majority&tls=true";
-
-// Simulating IndexedDB data as a JSON file
 const indexedDBFile = path.join(__dirname, 'indexeddb.json');  // Path to the JSON file representing IndexedDB
 
 // Function to fetch MongoDB data
