@@ -10,12 +10,15 @@ const collectionName = "4449";
 
 // Connect to MongoDB
 async function connectMongoDB() {
-    const client = new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
-    await client.connect();
-    console.log("Connected to MongoDB");
-    return client.db(dbName).collection(collectionName);
+    try {
+        const client = new MongoClient(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+        await client.connect();
+        console.log("Connected to MongoDB");
+        return client.db(dbName).collection(collectionName);
+    } catch (error) {
+        console.error("Failed to connect to MongoDB:", error);
+    }
 }
-
 // Open IndexedDB
 async function openIndexedDB() {
     return new Promise((resolve, reject) => {
