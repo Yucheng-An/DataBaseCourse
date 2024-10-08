@@ -18,7 +18,7 @@ console.log(getMongoDBData())
 
 async function getIndexedDBData() {
     try {
-        const response = await axios.get('http://localhost:63343/Database%20Managment%20Course/Lab03/app.html?_ijt=3evqdkoj2i9t4i8rbfna1igfdo&_ij_reload=RELOAD_ON_SAVE'); // Adjust this API URL to fetch your IndexedDB data
+        const response = await axios.get('https://se4cps.github.io/lab/dms2/#/250'); // Adjust this API URL to fetch your IndexedDB data
         return response.data; // Assuming the data is returned in the response body
     } catch (error) {
         console.error("Error fetching IndexedDB data: ", error);
