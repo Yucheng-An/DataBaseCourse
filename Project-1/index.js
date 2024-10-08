@@ -176,7 +176,23 @@ function readingCompletedObject(db, storeName, callback) {
     };
 }
 
+function f2(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readonly");
+    let objectStore = transaction.objectStore(storeName);
+    let index = objectStore.index("name");
+    let count = 0;
 
+    let request = index.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
 
 
 
