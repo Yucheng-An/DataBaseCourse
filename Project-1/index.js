@@ -45,6 +45,7 @@ const tasks = [
 ];
 
 # Function setupIndexedDB: Setting up IndexedDB
+
 function setupIndexedDB(dbName, storeName, callback) {
     let request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = function (event) {
