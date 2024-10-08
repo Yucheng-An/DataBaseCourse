@@ -58,7 +58,6 @@
     // Add the book to the object store
     let addReq = bookObjectStore.add(generateObject());
 
-    // Optional: Handle success or error
     addReq.onsuccess = function() {
       console.log("Book added successfully!");
     };
