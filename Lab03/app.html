@@ -47,9 +47,7 @@
     let db = event.target.result;
     let transactionBook = db.transaction("Sensor", "readwrite");
     let bookObjectStore = transactionBook.objectStore("Sensor");
-    for i = 0; i < 10; i++ {
-      bookObjectStore.add(generateObject());
-    }
+    for 
   };
 
 </script>
