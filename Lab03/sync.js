@@ -3,14 +3,14 @@ const fs = require('fs');
 const path = require('path');
 
 // MongoDB connection URI
-const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3?retryWrites=true&w=majority&tls=true";
 
 // Simulating IndexedDB data as a JSON file
 const indexedDBFile = path.join(__dirname, 'indexeddb.json');  // Path to the JSON file representing IndexedDB
 
 // Function to fetch MongoDB data
 async function fetchMongoDBData() {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri);  // Removed deprecated options
     try {
         await client.connect();
         const db = client.db('lab3');
@@ -78,7 +78,7 @@ async function syncData() {
 
 // Function to insert new records into MongoDB
 async function insertNewRecords(newRecords) {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri);
     try {
         await client.connect();
         const db = client.db('lab3');
@@ -93,7 +93,7 @@ async function insertNewRecords(newRecords) {
 
 // Function to update existing records in MongoDB
 async function updateRecords(updatedRecords) {
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const client = new MongoClient(uri);
     try {
         await client.connect();
         const db = client.db('lab3');
