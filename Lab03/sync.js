@@ -44,7 +44,7 @@ async function syncData() {
 
     indexedDBData.forEach(item => {
         if (!mongoMap.has(item.uuid)) {
-            newRecords.push(item); // New records to insert in MongoDB
+            newRecords.push(item);
         } else if (JSON.stringify(mongoMap.get(item.uuid)) !== JSON.stringify(item)) {
             updatedRecords.push(item); // Records that need to be updated
         }
