@@ -11,7 +11,6 @@ function readIndexDBJSONFile() {
         return null;
     }
 }
-
 async function syncDataToMongoDB() {
     const client = new MongoClient(uri);
     try {
