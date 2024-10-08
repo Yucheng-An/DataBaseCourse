@@ -10,7 +10,7 @@ async function fetchIndexedDBData() {
 
     return [
         {
-            UUID: crypto.randomUUID(),
+            uuid: crypto.randomUUID(),
             source_db: "IndexedDB",
             created_at: new Date(),
             updated_at: new Date(),
