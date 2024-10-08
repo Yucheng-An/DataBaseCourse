@@ -25,12 +25,11 @@ async function connectMongoDB() {
     }
 }
 
-// Endpoint to fetch data from MongoDB
 app.get('/fetch', async (req, res) => {
     try {
         const collection = await connectMongoDB();
-        const mongoData = await collection.find({}).toArray(); // Fetch all data
-        res.status(200).json(mongoData); // Send data back to client
+        const mongoData = await collection.find({}).toArray();
+        res.status(200).json(mongoData);
     } catch (error) {
         console.error("Error fetching data from MongoDB:", error);
         res.status(500).json({ message: 'Failed to fetch data from MongoDB' });
