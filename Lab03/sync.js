@@ -10,13 +10,9 @@ const sensorSchema = new mongoose.Schema({
     sensorStatus:String
 })
 const Sensor = mongoose.model('4449', sensorSchema)
-mongoose
-    .connect(url)
-    .then((result) => {
-        console.log('MongoDB has been connected')
+Task.find({}).then(result => {
+    result.forEach(task => {
+        console.log(task)
     })
-    .then(() => {
-        console.log('task saved!')
-        return mongoose.connection.close()
-    })
-    .catch((err) => console.log(err))
+    mongoose.connection.close()
+})
