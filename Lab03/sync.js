@@ -25,5 +25,5 @@ async function getIndexedDBData() {
         return [];
     }
 }
-data = getIndexedDBData()
+data1 = getIndexedDBData()
 console.log(getIndexedDBData())
