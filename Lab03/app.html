@@ -54,15 +54,7 @@
 
     // Access the object store
     let bookObjectStore = transactionBook.objectStore("Sensor"); // Fix: 'objectStore' not 'getObjectStore'
-
-    // Create a book object
-    let book = {
-      "uuid": crypto.randomUUID(),
-      "author": "J.K. Rowling", // Author of the book
-      "title": "Harry Potter and the Philosopher's Stone", // Title of the book
-      "description": "Something" // Description of the book
-    };
-
+    
     // Add the book to the object store
     let addReq = bookObjectStore.add(book);
 
