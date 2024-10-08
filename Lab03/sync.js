@@ -19,7 +19,7 @@ async function openIndexedDB() {
         const request = IndexedDB.open('IndexDB', 1);
         request.onupgradeneeded = function (event) {
             let db = event.target.result;
-            db.createObjectStore('Sensor', { keyPath: 'uuid' });
+            db.createObjectStore('Sensor', { keyPath: 'id' });
         };
         request.onsuccess = function (event) {
             console.log("Opened IndexedDB");
