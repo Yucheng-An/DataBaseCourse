@@ -117,3 +117,12 @@ function set1000CompletedRemainingProgress(db, storeName, callback) {
     console.log("1000 objects set to status 'completed' and the remaining ones set to status 'progress'.");
 }
 
+function main() {
+    setupIndexedDB("project1", "tasks", function (db) {
+        add100kObjects(db, "tasks", function () {
+            set1000CompletedRemainingProgress(db, "tasks", function (completedObjects) {
+                console.log(completedObjects);
+            });
+        });
+    });
+}
