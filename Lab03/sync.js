@@ -19,13 +19,10 @@ async function fetchIndexedDBData() {
 
 async function syncData() {
     try {
-
         const indexedDBData = await fetchIndexedDBData();
-
-
         await client.connect();
         const database = client.db("lab3");
-        const collection = database.collection("99947376_Sai_Sravan");
+        const collection = database.collection("9994");
 
 
         for (let obj of indexedDBData) {
