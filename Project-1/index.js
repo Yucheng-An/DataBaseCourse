@@ -96,6 +96,9 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
+
+
+
 // Function readingObjectNames: Reading 100k object names
 function readingObjectNames(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
