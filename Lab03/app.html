@@ -41,6 +41,8 @@
   req.onupgradeneeded = function(event) {
     let db = event.target.result;
     let objectStore = db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
+    objectStore.createIndex("sensorStatus", "sensorStatus", { unique: false });
+    objectStore.createIndex("createdTime", "createdTime", { unique: false });
   };
 
   req.onsuccess = function(event) {
