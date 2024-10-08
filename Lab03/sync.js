@@ -14,7 +14,6 @@ async function connectMongoDB() {
     return client.db(dbName).collection(collectionName);
 }
 
-// Open IndexedDB
 async function openIndexedDB() {
     return new Promise((resolve, reject) => {
         const request = IndexedDB.open('IndexDB', 1);
