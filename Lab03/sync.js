@@ -5,14 +5,14 @@ function readIndexDBJSONFile() {
     const data = fs.readFileSync('browserIndexDBSensors', 'utf8');
     return JSON.parse(data);
 }
-async function syncDataToMongoDB(data) {
+async function syncDataToMongoDB() {
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     try {
         await client.connect();
         const db = client.db('lab3');
         const collection = db.collection('4449');
         const indexDBData = readIndexDBJSONFile();
-        for (const obj of data) {
+        for (const obj of indexDBData) {
             await collection.updateOne(
                 { uuid: obj.uuid },
                 { $set: obj },
