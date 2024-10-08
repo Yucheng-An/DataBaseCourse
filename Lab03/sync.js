@@ -6,6 +6,32 @@ const mongoClient = new MongoClient(mongoUri);
 const mongoDbName = "lab3";
 const mongoCollectionName = "4449";
 
+const mongoUri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+
+const client = new MongoClient(mongoUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000, // Adjust the timeout value as needed
+});
+
+async function syncData() {
+    try {
+        // Try connecting to MongoDB
+        await client.connect();
+        console.log("Connected to MongoDB!");
+
+        // Your sync logic here...
+    } catch (error) {
+        console.error("Error during data synchronization:", error);
+    } finally {
+        await client.close();
+    }
+}
+
+// Run the sync process
+syncData();
+
+
 // Initialize IndexedDB
 function openIndexedDB() {
     return new Promise((resolve, reject) => {
