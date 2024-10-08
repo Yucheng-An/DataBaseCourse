@@ -69,6 +69,54 @@
       console.error('Error opening IndexedDB:', event.target.errorCode);
     };
   }
+  async function exportIndexedDBData() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open('ObjectDatabase', 1);
+
+      request.onsuccess = async (event) => {
+        const db = event.target.result;
+        const transaction = db.transaction('objects', 'readonly');
+        const objectStore = transaction.objectStore('objects');
+        const allData = objectStore.getAll();
+
+        allData.onsuccess = function () {
+          const data = allData.result;
+
+          // Convert IndexedDB data to JSON string
+          const jsonData = JSON.stringify(data, null, 2);
+
+          // Create a Blob from the JSON string
+          const blob = new Blob([jsonData], { type: "application/json" });
+
+          // Create a link to download the JSON file
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "indexeddb_export.json"; // The name of the file
+
+          // Programmatically trigger the download
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          resolve();
+        };
+
+        allData.onerror = function () {
+          reject('Failed to retrieve data from IndexedDB.');
+        };
+      };
+
+      request.onerror = function (event) {
+        reject('Error opening IndexedDB: ' + event.target.errorCode);
+      };
+    });
+  }
+
+  // Attach export function to button click
+  document.getElementById('exportButton').addEventListener('click', async () => {
+    await exportIndexedDBData();
+    alert('IndexedDB data has been exported to a JSON file.');
+  });
 </script>
 </body>
 </html>
