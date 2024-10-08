@@ -180,7 +180,7 @@ function readingCompletedObject(db, storeName, callback) {
 function indexField(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("name");
+    let index = objectStore.index("id");
     let count = 0;
 
     let request = index.openCursor();
