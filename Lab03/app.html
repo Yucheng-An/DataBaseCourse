@@ -45,6 +45,7 @@
     let transactionBook = db.transaction("Sensor", "readwrite");
     let sensorObjectStore = transactionBook.objectStore("Sensor");
     let countRequest = sensorObjectStore.count();
+    console.log(countRequest);
     if (countRequest.result === 0) {
       for (let i = 0; i < 1000; i++) {
         sensorObjectStore.add(generateObject());
