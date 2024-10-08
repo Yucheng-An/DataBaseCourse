@@ -43,9 +43,7 @@
   };
   req.onsuccess = function(event) {
     let db = event.target.result;
-    // console.log(db)
     let transactionSensor = db.transaction("Sensor", "readwrite");
-    // console.log(transactionSensor)
     let sensorObjectStore = transactionSensor.objectStore("Sensor");
     console.log(sensorObjectStore.getAll().result.length)
     // console.log(sensorObjectStore.count().result)
