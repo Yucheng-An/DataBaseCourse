@@ -4,7 +4,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 async function readData() {
     try {
-        // Connect to the MongoDB cluster
         await client.connect();
 
         // Access the database and collection
