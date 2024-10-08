@@ -10,7 +10,7 @@ const collectionName = "4449";
 async function getMongoDBData(client) {
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
-    const mongoData = await collection.find({}).toArray(); // Fetch all data from MongoDB
+    const mongoData = await collection.find({}); // Fetch all data from MongoDB
     return mongoData;
 }
 console.log(getMongoDBData())
