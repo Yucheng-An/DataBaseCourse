@@ -74,7 +74,39 @@
       console.error('Error opening IndexedDB:', event.target.errorCode);
     };
   }
- 
+  async function syncData() {
+    let req = indexedDB.open("IndexDB", 1);
+
+    req.onsuccess = async function(event) {
+      let db = event.target.result;
+      let transaction = db.transaction("Sensor", "readonly");
+      let sensorStore = transaction.objectStore("Sensor");
+
+      let getAllRequest = sensorStore.getAll();
+      getAllRequest.onsuccess = async function() {
+        const sensorData = getAllRequest.result;
+
+        // Send data to Node.js server
+        const response = await fetch('http://localhost:3000/sync', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(sensorData)
+        });
+
+        if (response.ok) {
+          console.log('Data successfully synced with MongoDB');
+        } else {
+          console.error('Failed to sync data');
+        }
+      };
+
+      getAllRequest.onerror = function() {
+        console.error('Error fetching data from IndexedDB');
+      };
+    };
+  }
 </script>
 </body>
 </html>
