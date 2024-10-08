@@ -7,6 +7,7 @@ const dbName = "lab3";
 const collectionName = "4449";
 
 
+
 // Fetch MongoDB data
 async function getMongoDBData(client) {
     const db = client.db(dbName);
@@ -14,7 +15,6 @@ async function getMongoDBData(client) {
     const mongoData = await collection.find({}).toArray(); // Fetch all data from MongoDB
     return mongoData;
 }
-
 
 async function getIndexedDBData() {
     try {
