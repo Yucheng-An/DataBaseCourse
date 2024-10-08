@@ -45,11 +45,7 @@
 
   req.onsuccess = function(event) {
     let db = event.target.result;
-
-    // Create a transaction to perform any operation on the database
     let transactionBook = db.transaction("Sensor", "readwrite");
-
-    // Access the object store
     let bookObjectStore = transactionBook.objectStore("Sensor");
     bookObjectStore.add(generateObject());
   };
