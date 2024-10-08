@@ -18,7 +18,6 @@ function openIndexedDB() {
         request.onsuccess = function (event) {
             resolve(event.target.result);
         };
-
         request.onerror = function (event) {
             reject(event.target.error);
         };
