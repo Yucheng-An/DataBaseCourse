@@ -10,7 +10,7 @@ const collectionName = "4449";
 
 // Connect to MongoDB
 async function connectMongoDB() {
-    const client = new MongoClient(mongoUrl,);
+    const client = new MongoClient(mongoUrl);
     await client.connect();
     console.log("Connected to MongoDB");
     return client.db(dbName).collection(collectionName);
