@@ -44,13 +44,13 @@ const tasks = [
     "Perform system integration tests"
 ];
 
-// Function setupIndexedDB: Setting up IndexedDB and add100kObjects adding 100,000 objects
 function setupIndexedDB(dbName, storeName, callback) {
     let request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = function (event) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
+            objectStore.createIndex("name", "name", { unique: false });
         }
     };
     request.onsuccess = function (event) {
@@ -61,6 +61,7 @@ function setupIndexedDB(dbName, storeName, callback) {
         console.error("Error opening IndexedDB:", event);
     };
 }
+
 function add100kObjects(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
@@ -80,6 +81,7 @@ function add100kObjects(db, storeName, callback) {
             }
             writeTransaction.oncomplete = function () {
                 console.log("100k objects added.");
+                callback();
             };
             writeTransaction.onerror = function (event) {
                 console.error("Error adding objects:", event);
@@ -95,41 +97,98 @@ function add100kObjects(db, storeName, callback) {
     };
 }
 
-
-// ----------------- 1.Set 1000 objects to status "completed" and the remaining ones to status "progress" -----------------
-function set1000CompletedRemainingProgress(db, storeName, callback) {
+// Function readingObjectNames: Reading 100k object names
+function readingObjectNames(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let completedObjects = [];
+    let count = 0;
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            if (cursor.value.status === "completed") {
-                completedObjects.push(cursor.value)
-            }
+            count++;
             cursor.continue();
         } else {
-            callback(completedObjects);
+            callback(count);
         }
     };
-    console.log("1000 objects set to status 'completed' and the remaining ones set to status 'progress'.");
 }
 
-function main() {
-    // Initializing the IndexedDB
+// Function readingObjectNameIndex: Reading 100k object names using an index
+function readingObjectNameIndex(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readonly");
+    let objectStore = transaction.objectStore(storeName);
+    let index = objectStore.index("name");
+    let count = 0;
+
+    let request = index.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
+
+// Function readingObjectNameRT: Reading 100k objects with readonly transaction
+function readingObjectNameRT(db, storeName, callback) {
+    let transaction = db.transaction(storeName, "readonly");
+    let objectStore = transaction.objectStore(storeName);
+    let count = 0;
+    let request = objectStore.openCursor();
+    request.onsuccess = function (event) {
+        let cursor = event.target.result;
+        if (cursor) {
+            count++;
+            cursor.continue();
+        } else {
+            callback(count);
+        }
+    };
+}
+
+function measurePerformance() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
-        add100kObjects(db, storeName)
-    });
+        add100kObjects(db, storeName, function () {
+            const performanceResults = [];
 
-    // Setting 1000 objects to status "completed" and the remaining ones to status "progress"
-    setupIndexedDB(dbName, storeName, function (db) {
-        set1000CompletedRemainingProgress(db, storeName, function (completedObjects) {
-            console.log(completedObjects);
+            // Measure performance of readingObjectNames
+            let start = performance.now();
+            readingObjectNames(db, storeName, function (count) {
+                let end = performance.now();
+                performanceResults.push({
+                    Operation: "readingObjectNames (Read 100k objects)",
+                    TimeTakenMs: (end - start).toFixed(2)
+                });
+
+                // Measure performance of readingObjectNameIndex
+                start = performance.now();
+                readingObjectNameIndex(db, storeName, function (count) {
+                    end = performance.now();
+                    performanceResults.push({
+                        Operation: "readingObjectNameIndex (Index read 100k objects)",
+                        TimeTakenMs: (end - start).toFixed(2)
+                    });
+
+                    // Measure performance of readingObjectNameRT
+                    start = performance.now();
+                    readingObjectNameRT(db, storeName, function (count) {
+                        end = performance.now();
+                        performanceResults.push({
+                            Operation: "readingObjectNameRT (Readonly read 100k objects)",
+                            TimeTakenMs: (end - start).toFixed(2)
+                        });
+                        console.table(performanceResults);
+                    });
+                });
+            });
         });
     });
 }
 
-main()
+measurePerformance();
