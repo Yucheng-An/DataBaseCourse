@@ -23,8 +23,6 @@
     const longitude = (Math.random() * 360 - 180).toFixed(6);
     return { latitude, longitude };
   }
-
-  // Function to generate random status
   function generateRandomStatus() {
     const statuses = ['working', 'maintenance', 'error'];
     return statuses[Math.floor(Math.random() * statuses.length)];
