@@ -15,3 +15,4 @@ async function getIndexedDBData() {
         return [];
     }
 }
+console.log()
