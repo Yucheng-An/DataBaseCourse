@@ -19,7 +19,7 @@ async function fetchMongoDBData() {
     }
 }
 
-// Function to fetch IndexedDB data (from the JSON file)
+
 function fetchIndexedDBData() {
     if (fs.existsSync(indexedDBFile)) {
         const indexedDBData = JSON.parse(fs.readFileSync(indexedDBFile, 'utf8'));
