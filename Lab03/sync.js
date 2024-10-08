@@ -1,30 +1,60 @@
 const { MongoClient } = require('mongodb');
-const axios = require('axios'); // To fetch IndexedDB data through an API
-
-// MongoDB connection details
-const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/";
-const dbName = "lab3";
-const collectionName = "4449";
-const indexDBLocation = "./app.html";
-
-// // Function to fetch MongoDB data
-// async function getMongoDBData(client) {
-//     const db = client.db(dbName);
-//     const collection = db.collection(collectionName);
-//     const mongoData = await collection.find({}); // Fetch all data from MongoDB
-//     return mongoData;
-// }
-// console.log(getMongoDBData())
+const { v4: uuidv4 } = require('uuid');
 
 
-async function getIndexedDBData() {
+const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+async function fetchIndexedDBData() {
+
+    return [
+        {
+            UUID: uuidv4(),
+            source_db: "IndexedDB",
+            created_at: new Date(),
+            updated_at: new Date(),
+            crop_type: "Carrot",
+            weather: "Sunny",
+            soil_moisture_level: 6.5
+        }
+    ];
+}
+
+
+async function syncData() {
     try {
-        const response = await axios.get('./app.html');
-        return response.data; // Assuming the data is returned in the response body
+
+        const indexedDBData = await fetchIndexedDBData();
+
+
+        await client.connect();
+        const database = client.db("lab3");
+        const collection = database.collection("7376_Sai_Sravan");
+
+
+        for (let obj of indexedDBData) {
+            const existingObject = await collection.findOne({ UUID: obj.UUID });
+
+            if (existingObject) {
+                await collection.updateOne(
+                    { UUID: obj.UUID },
+                    { $set: { ...obj, updated_at: new Date() } }
+                );
+                console.log(`Updated object with UUID: ${obj.UUID}`);
+            } else {
+                await collection.insertOne(obj);
+                console.log(`Inserted new object with UUID: ${obj.UUID}`);
+            }
+        }
+
+        console.log("Data sync completed successfully.");
     } catch (error) {
-        console.error("Error fetching IndexedDB data: ", error);
-        return [];
+        console.error("Error during data sync:", error);
+    } finally {
+        await client.close();
     }
 }
-data1 = getIndexedDBData()
-console.log(data1)
+
+// Call the sync function
+syncData();
