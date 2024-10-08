@@ -47,7 +47,7 @@
   // Function to generate an object
   function generateObject() {
     return {
-      uuid: generateUUID(),
+      uuid: crypto.randomUUID(),
       sourceDB: "IndexedDB",
       createdTime: getCurrentTimestamp(),
       updatedTime: getCurrentTimestamp(),
