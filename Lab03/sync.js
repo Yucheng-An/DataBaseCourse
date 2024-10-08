@@ -35,14 +35,13 @@ function fetchIndexedDBData() {
 async function syncData() {
     const mongoData = await fetchMongoDBData();
     const indexedDBData = fetchIndexedDBData();
-    
+
     const mongoMap = new Map(mongoData.map(item => [item.uuid, item]));
     const indexedDBMap = new Map(indexedDBData.map(item => [item.uuid, item]));
 
     const newRecords = [];
     const updatedRecords = [];
-
-    // Sync data from IndexedDB to MongoDB
+    
     indexedDBData.forEach(item => {
         if (!mongoMap.has(item.uuid)) {
             newRecords.push(item); // New records to insert in MongoDB
