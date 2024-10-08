@@ -177,7 +177,7 @@ function readingCompletedObject(db, storeName, callback) {
 }
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
-function f2(db, storeName, callback) {
+function indexField(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let index = objectStore.index("status");
