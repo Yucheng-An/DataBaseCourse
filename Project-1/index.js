@@ -182,14 +182,7 @@ function measurePerformance() {
             const performanceResults = [];
 
             // Measure performance of readingObjectNames
-            let start = performance.now();
-            readingObjectNames(db, storeName, function (count) {
-                let end = performance.now();
-                performanceResults.push({
-                    Operation: "readingObjectNames (Read 100k objects)",
-                    TimeTakenMs: (end - start).toFixed(2)
-                });
-
+            
                 // Measure performance of readingObjectNameIndex
                 start = performance.now();
                 readingObjectNameIndex(db, storeName, function (count) {
