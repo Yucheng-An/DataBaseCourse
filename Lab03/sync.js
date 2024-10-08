@@ -26,6 +26,4 @@ async function syncDataToMongoDB() {
         await client.close();
     }
 }
-// Load data from IndexedDB export and sync to MongoDB
-const indexedDBData = readIndexDBJSONFile();
 syncDataToMongoDB(indexedDBData);
