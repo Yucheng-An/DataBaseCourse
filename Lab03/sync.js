@@ -11,6 +11,7 @@ async function syncDataToMongoDB(data) {
         await client.connect();
         const db = client.db('lab3');
         const collection = db.collection('4449');
+        const indexDBData 
         for (const obj of data) {
             await collection.updateOne(
                 { uuid: obj.uuid },
