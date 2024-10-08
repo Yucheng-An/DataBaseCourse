@@ -13,11 +13,6 @@ const sensorSchema = new mongoose.Schema({
 mongoose
     .connect(url).then(result => {
         console.log('connected to MongoDB')
+    }).catch((error) => {
+        console.log('error connecting to MongoDB:', error.message)
     })
-const Sensor = mongoose.model('4449', sensorSchema)
-Sensor.find({}).then(result => {
-    result.forEach(task => {
-        console.log(task)
-    })
-    mongoose.connection.close()
-})
