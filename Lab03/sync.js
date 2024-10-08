@@ -35,8 +35,7 @@ function fetchIndexedDBData() {
 async function syncData() {
     const mongoData = await fetchMongoDBData();
     const indexedDBData = fetchIndexedDBData();
-
-    // Create maps for easier comparison
+    
     const mongoMap = new Map(mongoData.map(item => [item.uuid, item]));
     const indexedDBMap = new Map(indexedDBData.map(item => [item.uuid, item]));
 
