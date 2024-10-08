@@ -229,6 +229,7 @@ function measurePerformance() {
             let endTime = performance.now();
             console.log(`Time to set all objects to "completed": ${endTime - startTime} ms`);
         });
+
         
 
 
