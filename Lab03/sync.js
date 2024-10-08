@@ -42,4 +42,6 @@ async function syncDataToMongoDB() {
     }
 }
 
+
+
 syncDataToMongoDB().then(r => console.log('Done'));
