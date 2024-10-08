@@ -76,7 +76,7 @@
       console.error('Error opening IndexedDB:', event.target.errorCode);
     };
   }
-  
+
   async function syncData() {
     let req = indexedDB.open("IndexDB", 1);
     req.onsuccess = async function(event) {
