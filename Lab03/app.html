@@ -36,6 +36,7 @@
     };
   }
   let req = indexedDB.open("IndexDB", 1);
+  
   req.onupgradeneeded = function(event) {
     let db = event.target.result;
     db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
