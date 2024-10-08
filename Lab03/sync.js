@@ -7,11 +7,7 @@ async function readData() {
         await client.connect();
         const database = client.db('lab3');
         const collection = database.collection('4449');
-
-        // Query for data (e.g., find all documents in the collection)
         const results = await collection.find({}).toArray();
-
-        // Output the results
         console.log('Documents:', results);
     } catch (error) {
         console.error('Error reading data:', error);
