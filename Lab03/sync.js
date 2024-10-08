@@ -4,5 +4,7 @@ const sensorSchema = new mongoose.Schema({
     uuid: String,
     sourceDB: String,
     createdTime: Date,
+    updatedTime: Date,
+    sensorID:String,
     
 })
