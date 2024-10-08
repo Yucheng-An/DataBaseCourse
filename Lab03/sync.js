@@ -36,7 +36,6 @@ async function syncData() {
                 console.log(`Inserted new object with UUID: ${obj.UUID}`);
             }
         }
-
         console.log("Data sync completed successfully.");
     } catch (error) {
         console.error("Error during data sync:", error);
