@@ -121,7 +121,6 @@ function setStatus(db, storeName, completedNumber, progressNumber, pendingNumber
                 updatedValue.status = "pending";
                 pendingCounter++;
             }
-
             counter++;
             cursor.update(updatedValue);
             cursor.continue();
