@@ -178,18 +178,7 @@ function measurePerformance() {
     const dbName = "Project1DB";
     const storeName = "TodoList";
     setupIndexedDB(dbName, storeName, function (db) {
-        add100kObjects(db, storeName, function () {
-            const performanceResults = [];
-
-            // Measure performance of readingObjectNames
-
-                // Measure performance of readingObjectNameIndex
-
-
-                    // Measure performance of readingObjectNameRT
-
-                        console.table(performanceResults);
-                    });
+        add100kObjects(db, storeName, function () {});
                 });
 }
 
