@@ -100,7 +100,7 @@ function add100kObjects(db, storeName, callback) {
 
 
 // Function readingCompletedObject: Reading 1000 completed objects
-function setStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
+function setCertainStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
