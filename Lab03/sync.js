@@ -5,8 +5,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function readData() {
     try {
         await client.connect();
-
-        // Access the database and collection
         const database = client.db('lab3');
         const collection = database.collection('4449');
 
