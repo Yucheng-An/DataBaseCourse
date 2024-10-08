@@ -50,7 +50,6 @@ async function syncData() {
             const uuid = indexedObj.uuid;
             const mongoRecord = await mongoCollection.findOne({ uuid });
             if (!mongoRecord) {
-                // Insert record if it doesn't exist in MongoDB
                 await mongoCollection.insertOne(indexedObj);
                 console.log(`Inserted new record with UUID: ${uuid} into MongoDB.`);
             } else {
