@@ -5,6 +5,7 @@ const axios = require('axios'); // To fetch IndexedDB data through an API
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/";
 const dbName = "lab3";
 const collectionName = "4449";
+const 
 
 // // Function to fetch MongoDB data
 // async function getMongoDBData(client) {
