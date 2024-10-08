@@ -13,7 +13,7 @@ const Sensor = mongoose.model('4449', sensorSchema)
 mongoose
     .connect(url)
     .then((result) => {
-        console.log('connected')
+        console.log('MongoDB has been connected')
 
         const task = new Task({
             content: 'Practice coding interview problems',
