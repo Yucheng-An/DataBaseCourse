@@ -10,5 +10,8 @@
     "type": "git",
     "url": "https://github.com/Yucheng-An/DataBaseCourse.git"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "mongodb": "^6.9.0"
+  }
 }
