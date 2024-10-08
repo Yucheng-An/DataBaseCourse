@@ -38,10 +38,8 @@ function getIndexedDBData(db) {
     });
 }
 
-// Sync function to update MongoDB based on IndexedDB data
 async function syncData() {
     try {
-        // Connect to MongoDB
         await mongoClient.connect();
         const mongoDb = mongoClient.db(mongoDbName);
         const mongoCollection = mongoDb.collection(mongoCollectionName);
