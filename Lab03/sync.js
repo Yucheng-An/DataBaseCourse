@@ -14,7 +14,7 @@ async function fetchIndexedDBData() {
         }
     ];
 }
-await fetchIndexedDBData()
+data1 await fetchIndexedDBData()
 
 async function syncData() {
     try {
