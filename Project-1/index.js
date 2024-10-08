@@ -108,7 +108,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
     let progressCounter = 0;
     let pendingCounter = 0;
     let request = objectStore.openCursor();
-    objectStore.openCursor().onsuccess = function (event) {
+    request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
             let updatedValue = cursor.value;
