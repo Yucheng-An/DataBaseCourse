@@ -27,7 +27,6 @@ app.post('/sync', async (req, res) => {
     }
     try {
         const collection = await connectMongoDB();
-
         await collection.insertMany(sensorData, { ordered: false });
         res.status(200).json({ message: 'Data synced successfully' });
     } catch (error) {
