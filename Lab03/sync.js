@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 const { indexedDB, IDBKeyRange } = require('fake-indexeddb');
 
-const mongoUri = "mongodb://localhost:27017//lab3";
+const mongoUri = "mongodb://localhost:27017/lab3";
 const mongoClient = new MongoClient(mongoUri);
 const mongoDbName = "lab3";
 const mongoCollectionName = "4449";
