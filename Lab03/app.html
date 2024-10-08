@@ -8,7 +8,7 @@
 <body>
 <h1>IndexedDB Object Generator</h1>
 <button onclick = startGenerate()>Generate 1000 Sensors</button>
-<button onclick = indexDBData()>Export IndexedDB Data</button>
+<button onclick = indexDBExport()>Export IndexedDB Data</button>
 <script>
   function getCurrentTimestamp() {
     return new Date().toISOString();
@@ -58,7 +58,7 @@
           }
           console.log('1000 sensors data have been added!!!');
           console.log('Starting export IndexedDB data to JSON file...');
-          indexDBData();
+          indexDBExport();
         } else {
           console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
         }
@@ -72,7 +72,7 @@
       console.error('Error opening IndexedDB:', event.target.errorCode);
     };
   }
-  async function indexDBData() {
+  async function indexDBExport() {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('ObjectDatabase', 1);
       request.onsuccess = async (event) => {
