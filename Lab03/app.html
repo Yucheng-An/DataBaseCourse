@@ -46,8 +46,6 @@
     let sensorObjectStore = transactionBook.objectStore("Sensor");
     let countRequest = sensorObjectStore.count();
     if (countRequest.result === 0) {
-      // If no data, generate and add 1000 objects
-      addData(db);
     } else {
       console.log(`Database already contains ${countRequest.result} records, no new data generated.`);
     }
