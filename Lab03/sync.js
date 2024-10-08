@@ -14,7 +14,7 @@ async function fetchIndexedDBData() {
         }
     ];
 }
-const data1 = await fetchIndexedDBData()
+const data1 = fetchIndexedDBData()
 console.log(data1)
 
 // async function syncData() {
