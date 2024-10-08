@@ -9,8 +9,6 @@ async function fetchMongoDBData() {
         await client.connect();
         const db = client.db('lab3');
         const collection = db.collection('4449');
-
-        // Fetch all data from MongoDB
         const mongoData = await collection.find({}).toArray();
         console.log('MongoDB Data:', mongoData);
         return mongoData;
