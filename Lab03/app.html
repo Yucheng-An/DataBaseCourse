@@ -45,15 +45,11 @@
     let db = event.target.result;
     let transactionSensor = db.transaction("Sensor", "readonly");
     let sensorObjectStore = transactionSensor.objectStore("Sensor");
-
-    // Check if there are already objects in the store
     let countRequest = sensorObjectStore.count();
     countRequest.onsuccess = function() {
       if (countRequest.result === 0) {
-        // No data exists, generate and add new records
         let transaction = db.transaction("Sensor", "readwrite");
         let sensorObjectStoreWrite = transaction.objectStore("Sensor");
-
         for (let i = 0; i < 1000; i++) {
           sensorObjectStoreWrite.add(generateObject());
         }
