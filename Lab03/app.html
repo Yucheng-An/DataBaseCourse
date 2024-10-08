@@ -73,13 +73,11 @@
   async function exportIndexedDBData() {
     return new Promise((resolve, reject) => {
       const request = indexedDB.open('ObjectDatabase', 1);
-
       request.onsuccess = async (event) => {
         const db = event.target.result;
         const transaction = db.transaction('objects', 'readonly');
         const objectStore = transaction.objectStore('objects');
         const allData = objectStore.getAll();
-
         allData.onsuccess = function () {
           const data = allData.result;
           const jsonData = JSON.stringify(data, null, 2);
