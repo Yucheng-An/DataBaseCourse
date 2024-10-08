@@ -1,8 +1,6 @@
 const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const uri = "mongodb+srv://i40:dbms2@cluster0.lixbqmp.mongodb.net/lab3";
-
-// Simulating IndexedDB data as a JSON file
 const indexedDBFile = './indexeddb.json';
 
 
