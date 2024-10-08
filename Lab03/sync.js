@@ -14,7 +14,7 @@ async function syncDataToMongoDB(data) {
         const collection = db.collection('4449');
         for (const obj of data) {
             await collection.updateOne(
-                { uuid: obj.uuid }, // Matching the unique UUID
+                { uuid: obj.uuid },
                 { $set: obj },      // Updating the document with the new data
                 { upsert: true }    // Insert if it does not exist
             );
