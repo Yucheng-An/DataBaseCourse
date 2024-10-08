@@ -92,14 +92,12 @@
           },
           body: JSON.stringify(sensorData)
         });
-
         if (response.ok) {
           console.log('Data successfully synced with MongoDB');
         } else {
           console.error('Failed to sync data');
         }
       };
-
       getAllRequest.onerror = function() {
         console.error('Error fetching data from IndexedDB');
       };
