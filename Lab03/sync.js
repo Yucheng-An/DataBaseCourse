@@ -6,18 +6,15 @@ const mongoClient = new MongoClient(mongoUri);
 const mongoDbName = "lab3";
 const mongoCollectionName = "4449";
 
-// Initialize IndexedDB
 function openIndexedDB() {
     return new Promise((resolve, reject) => {
         const request = indexedDB.open("IndexDB", 1);
-
         request.onupgradeneeded = function (event) {
             let db = event.target.result;
             if (!db.objectStoreNames.contains("Sensor")) {
                 db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
             }
         };
-
         request.onsuccess = function (event) {
             resolve(event.target.result);
         };
