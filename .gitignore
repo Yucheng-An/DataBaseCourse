@@ -7,3 +7,4 @@
 .gitignore
 .venv
 .zip
+/node_modules/
