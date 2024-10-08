@@ -66,36 +66,7 @@
     const objectStore = transaction.objectStore('objects');
 
     objects.forEach((object) => {
-      const request = objectStore.add(object);
-      request.onsuccess = function() {
-        console.log(`Object with UUID ${object.uuid} added.`);
-      };
-      request.onerror = function(event) {
-        console.error('Error adding object:', event.target.errorCode);
-      };
-    });
 
-    transaction.oncomplete = function() {
-      document.getElementById('status').textContent = 'Successfully generated and stored 1000 objects in IndexedDB.';
-    };
-  }
-
-  // Function to generate 1000 objects
-  function generateAndStoreObjects() {
-    const objects = [];
-    for (let i = 0; i < 1000; i++) {
-      objects.push(generateObject());
-    }
-    storeObjectsInIndexedDB(objects);
-  }
-
-  // Event listener for button click
-  document.getElementById('generateBtn').addEventListener('click', function() {
-    generateAndStoreObjects();
-  });
-
-  // Open the IndexedDB on page load
-  window.onload = openIndexedDB;
 </script>
 </body>
 </html>
