@@ -144,8 +144,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            let currentValue = cursor.value;
-            if (currentValue.status === status) {
+            if (cursor.value.status === status) {
                 counter++;
             }
         } else {
