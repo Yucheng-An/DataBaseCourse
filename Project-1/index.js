@@ -191,7 +191,6 @@ function main() {
         add100kObjects(db, storeName, function () {
             // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
             setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
-            console.log("---------------------------------------------------")
 
             //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
             let startTime = performance.now();
@@ -199,8 +198,7 @@ function main() {
                 let endTime = performance.now();
                 console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
             });
-            console.log("---------------------------------------------------")
-
+            
             // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
             let startTimeRT = performance.now();
             readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly",function () {
