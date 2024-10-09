@@ -158,7 +158,7 @@ function readSomeStatusWithReadWrite(db, storeName, status, callback) {
 }
 
 function readSomeStatusWithReadOnly(db, storeName, status ,callback) {
-    let transaction = db.transaction(storeName, "readwrite");
+    let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
     let request = objectStore.openCursor();
