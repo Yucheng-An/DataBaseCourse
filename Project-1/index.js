@@ -148,7 +148,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
                 counter++;
             }
         } else {
-            console.log(`Using readwrite records with status '${status}':`, counter);
+            console.log(`Using readwrite records with status '${status}':`, counter, "");
             callback();
         }
     };
