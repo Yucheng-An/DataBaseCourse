@@ -148,7 +148,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
                 counter++;
             }
         } else {
-            console.log(`find status '${status}':`, counter, " By using method: ", method);
+            console.log(`Found status '${status}':`, counter, " By using method: ", method);
             callback();
         }
     };
