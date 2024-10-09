@@ -143,11 +143,10 @@ function readSomeStatus(db, storeName, status, callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            let updatedValue = cursor.value;
-            updatedValue.status = status;
-            counter++;
-            cursor.update(updatedValue);
-            cursor.continue();
+            let currentValue = cursor.value;
+            if (currentValue.status === status) {
+                counter++;
+            }
         } else {
             console.log("All status update completed.");
             callback();
