@@ -158,20 +158,24 @@ function readSomeStatusWithReadWrite(db, storeName, status, callback) {
 }
 
 function readSomeStatusWithReadOnly(db, storeName, status ,callback) {
-    let transaction = db.transaction(storeName, "readonly");
+    let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
-    let count = 0;
+    let counter = 0;
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            if (cursor.value.status === "completed") {
-                count++;
+            let currentValue = cursor.value;
+            if (currentValue.status === status) {
+                counter++;
             }
-            cursor.continue();
         } else {
-            callback(count);
+            console.log(`Using readwrite records with status '${status}':`, counter);
+            callback();
         }
+    };
+    transaction.onerror = function (event) {
+        console.error("Error updating statuses:", event);
     };
 }
 
