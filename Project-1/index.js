@@ -127,7 +127,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
             cursor.continue();
         } else {
             console.log("1000 Status update completed.")
-            console.log("Completed:")
+            console.log("Completed:", completedCounter, " In Progress:", progressCounter, " Pending:", pendingCounter);
             callback();
         }
     };
