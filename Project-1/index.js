@@ -193,7 +193,7 @@ function main() {
 
             //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
             let startTime = performance.now();
-            setAllStatus(db, storeName, "completed", function () {
+            readSomeStatusWithSomeMethod(db, storeName, "completed","readwrite", function () {
                 let endTime = performance.now();
                 console.log(`Time to set all objects to "completed": ${(endTime - startTime).toFixed(2)} ms`);
             });
