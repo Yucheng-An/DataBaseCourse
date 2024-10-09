@@ -157,7 +157,7 @@ function readSomeStatusWithReadWrite(db, storeName, status, callback) {
     };
 }
 
-function readingCompletedObject(db, storeName, callback) {
+function readSomeStatusWithReadWrite(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let count = 0;
