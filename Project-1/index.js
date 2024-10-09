@@ -135,7 +135,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
     };
 }
 
-function readSomeStatusWithReadWrite(db, storeName, status, method, callback) {
+function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
