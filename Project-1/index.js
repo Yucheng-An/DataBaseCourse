@@ -203,7 +203,7 @@ function main() {
             let startTimeRT = performance.now();
             readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly",function () {
                 let endTimeRT = performance.now();
-                console.log(`Time to readonly all status with "completed"transaction: ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
+                console.log(`Time to READONLY all status with "completed" : ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
             });
 
             //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
