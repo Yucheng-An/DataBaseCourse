@@ -148,7 +148,7 @@ function readSomeStatus(db, storeName, status, callback) {
                 counter++;
             }
         } else {
-            console.log("All status update completed.");
+            console.log(`Number of records with status '${status}':`, counter);
             callback();
         }
     };
