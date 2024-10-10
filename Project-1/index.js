@@ -201,9 +201,6 @@ function main() {
                     let endTime = performance.now();
                     console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
                 });
-
-
-
             });
 
             //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
