@@ -195,15 +195,7 @@ function main() {
         // add 100k objects
         add100kObjects(db, storeName, function () {
             // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
-            setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {
-                let startTime = performance.now();
-                readSomeStatusWithSomeMethod(db, storeName, "completed","readwrite", function () {
-                    let endTime = performance.now();
-                    console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
-
-
-                });
-            });
+            setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
 
             //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
             let startTime = performance.now();
