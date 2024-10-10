@@ -176,7 +176,7 @@ function indexField(db, storeName, status ,callback) {
         let cursor = event.target.result;
         if (cursor) {
             if (cursor.value.status === status) {
-                count++;
+                counter++;
             }
             cursor.continue();
         } else {
