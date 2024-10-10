@@ -200,7 +200,7 @@ function main() {
                     let endTime = performance.now();
                     console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
                     // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
-                    let startTimeRT = performance.now();
+                    startTime = performance.now();
                     readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
                         let endTimeRT = performance.now();
                         console.log(`Time to READONLY all status with "completed" : ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
