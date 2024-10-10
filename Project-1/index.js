@@ -137,13 +137,10 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
 }
 
 function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
-    console.log(`Starting ${method} transaction for reading tasks...`);
-    let startTime = performance.now();
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
     let request = objectStore.openCursor();
-
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
@@ -152,18 +149,14 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
             }
             cursor.continue();
         } else {
-            let endTime = performance.now();
-            console.log(`Found status '${status}': ${counter} tasks using ${method} method.`);
-            console.log(`(In function)Time for ${method} mode reading completed tasks: ${(endTime - startTime).toFixed(2)} ms`);
+            console.log(`Found status '${status}':`, counter, " By using method:", method);
             callback();
         }
     };
-
     transaction.onerror = function (event) {
-        console.error("Error reading statuses:", event);
+        console.error("Error updating statuses:", event);
     };
 }
-
 
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
