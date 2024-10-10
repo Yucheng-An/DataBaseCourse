@@ -175,9 +175,7 @@ function indexField(db, storeName, status ,callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            if (cursor.value.status === status) {
-                counter++;
-            }
+            counter++;
             cursor.continue();
         } else {
             console.log(`Found status '${status}':`, counter, " By using index ('status'):");
