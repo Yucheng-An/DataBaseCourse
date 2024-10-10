@@ -208,7 +208,7 @@ function main() {
                         startTime = performance.now();
                         indexField(db, storeName, function () {
                             endTime = performance.now();
-                            console.log(`Time to read all objects with index: ${(endTimeIndex - startTimeIndex).toFixed(2)} ms`);
+                            console.log(`Time to read all objects with index: ${(endTime - startTime).toFixed(2)} ms`);
                         });
                     });
                 });
