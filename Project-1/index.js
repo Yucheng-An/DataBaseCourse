@@ -140,7 +140,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
-    let request = objectStore.openCursor();
+    let request = objectStore.openCursor(IDBKeyRange.only("completed"));
     const startTime = performance.now();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
