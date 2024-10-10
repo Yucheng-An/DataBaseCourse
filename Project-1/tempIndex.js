@@ -158,4 +158,4 @@ function measurePerformance() {
 }
 
 // Call the function to measure and display performance
-measurePerformance();
+measurePerformance()
