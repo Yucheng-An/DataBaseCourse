@@ -179,7 +179,7 @@ function indexField(db, storeName, status ,callback) {
             counter++;
             cursor.continue();
         } else {
-            console.log(`Found status '${status}':`, counter, " By using index ('status'):");
+            console.log(`Found status '${status}':`, counter, " By using index ('status')!!!");
             callback(counter);
         }
     };
