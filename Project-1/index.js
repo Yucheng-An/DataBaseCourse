@@ -177,10 +177,13 @@ function indexField(db, storeName, callback) {
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            if (cursor.value.status === status) {
+                counter++;
+            }
             cursor.continue();
         } else {
-            callback(count);
+            console.log(`Found status '${status}':`, counter, " By using method:", method);
+            callback();
         }
     };
 }
