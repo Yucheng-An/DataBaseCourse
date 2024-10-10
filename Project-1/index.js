@@ -163,7 +163,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 function indexField(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("key");
+    let index = objectStore.index("id");
     let count = 0;
 
     let request = index.openCursor();
