@@ -170,7 +170,7 @@ function indexField(db, storeName, status ,callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
     let index = objectStore.index("status");
-    let count = 0;
+    let counter = 0;
     let request = index.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
