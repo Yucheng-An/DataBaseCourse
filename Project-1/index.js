@@ -223,7 +223,7 @@ function main() {
 }
 
 
-// Follwing code is wrong, it is not working
+// Following code is wrong, it is not working
 // function main() {
 //     const dbName = "Project1DB";
 //     const storeName = "TodoList";
