@@ -209,14 +209,6 @@ function main() {
                 });
             });
 
-
-            // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
-            let startTimeRT = performance.now();
-            readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
-                let endTimeRT = performance.now();
-                console.log(`Time to READONLY all status with "completed" : ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
-            });
-
             //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
             let startTimeIndex = performance.now();
             indexField(db, storeName, function () {
