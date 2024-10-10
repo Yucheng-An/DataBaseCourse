@@ -137,6 +137,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
 }
 
 function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
+    let startTime = performance.now();
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
