@@ -165,7 +165,6 @@ function indexField(db, storeName, callback) {
     let objectStore = transaction.objectStore(storeName);
     let index = objectStore.index("status");
     let count = 0;
-
     let request = index.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
