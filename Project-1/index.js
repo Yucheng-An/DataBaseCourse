@@ -151,6 +151,8 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
             cursor.continue();
         } else {
             console.log(`Found status '${status}':`, counter, " By using method:", method);
+            const endTime = performance.now();
+            console.log(`Time to read completed tasks: ${endTime - startTime} ms`);
             callback();
         }
     };
