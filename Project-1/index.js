@@ -220,44 +220,4 @@ function main() {
     });
 }
 
-
-// Following code is wrong, it is not working
-// function main() {
-//     const dbName = "Project1DB";
-//     const storeName = "TodoList";
-//     setupIndexedDB(dbName, storeName, function (db) {
-//         // add 100k objects
-//         add100kObjects(db, storeName, function () {
-//             // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
-//             setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {});
-//
-//             //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
-//             let startTime = performance.now();
-//             readSomeStatusWithSomeMethod(db, storeName, "completed","readwrite", function () {
-//                 let endTime = performance.now();
-//                 console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
-//             });
-//
-//             // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
-//             let startTimeRT = performance.now();
-//             readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
-//                 let endTimeRT = performance.now();
-//                 console.log(`Time to READONLY all status with "completed" : ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
-//             });
-//
-//             //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
-//             let startTimeIndex = performance.now();
-//             indexField(db, storeName, function () {
-//                 let endTimeIndex = performance.now();
-//                 console.log(`Time to read all objects with index: ${(endTimeIndex - startTimeIndex).toFixed(2)} ms`);
-//             });
-//
-//             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
-//             // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
-//
-//
-//         });
-//     });
-// }
-
 main();
