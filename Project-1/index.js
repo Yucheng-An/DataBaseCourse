@@ -140,12 +140,14 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
+    let request = objectStore.openCursor();
     const startTime = performance.now();
-    let request = objectStore.openCursor(IDBKeyRange.only("completed"));
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            counter++;
+            if (cursor.value.status === status) {
+                counter++;
+            }
             cursor.continue();
         } else {
             console.log(`Found status '${status}':`, counter, " By using method:", method);
