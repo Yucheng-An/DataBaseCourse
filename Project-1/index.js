@@ -141,6 +141,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
     let request = objectStore.openCursor();
+    const startTime = performance.now();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
