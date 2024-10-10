@@ -203,7 +203,7 @@ function main() {
                     startTime = performance.now();
                     readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
                         endTime = performance.now();
-                        console.log(`Time to READONLY all status with "completed" : ${(endTimeRT - startTimeRT).toFixed(2)} ms`);
+                        console.log(`Time to READONLY all status with "completed" :${(endTime - startTime).toFixed(2)} ms`);
                     });
 
                 });
