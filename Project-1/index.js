@@ -70,12 +70,12 @@ function add100kObjects(db, storeName, callback) {
             let writeTransaction = db.transaction(storeName, "readwrite");
             let writeObjectStore = writeTransaction.objectStore(storeName);
             for (let i = 0; i < 100000; i++) {
-                let object = {
-                    id: i,
-                    task: `${tasks[Math.floor(Math.random() * tasks.length)]}`,
-                    status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
-                    dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
-                };
+                // let object = {
+                //     id: i,
+                //     task: `${tasks[Math.floor(Math.random() * tasks.length)]}`,
+                //     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
+                //     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
+                // };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
@@ -166,7 +166,7 @@ function indexField(db, storeName, callback) {
     let objectStore = transaction.objectStore(storeName);
     let index = objectStore.index("id");
     let count = 0;
-    
+
     let request = index.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
