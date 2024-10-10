@@ -204,7 +204,12 @@ function main() {
                     readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
                         endTime = performance.now();
                         console.log(`Time to READONLY all status with "completed" :${(endTime - startTime).toFixed(2)} ms`);
-
+                        //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
+                        let startTimeIndex = performance.now();
+                        indexField(db, storeName, function () {
+                            let endTimeIndex = performance.now();
+                            console.log(`Time to read all objects with index: ${(endTimeIndex - startTimeIndex).toFixed(2)} ms`);
+                        });
                     });
                 });
             });
