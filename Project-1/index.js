@@ -154,7 +154,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
         } else {
             let endTime = performance.now();
             console.log(`Found status '${status}': ${counter} tasks using ${method} method.`);
-            console.log(`Time for ${method} mode reading completed tasks: ${(endTime - startTime).toFixed(2)} ms`);
+            console.log(`(In function)Time for ${method} mode reading completed tasks: ${(endTime - startTime).toFixed(2)} ms`);
             callback();
         }
     };
