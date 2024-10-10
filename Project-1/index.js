@@ -76,6 +76,12 @@ function add100kObjects(db, storeName, callback) {
                 //     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
                 //     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
                 // };
+                let object = {
+                    //     id: i,
+                    //     task: `${tasks[Math.floor(Math.random() * tasks.length)]}`,
+                    //     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
+                    //     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
+                    // };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
