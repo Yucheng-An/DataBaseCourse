@@ -200,6 +200,8 @@ function main() {
                 readSomeStatusWithSomeMethod(db, storeName, "completed","readwrite", function () {
                     let endTime = performance.now();
                     console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
+
+
                 });
             });
 
