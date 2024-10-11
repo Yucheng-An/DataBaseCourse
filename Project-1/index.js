@@ -51,6 +51,7 @@ function setupIndexedDB(dbName, storeName, callback) {
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
             objectStore.createIndex("id", "id", { unique: false });
+            objectStore.createIndex("status", "status", { unique: false });
         }
     };
     request.onsuccess = function (event) {
@@ -146,7 +147,6 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
-
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
@@ -156,7 +156,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
             }
             cursor.continue();
         } else {
-            console.log(`Found status '${status}':`, counter, " By using method:", method);
+            console.log(`Found status '${status}':`, counter, " By using method:", method , "!!!");
             callback();
         }
     };
@@ -167,23 +167,25 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
-function indexField(db, storeName, callback) {
+function indexField(db, storeName, status ,callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("id");
-    let count = 0;
-
-    let request = index.openCursor();
+    let index = objectStore.index("status");
+    let counter = 0;
+    let request = index.openCursor(IDBKeyRange.only(status));
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            count++;
+            counter++;
             cursor.continue();
         } else {
-            callback(count);
+            console.log(`Found status '${status}':`, counter, " By using index ('status')!!!");
+            callback(counter);
         }
     };
 }
+
+
 
 
 function main() {
@@ -206,9 +208,9 @@ function main() {
                         console.log(`Time to READONLY all status with "completed" :${(endTime - startTime).toFixed(2)} ms`);
                         //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
                         startTime = performance.now();
-                        indexField(db, storeName, function () {
+                        indexField(db, storeName,"completed", function () {
                             endTime = performance.now();
-                            console.log(`Time to read all objects with index: ${(endTime - startTime).toFixed(2)} ms`);
+                            console.log(`Time to read all 'completed' objects with index (status): ${(endTime - startTime).toFixed(2)} ms`);
                             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
                             // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
 
@@ -219,7 +221,5 @@ function main() {
         });
     });
 }
-
-
 
 main();
