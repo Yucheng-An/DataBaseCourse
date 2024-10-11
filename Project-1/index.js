@@ -50,7 +50,7 @@ function setupIndexedDB(dbName, storeName, callback) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
-            objectStore.createIndex("status", "status", { unique: false });
+            objectStore.createIndex("id", "id", { unique: false });
         }
     };
     request.onsuccess = function (event) {
@@ -146,6 +146,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
+
     let request = objectStore.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
@@ -166,11 +167,12 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
-function indexField(db, storeName, ,callback) {
+function indexField(db, storeName, callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-    let index = objectStore.index("status");
+    let index = objectStore.index("id");
     let count = 0;
+
     let request = index.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
@@ -182,8 +184,6 @@ function indexField(db, storeName, ,callback) {
         }
     };
 }
-
-
 
 
 function main() {
@@ -208,7 +208,7 @@ function main() {
                         startTime = performance.now();
                         indexField(db, storeName, function () {
                             endTime = performance.now();
-                            console.log(`Time to read all objects with index (status): ${(endTime - startTime).toFixed(2)} ms`);
+                            console.log(`Time to read all objects with index: ${(endTime - startTime).toFixed(2)} ms`);
                             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
                             // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
 
@@ -219,5 +219,7 @@ function main() {
         });
     });
 }
+
+
 
 main();
