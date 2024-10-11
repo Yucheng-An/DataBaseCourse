@@ -50,7 +50,7 @@ function setupIndexedDB(dbName, storeName, callback) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
-            objectStore.createIndex("id", "id", { unique: false });
+            objectStore.createIndex("status", "status", { unique: false });
         }
     };
     request.onsuccess = function (event) {
@@ -76,6 +76,12 @@ function add100kObjects(db, storeName, callback) {
                     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
                     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
                 };
+                // let object = {
+                //         id: i,
+                //         task: `task_${i}`,
+                //         status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
+                //         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
+                //     };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
@@ -95,6 +101,10 @@ function add100kObjects(db, storeName, callback) {
         console.error("Error counting objects:", event);
     };
 }
+
+
+
+
 // Function readingCompletedObject: Reading 1000 completed objects
 function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
     let transaction = db.transaction(storeName, "readwrite");
@@ -131,6 +141,7 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
         console.error("Error updating statuses:", event);
     };
 }
+
 function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
@@ -144,7 +155,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
             }
             cursor.continue();
         } else {
-            console.log(`Found status '${status}':`, counter, " By using method:", method , "!!!");
+            console.log(`Found status '${status}':`, counter, " By using method:", method);
             callback();
         }
     };
@@ -155,21 +166,19 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
-function indexField(db, storeName, status ,callback) {
+function indexField(db, storeName, ,callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-
     let index = objectStore.index("status");
-    let counter = 0;
-    let request = index.openCursor(IDBKeyRange.only(status));
+    let count = 0;
+    let request = index.openCursor();
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
-            counter++;
+            count++;
             cursor.continue();
         } else {
-            console.log(`Found status '${status}':`, counter, " By using index ('status')!!!");
-            callback(counter);
+            callback(count);
         }
     };
 }
@@ -197,9 +206,9 @@ function main() {
                         console.log(`Time to READONLY all status with "completed" :${(endTime - startTime).toFixed(2)} ms`);
                         //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
                         startTime = performance.now();
-                        indexField(db, storeName,"completed", function () {
+                        indexField(db, storeName, function () {
                             endTime = performance.now();
-                            console.log(`Time to read all 'completed' objects with index (status): ${(endTime - startTime).toFixed(2)} ms`);
+                            console.log(`Time to read all objects with index (status): ${(endTime - startTime).toFixed(2)} ms`);
                             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
                             // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
 
