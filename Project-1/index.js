@@ -96,10 +96,6 @@ function add100kObjects(db, storeName, callback) {
         console.error("Error counting objects:", event);
     };
 }
-
-
-
-
 // Function readingCompletedObject: Reading 1000 completed objects
 function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
     let transaction = db.transaction(storeName, "readwrite");
@@ -136,7 +132,6 @@ function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNu
         console.error("Error updating statuses:", event);
     };
 }
-
 function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
     let transaction = db.transaction(storeName, method);
     let objectStore = transaction.objectStore(storeName);
