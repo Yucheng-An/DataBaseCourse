@@ -164,6 +164,7 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 function indexField(db, storeName, status ,callback) {
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
+    let request = indexedDB.open(dbName, 1);
     request.onupgradeneeded = function (event) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
