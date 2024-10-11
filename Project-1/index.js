@@ -53,6 +53,12 @@ function setupIndexedDB(dbName, storeName, callback) {
             objectStore.createIndex("id", "id", { unique: false });
             objectStore.createIndex("status", "status", { unique: false });
         }
+
+        //Create an object store for TodoListCompleted
+        if (!db.objectStoreNames.contains("TodoListCompleted")) {
+            objectStore = db.createObjectStore("TodoListCompleted", { keyPath: "id" });
+        }
+
     };
     request.onsuccess = function (event) {
         let db = event.target.result;
@@ -77,12 +83,6 @@ function add100kObjects(db, storeName, callback) {
                     status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
                     dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
                 };
-                // let object = {
-                //         id: i,
-                //         task: `task_${i}`,
-                //         status: `${statuses[Math.floor(Math.random() * statuses.length)]}`,
-                //         dueDate: new Date(Date.now() + Math.floor(Math.random() * 1000000000)).toISOString().split('T')[0]
-                //     };
                 writeObjectStore.add(object);
             }
             writeTransaction.oncomplete = function () {
@@ -104,10 +104,8 @@ function add100kObjects(db, storeName, callback) {
 }
 
 
-
-
 // Function readingCompletedObject: Reading 1000 completed objects
-function setSomeStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
+function setCompleteStatus(db, storeName, completedNumber, progressNumber, pendingNumber, callback) {
     let transaction = db.transaction(storeName, "readwrite");
     let objectStore = transaction.objectStore(storeName);
     let counter = 0;
@@ -173,19 +171,23 @@ function indexField(db, storeName, status ,callback) {
     let index = objectStore.index("status");
     let counter = 0;
     let request = index.openCursor(IDBKeyRange.only(status));
+    const data = [];
     request.onsuccess = function (event) {
         let cursor = event.target.result;
         if (cursor) {
             counter++;
+            data.push(cursor.value);
             cursor.continue();
         } else {
             console.log(`Found status '${status}':`, counter, " By using index ('status')!!!");
-            callback(counter);
+            callback(counter, data);
         }
     };
 }
 
+function copyAllCompletedTasksFromToDoListToToDoListCompleted() {
 
+}
 
 
 function main() {
@@ -195,25 +197,36 @@ function main() {
         // add 100k objects
         add100kObjects(db, storeName, function () {
             // 1. Set 1000 objects to status "completed" and the remaining ones to status "progress"
-            setSomeStatus(db, storeName, 1000, 0, 100000-1000, function () {
+            setCompleteStatus(db, storeName, 1000, 100000-1000, 0, function () {
                 //2. Measure and display the time (in milliseconds) required to read all objects with `status` set to "completed" on the console or the browser
                 let startTime = performance.now();
                 readSomeStatusWithSomeMethod(db, storeName, "completed","readwrite", function () {
                     let endTime = performance.now();
-                    console.log(`Time to READWRITE all status with "completed": ${(endTime - startTime).toFixed(2)} ms`);
+                    console.log(`Time took to read all objects with status "completed" with readwrite method: ${(endTime - startTime).toFixed(2)} ms`);
                     // 3. Apply a read-only flag to the object store and measure and display the time to read all completed tasks again on the console or the browser.
                     startTime = performance.now();
                     readSomeStatusWithSomeMethod(db, storeName, "completed", "readonly", function () {
                         endTime = performance.now();
-                        console.log(`Time to READONLY all status with "completed" :${(endTime - startTime).toFixed(2)} ms`);
+                        console.log(`Time took to read all objects with status "completed" with read-only method" :${(endTime - startTime).toFixed(2)} ms`);
                         //4. Create an index on the `status` field, then measure and display the time to read all completed tasks on the console or the browser
                         startTime = performance.now();
-                        indexField(db, storeName,"completed", function () {
+                        indexField(db, storeName,"completed", function (counter, data) {
                             endTime = performance.now();
-                            console.log(`Time to read all 'completed' objects with index (status): ${(endTime - startTime).toFixed(2)} ms`);
+                            console.log(`Time took to read all objects with status "completed" with indexing on "status": ${(endTime - startTime).toFixed(2)} ms`);
                             // 5. Define a new object store called "TodoListCompleted", copy all completed tasks from "TodoList" to this new store,
                             // and measure and display the time required to read all completed tasks from "TodoListCompleted" on the console or the browser
 
+                            let transaction = db.transaction("TodoListCompleted", "readwrite");
+                            objectStore = transaction.objectStore("TodoListCompleted");
+            
+                            for (let i = 0; i < data.length; i++) {
+                                objectStore.add(data[i]);
+                            }
+                            startTime = performance.now();
+                            readSomeStatusWithSomeMethod(db, "TodoListCompleted", "completed", "readonly", function() {
+                                endTime = performance.now();
+                                console.log(`Time took to read all objects with status "completed" with read-only method from TodoListCompleted" :${(endTime - startTime).toFixed(2)} ms`);
+                            })
                         });
                     });
                 });
