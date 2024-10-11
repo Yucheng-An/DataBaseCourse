@@ -171,18 +171,9 @@ function indexField(db, storeName, status ,callback) {
             objectStore.createIndex("status", "status", { unique: false });
         }
     };
-
     let transaction = db.transaction(storeName, "readonly");
     let objectStore = transaction.objectStore(storeName);
-    let request = indexedDB.open(dbName, 1);
-    request.onupgradeneeded = function (event) {
-        let db = event.target.result;
-        if (!db.objectStoreNames.contains(storeName)) {
-            let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
-            objectStore.createIndex("id", "id", { unique: false });
-            objectStore.createIndex("status", "status", { unique: false });
-        }
-    };
+
     let index = objectStore.index("status");
     let counter = 0;
     let request = index.openCursor(IDBKeyRange.only(status));
