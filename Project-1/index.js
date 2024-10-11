@@ -156,8 +156,8 @@ function readSomeStatusWithSomeMethod(db, storeName, status, method, callback) {
 
 // An index on the `status` field, then measure and display the time to read all completed tasks
 function indexField(db, storeName, status ,callback) {
-    let request = indexedDB.open(dbName, 1);
-    request.onupgradeneeded = function (event) {
+    let request1 = indexedDB.open(dbName, 1);
+    request1.onupgradeneeded = function (event) {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
