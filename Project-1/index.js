@@ -51,7 +51,6 @@ function setupIndexedDB(dbName, storeName, callback) {
         if (!db.objectStoreNames.contains(storeName)) {
             let objectStore = db.createObjectStore(storeName, { keyPath: "id" });
             objectStore.createIndex("id", "id", { unique: false });
-            objectStore.createIndex("status", "status", { unique: false });
         }
     };
     request.onsuccess = function (event) {
