@@ -21,6 +21,79 @@
 
 <script>
 
+
+  function generate1000SensorAnadVisualizeSensorStatus(){
+    function getCurrentTimestamp() {
+      return new Date().toISOString();
+    }
+    function generateRandomID() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    }
+    function generateRandomLocation() {
+      const latitude = (Math.random() * 180 - 90).toFixed(6);
+      const longitude = (Math.random() * 360 - 180).toFixed(6);
+      return { latitude, longitude };
+    }
+    function generateRandomStatus() {
+      const statuses = ['working', 'maintenance', 'error'];
+      return statuses[Math.floor(Math.random() * statuses.length)];
+    }
+    function generateObject() {
+      return {
+        uuid: crypto.randomUUID(),
+        sourceDB: "IndexedDB",
+        createdTime: getCurrentTimestamp(),
+        updatedTime: getCurrentTimestamp(),
+        sensorID: generateRandomID(),
+        sensorLocation: generateRandomLocation(),
+        sensorStatus: generateRandomStatus()
+      };
+    }
+    function startGenerate() {
+      let req = indexedDB.open("IndexDB", 1);
+      req.onupgradeneeded = function(event) {
+        let db = event.target.result;
+        db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
+      };
+      req.onsuccess = function(event) {
+        let db = event.target.result;
+        let transactionSensor = db.transaction("Sensor", "readonly");
+        let sensorObjectStore = transactionSensor.objectStore("Sensor");
+        let countRequest = sensorObjectStore.count();
+        countRequest.onsuccess = function() {
+          if (countRequest.result === 0) {
+            let transaction = db.transaction("Sensor", "readwrite");
+            let sensorObjectStoreWrite = transaction.objectStore("Sensor");
+            let promises = [];
+
+            for (let i = 0; i < 1000; i++) {
+              promises.push(sensorObjectStoreWrite.add(generateObject()));
+            }
+
+            transaction.oncomplete = function() {
+              console.log('1000 Sensors random data have been added!!!');
+              visualizeSensorStatus(db);
+            };
+            transaction.onerror = function() {
+              console.error('Error writing data to object store');
+            };
+          } else {
+            console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
+            visualizeSensorStatus(db);
+          }
+        };
+        countRequest.onerror = function() {
+          console.error('Error counting records in object store');
+        };
+      };
+      req.onerror = function(event) {
+        console.error('Error opening IndexedDB:', event.target.errorCode);
+      };
+    }
+    startGenerate();
+  }
+
   let encryptedArray = null;
   let key = null;
   let iv = null;
