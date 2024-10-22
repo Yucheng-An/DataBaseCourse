@@ -125,8 +125,6 @@
     request.onsuccess = function() {
       const sensors = request.result;
       const statusCounts = { working: 0, maintenance: 0, error: 0 };
-
-      // Count the occurrences of each status
       sensors.forEach(sensor => {
         if (statusCounts[sensor.sensorStatus] !== undefined) {
           statusCounts[sensor.sensorStatus]++;
