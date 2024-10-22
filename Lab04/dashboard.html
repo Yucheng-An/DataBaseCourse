@@ -122,7 +122,6 @@
     let transaction = db.transaction("Sensor", "readonly");
     let sensorObjectStore = transaction.objectStore("Sensor");
     let request = sensorObjectStore.getAll();
-
     request.onsuccess = function() {
       const sensors = request.result;
       const statusCounts = { working: 0, maintenance: 0, error: 0 };
