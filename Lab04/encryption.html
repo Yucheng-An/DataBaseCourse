@@ -57,12 +57,7 @@
   let iv = null;
 
   // Sample array of JSON objects (to-do items) with UUID and status
-  const allSensors = [
-    { uuid: crypto.randomUUID(), task: "Buy groceries", status: "progress" },
-    { uuid: crypto.randomUUID(), task: "Clean the house", status: "completed" },
-    { uuid: crypto.randomUUID(), task: "Finish homework", status: "progress" },
-    { uuid: crypto.randomUUID(), task: "Walk the dog", status: "completed" },
-  ];
+  const allSensors = [];
 
   // Generate a cryptographic key
   async function generateKey() {
