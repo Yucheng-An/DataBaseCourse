@@ -48,11 +48,8 @@
 
       const end = performance.now();  // End measuring time
       document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
-
       document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
     }
-
-    // Decrypt the data
     async function decryptData() {
       if (!encryptedArray) return;
 
@@ -63,10 +60,8 @@
               key,
               encryptedArray
       );
-
       const end = performance.now();  // End measuring time
       document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
-
       const decoder = new TextDecoder();
       const decryptedData = decoder.decode(decryptedArrayBuffer);
       document.getElementById('decryptedData').textContent = decryptedData;
