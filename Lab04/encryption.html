@@ -123,7 +123,7 @@
     request.onsuccess = async function(event) {
       let allEncrypedData = event.target.result;
       if (allEncrypedData.length === 0) {
-        console.log("No encrypted tasks found in the database.");
+        console.log("No encrypted data found in the database.");
         return;
       }
       const start = performance.now();
