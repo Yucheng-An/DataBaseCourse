@@ -27,7 +27,7 @@
     request.onupgradeneeded = function(event) {
       db = event.target.result;
       if (!db.objectStoreNames.contains("Sensor")) {
-        db.createObjectStore(storeName, { keyPath: "uuid" });
+        db.createObjectStore("Sensor", { keyPath: "uuid" });
       }
     };
 
