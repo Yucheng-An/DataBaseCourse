@@ -102,7 +102,7 @@
     
     let transaction = db.transaction("Sensor", "readwrite");
     let sensorObjectStore = transaction.objectStore("Sensor");
-    store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
+    sensorObjectStore.add({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
     transaction.oncomplete = function() {
       console.log("Encrypted data has been stored in IndexedDB");
     };
