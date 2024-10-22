@@ -106,7 +106,7 @@
             console.log("Database already contains ${countRequest.result} records, stop data generation.");
           }
         };
-        
+        visualizeSensorStatus(db)
         countRequest.onerror = function() {
           console.error('Error counting records in object store');
         };
