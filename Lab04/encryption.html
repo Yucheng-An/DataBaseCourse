@@ -86,7 +86,6 @@
     transaction.oncomplete = function() {
       console.log("Encrypted data has been stored in IndexedDB");
     };
-
     transaction.onerror = function(event) {
       console.error("Error storing data: ", event.target.errorCode);
     };
