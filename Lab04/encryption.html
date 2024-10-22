@@ -22,7 +22,7 @@
 <script>
 
   function openDatabase() {
-    const request = indexedDB.open(dbName, 1);
+    const request = indexedDB.open("IndexDB", 1);
 
     request.onupgradeneeded = function(event) {
       db = event.target.result;
