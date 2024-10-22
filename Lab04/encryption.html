@@ -100,7 +100,7 @@
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
     
-    const transaction = db.transaction("Sensor", "readwrite");
+    let transaction = db.transaction("Sensor", "readwrite");
     const store = transaction.objectStore("Sensor");
     store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
     transaction.oncomplete = function() {
