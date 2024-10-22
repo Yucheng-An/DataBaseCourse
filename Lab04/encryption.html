@@ -118,10 +118,10 @@
   async function decryptData() {
     if (!encryptedArray) return;
     let transaction = db.transaction("Sensor", "readonly");
-    const store = transaction.objectStore("Sensor");
-    const request = store.getAll();
+    let store = transaction.objectStore("Sensor");
+    let request = store.getAll();
     request.onsuccess = async function(event) {
-      const allItems = event.target.result;
+      let allItems = event.target.result;
       if (allItems.length === 0) {
         console.log("No encrypted tasks found in the database.");
         return;
