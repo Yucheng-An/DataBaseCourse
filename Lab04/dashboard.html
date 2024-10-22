@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sensors Status Chart </title>
+  <title>Sensors Status Chart</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -54,7 +54,7 @@
 </div>
 
 <script>
-  function generate1000Sensor(){
+  function generate1000Sensor() {
     function getCurrentTimestamp() {
       return new Date().toISOString();
     }
@@ -82,12 +82,11 @@
         sensorStatus: generateRandomStatus()
       };
     }
-    function startGenerate(){
+    function startGenerate() {
       let req = indexedDB.open("IndexDB", 1);
       req.onupgradeneeded = function(event) {
         let db = event.target.result;
-        db.createObjectStore("Sensor", { keyPath: "id" ,autoIncrement: true});
-
+        db.createObjectStore("Sensor", { keyPath: "id", autoIncrement: true });
       };
       req.onsuccess = function(event) {
         let db = event.target.result;
@@ -98,15 +97,24 @@
           if (countRequest.result === 0) {
             let transaction = db.transaction("Sensor", "readwrite");
             let sensorObjectStoreWrite = transaction.objectStore("Sensor");
+            let promises = [];
+
             for (let i = 0; i < 1000; i++) {
-              sensorObjectStoreWrite.add(generateObject());
+              promises.push(sensorObjectStoreWrite.add(generateObject()));
             }
-            console.log('1000 Sensors random data have been added!!!');
+
+            transaction.oncomplete = function() {
+              console.log('1000 Sensors random data have been added!!!');
+              visualizeSensorStatus(db);
+            };
+            transaction.onerror = function() {
+              console.error('Error writing data to object store');
+            };
           } else {
-            console.log("Database already contains ${countRequest.result} records, stop data generation.");
+            console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
+            visualizeSensorStatus(db);
           }
         };
-        visualizeSensorStatus(db)
         countRequest.onerror = function() {
           console.error('Error counting records in object store');
         };
@@ -115,7 +123,7 @@
         console.error('Error opening IndexedDB:', event.target.errorCode);
       };
     }
-    startGenerate()
+    startGenerate();
   }
 
   function visualizeSensorStatus(db) {
@@ -126,7 +134,7 @@
       const sensors = request.result;
       const statusCounts = { working: 0, maintenance: 0, error: 0 };
       sensors.forEach(sensor => {
-          statusCounts[sensor.sensorStatus]++;
+        statusCounts[sensor.sensorStatus]++;
       });
       const chartData = [
         { status: "Working", count: statusCounts.working, color: "green" },
@@ -136,9 +144,10 @@
       displayChart(chartData);
     };
   }
-  
-  function displayChart(taskData){
+
+  function displayChart(taskData) {
     const svg = document.getElementById('statusChart');
+    svg.innerHTML = ''; // Clear existing content
 
     // Chart dimensions and settings
     const chartHeight = 250;
@@ -147,7 +156,13 @@
     const startX = 80;
     const maxTaskCount = Math.max(...taskData.map(task => task.count));
 
-    // Generate bars dynamically based on the JSON data
+    // Draw X and Y axes
+    svg.innerHTML = `
+      <line x1="50" y1="250" x2="350" y2="250" stroke="black"/>
+      <line x1="50" y1="50" x2="50" y2="250" stroke="black"/>
+    `;
+
+    // Generate bars dynamically based on taskData
     taskData.forEach((task, index) => {
       const barHeight = (task.count / maxTaskCount) * 200;
 
@@ -177,7 +192,7 @@
       svg.appendChild(countLabel);
     });
 
-    // Y Axis Labels (for example: 0, 50, 100, 150, 200)
+    // Y Axis Labels
     for (let i = 0; i <= maxTaskCount; i += 50) {
       const yLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
       yLabel.setAttribute("x", 20);
@@ -187,7 +202,7 @@
       svg.appendChild(yLabel);
     }
 
-    // X Axis Label (Task Status)
+    // X Axis Label
     const xAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
     xAxisLabel.setAttribute("x", 180);
     xAxisLabel.setAttribute("y", 290);
@@ -195,7 +210,7 @@
     xAxisLabel.textContent = "Sensors Status";
     svg.appendChild(xAxisLabel);
 
-    // Y Axis Label (Number of Tasks)
+    // Y Axis Label
     const yAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
     yAxisLabel.setAttribute("x", 10);
     yAxisLabel.setAttribute("y", 30);
@@ -205,10 +220,9 @@
     svg.appendChild(yAxisLabel);
   }
 
-
-
-  generate1000Sensor()
+  // Start generating sensors data
+  generate1000Sensor();
 </script>
 
-  </body>
+</body>
 </html>
