@@ -101,6 +101,7 @@
             for (let i = 0; i < 1000; i++) {
               sensorObjectStoreWrite.add(generateObject());
             }
+            console.log('1000 sensors data have been added!!!');
           } else {
             console.log("Database already contains ${countRequest.result} records, stop data generation.");
           }
