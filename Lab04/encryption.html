@@ -23,19 +23,16 @@
 
   function openDatabase() {
     const request = indexedDB.open("IndexDB", 1);
-
     request.onupgradeneeded = function(event) {
       db = event.target.result;
       if (!db.objectStoreNames.contains("Sensor")) {
         db.createObjectStore("Sensor", { keyPath: "uuid" });
       }
     };
-
     request.onsuccess = function(event) {
       db = event.target.result;
       console.log("Database opened successfully");
     };
-
     request.onerror = function(event) {
       console.error("Database error: ", event.target.errorCode);
     };
