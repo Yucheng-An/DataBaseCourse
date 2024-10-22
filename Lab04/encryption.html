@@ -24,7 +24,6 @@
     let encryptedArray = null;
     let key = null;
     let iv = null;
-    // Generate a cryptographic key
     async function generateKey() {
       key = await crypto.subtle.generateKey(
               { name: "AES-GCM", length: 256 },
