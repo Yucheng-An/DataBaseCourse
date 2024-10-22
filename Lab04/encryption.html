@@ -115,10 +115,8 @@
   // Encrypt the data (JSON array)
   async function encryptData() {
     if (!key) await generateKey();
-
     const encoder = new TextEncoder();
     const encodedData = encoder.encode(JSON.stringify(todoItems));
-
     const start = performance.now();  // Start measuring time
 
     encryptedArray = await crypto.subtle.encrypt(
