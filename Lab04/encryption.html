@@ -121,13 +121,13 @@
     let store = transaction.objectStore("Sensor");
     let request = store.getAll();
     request.onsuccess = async function(event) {
-      let allItems = event.target.result;
-      if (allItems.length === 0) {
+      let allEncry = event.target.result;
+      if (allEncry.length === 0) {
         console.log("No encrypted tasks found in the database.");
         return;
       }
       const start = performance.now();
-      const decryptedData = await Promise.all(allItems.map(async item => {
+      const decryptedData = await Promise.all(allEncry.map(async item => {
         const decryptedArrayBuffer = await crypto.subtle.decrypt(
                 { name: "AES-GCM", iv: iv },
                 key,
