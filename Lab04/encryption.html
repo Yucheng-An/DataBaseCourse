@@ -143,6 +143,7 @@
       const end = performance.now();
       document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
       document.getElementById('decryptedData').textContent = decryptedData.join(", ");
+      
     };
     request.onerror = function(event) {
       console.error("Error retrieving data: ", event.target.errorCode);
