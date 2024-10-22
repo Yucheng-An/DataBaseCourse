@@ -18,13 +18,13 @@
 <p><strong>Encrypted Data:</strong> <span id="encryptedData"></span></p>
 <p><strong>Decrypted Data:</strong> <span id="decryptedData"></span></p>
 
-
 <script>
   let encryptedArray = null;
   let key = null;
   let iv = null;
-  let db = "IndexDB";
+  let db = null;
   const allSensors = [];
+
   function openDatabase() {
     const request = indexedDB.open("IndexDB", 1);
     request.onupgradeneeded = function(event) {
@@ -41,6 +41,7 @@
       console.error("Database error: ", event.target.errorCode);
     };
   }
+
   function generate1000Object(){
     function getCurrentTimestamp() {
       return new Date().toISOString();
@@ -70,12 +71,15 @@
       };
     }
     if (allSensors.length === 0) {
-      allSensors.push(generateObject());
+      for (let i = 0; i < 1000; i++) {
+        allSensors.push(generateObject());
+      }
       console.log("New 1000 sensors data have been generated");
-    }else{
-      console.log("Already have sensors data have been added");
+    } else {
+      console.log("Already have sensors data.");
     }
   }
+
   async function generateKey() {
     key = await crypto.subtle.generateKey(
             { name: "AES-GCM", length: 256 },
@@ -90,21 +94,21 @@
     if (!key) await generateKey();
     const encoder = new TextEncoder();
     const encodedData = encoder.encode(JSON.stringify(allSensors));
-    const start = performance.now();  // Start measuring time
+    const start = performance.now();
     encryptedArray = await crypto.subtle.encrypt(
             { name: "AES-GCM", iv: iv },
             key,
             encodedData
     );
-    const end = performance.now();  // End measuring time
+    const end = performance.now();
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
-    
-    let transaction = db.transaction("Sensor", "readwrite");
-    let sensorObjectStore = transaction.objectStore("Sensor");
-    sensorObjectStore.add({ 
-      uuid: crypto.randomUUID(), 
-      encryptedData: encryptedArray 
+
+    const transaction = db.transaction("Sensor", "readwrite");
+    const sensorObjectStore = transaction.objectStore("Sensor");
+    sensorObjectStore.add({
+      uuid: crypto.randomUUID(),
+      encryptedData: Array.from(new Uint8Array(encryptedArray))
     });
     transaction.oncomplete = function() {
       console.log("Encrypted data has been stored in IndexedDB");
@@ -117,21 +121,21 @@
   // Decrypt the data
   async function decryptData() {
     if (!encryptedArray) return;
-    let transaction = db.transaction("Sensor", "readonly");
-    let store = transaction.objectStore("Sensor");
-    let request = store.getAll();
+    const transaction = db.transaction("Sensor", "readonly");
+    const store = transaction.objectStore("Sensor");
+    const request = store.getAll();
     request.onsuccess = async function(event) {
-      let allEncrypedData = event.target.result;
-      if (allEncrypedData.length === 0) {
+      const allEncryptedData = event.target.result;
+      if (allEncryptedData.length === 0) {
         console.log("No encrypted data found in the database.");
         return;
       }
       const start = performance.now();
-      const decryptedData = await Promise.all(allEncrypedData.map(async item => {
+      const decryptedData = await Promise.all(allEncryptedData.map(async item => {
         const decryptedArrayBuffer = await crypto.subtle.decrypt(
                 { name: "AES-GCM", iv: iv },
                 key,
-                item.encryptedData
+                new Uint8Array(item.encryptedData).buffer
         );
         const decoder = new TextDecoder();
         return decoder.decode(decryptedArrayBuffer);
@@ -144,7 +148,8 @@
       console.error("Error retrieving data: ", event.target.errorCode);
     };
   }
-  openDatabase()
+
+  openDatabase();
 </script>
 
 </body>
