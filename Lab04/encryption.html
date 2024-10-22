@@ -127,7 +127,7 @@
         return;
       }
       const start = performance.now();
-      const decryptedTasks = await Promise.all(allItems.map(async item => {
+      const decryptedData = await Promise.all(allItems.map(async item => {
         const decryptedArrayBuffer = await crypto.subtle.decrypt(
                 { name: "AES-GCM", iv: iv },
                 key,
@@ -138,7 +138,7 @@
       }));
       const end = performance.now();
       document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
-      document.getElementById('decryptedData').textContent = decryptedTasks.join(", ");
+      document.getElementById('decryptedData').textContent = decryptedData.join(", ");
     };
     request.onerror = function(event) {
       console.error("Error retrieving data: ", event.target.errorCode);
