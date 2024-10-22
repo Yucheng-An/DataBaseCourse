@@ -115,18 +115,29 @@
     const transaction = db.transaction("Sensor", "readonly");
     const store = transaction.objectStore("Sensor");
     const request = store.getAll();
-    
-    const start = performance.now();  // Start measuring time
-    const decryptedArrayBuffer = await crypto.subtle.decrypt(
-            { name: "AES-GCM", iv: iv },
-            key,
-            encryptedArray
-    );
-    const end = performance.now();  // End measuring time
-    document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
-    const decoder = new TextDecoder();
-    const decryptedData = decoder.decode(decryptedArrayBuffer);
-    document.getElementById('decryptedData').textContent = decryptedData;
+    request.onsuccess = async function(event) {
+      const allItems = event.target.result;
+      if (allItems.length === 0) {
+        console.log("No encrypted tasks found in the database.");
+        return;
+      }
+      const start = performance.now();
+      const decryptedTasks = await Promise.all(allItems.map(async item => {
+        const decryptedArrayBuffer = await crypto.subtle.decrypt(
+                { name: "AES-GCM", iv: iv },
+                key,
+                item.encryptedTask
+        );
+        const decoder = new TextDecoder();
+        return decoder.decode(decryptedArrayBuffer);
+      }));
+      const end = performance.now();
+      document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
+      document.getElementById('decryptedData').textContent = decryptedTasks.join(", ");
+    };
+    request.onerror = function(event) {
+      console.error("Error retrieving data: ", event.target.errorCode);
+    };
   }
   openDatabase()
 </script>
