@@ -58,13 +58,8 @@
             sensorObjectStoreWrite.add(generateObject());
           }
           console.log('1000 sensors data have been added!!!');
-          console.log('Starting export IndexedDB data to JSON file...');
-          indexDBExport();
-          console.log('Sensor data has been exported to JSON file!!!');
         } else {
           console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
-          indexDBExport();
-          console.log('Sensor data has been exported to JSON file!!!');
         }
       };
 
