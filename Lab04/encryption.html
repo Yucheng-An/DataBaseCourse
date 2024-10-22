@@ -20,7 +20,12 @@
 
 
 <script>
-
+  let encryptedArray = null;
+  let key = null;
+  let iv = null;
+  let db = "IndexDB";
+  const allSensors = [];
+  
   function openDatabase() {
     const request = indexedDB.open("IndexDB", 1);
     request.onupgradeneeded = function(event) {
@@ -69,11 +74,7 @@
       sensorStatus: generateRandomStatus()
     };
   }
-  let encryptedArray = null;
-  let key = null;
-  let iv = null;
-  let db = "IndexDB";
-  const allSensors = [];
+
   
   for (let i = 0; i < 1000; i++) {
     allSensors.push(generateObject());
