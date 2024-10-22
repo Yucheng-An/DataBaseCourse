@@ -78,7 +78,6 @@
     );
     const end = performance.now();  // End measuring time
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
-
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
   }
 
