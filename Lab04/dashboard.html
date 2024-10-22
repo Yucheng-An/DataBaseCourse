@@ -130,8 +130,6 @@
           statusCounts[sensor.sensorStatus]++;
         }
       });
-
-      // Prepare data for the chart
       const chartData = [
         { status: "working", count: statusCounts.working, color: "green" },
         { status: "maintenance", count: statusCounts.maintenance, color: "orange" },
