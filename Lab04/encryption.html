@@ -101,7 +101,7 @@
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
     
     let transaction = db.transaction("Sensor", "readwrite");
-    let store = transaction.objectStore("Sensor");
+    let sensorObjectStore = transaction.objectStore("Sensor");
     store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
     transaction.oncomplete = function() {
       console.log("Encrypted data has been stored in IndexedDB");
