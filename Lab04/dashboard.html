@@ -7,4 +7,140 @@
 <body>
 
 </body>
+</h
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Status Chart Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .chart-container {
+      text-align: center;
+    }
+
+    svg {
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+
+    .axis-label {
+      font-size: 12px;
+      fill: #666;
+    }
+
+    .bar-label {
+      font-size: 14px;
+      fill: #333;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="chart-container">
+  <h1>Task Status Overview</h1>
+  <svg id="statusChart" width="400" height="300">
+    <!-- X Axis -->
+    <line x1="50" y1="250" x2="350" y2="250" stroke="black"/>
+    <!-- Y Axis -->
+    <line x1="50" y1="50" x2="50" y2="250" stroke="black"/>
+  </svg>
+</div>
+
+<script>
+  // JSON data representing task statuses
+  const taskData = [
+    { status: "Completed", count: 120, color: "green" },
+    { status: "In Progress", count: 80, color: "orange" },
+    { status: "Other", count: 50, color: "gray" }
+  ];
+
+  // Get the SVG element
+  const svg = document.getElementById('statusChart');
+
+  // Chart dimensions and settings
+  const chartHeight = 250;
+  const barWidth = 50;
+  const barSpacing = 80;
+  const startX = 80;
+  const maxTaskCount = Math.max(...taskData.map(task => task.count));
+
+  // Generate bars dynamically based on the JSON data
+  taskData.forEach((task, index) => {
+    const barHeight = (task.count / maxTaskCount) * 200;
+
+    // Create a rectangle (bar)
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", startX + index * barSpacing);
+    rect.setAttribute("y", chartHeight - barHeight);
+    rect.setAttribute("width", barWidth);
+    rect.setAttribute("height", barHeight);
+    rect.setAttribute("fill", task.color);
+    svg.appendChild(rect);
+
+    // Add label under each bar (status)
+    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    label.setAttribute("x", startX + index * barSpacing + 10);
+    label.setAttribute("y", chartHeight + 20);
+    label.setAttribute("class", "bar-label");
+    label.textContent = task.status;
+    svg.appendChild(label);
+
+    // Add count on top of each bar
+    const countLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    countLabel.setAttribute("x", startX + index * barSpacing + 15);
+    countLabel.setAttribute("y", chartHeight - barHeight - 10);
+    countLabel.setAttribute("class", "bar-label");
+    countLabel.textContent = task.count;
+    svg.appendChild(countLabel);
+  });
+
+  // Y Axis Labels (for example: 0, 50, 100, 150, 200)
+  for (let i = 0; i <= maxTaskCount; i += 50) {
+    const yLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    yLabel.setAttribute("x", 20);
+    yLabel.setAttribute("y", chartHeight - (i / maxTaskCount) * 200);
+    yLabel.setAttribute("class", "axis-label");
+    yLabel.textContent = i;
+    svg.appendChild(yLabel);
+  }
+
+  // X Axis Label (Task Status)
+  const xAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  xAxisLabel.setAttribute("x", 180);
+  xAxisLabel.setAttribute("y", 290);
+  xAxisLabel.setAttribute("class", "axis-label");
+  xAxisLabel.textContent = "Task Status";
+  svg.appendChild(xAxisLabel);
+
+  // Y Axis Label (Number of Tasks)
+  const yAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  yAxisLabel.setAttribute("x", 10);
+  yAxisLabel.setAttribute("y", 30);
+  yAxisLabel.setAttribute("class", "axis-label");
+  yAxisLabel.setAttribute("transform", "rotate(-90 20,100)");
+  yAxisLabel.textContent = "Number of Tasks";
+  svg.appendChild(yAxisLabel);
+</script>
+
+</body>
 </html>
+tml>
