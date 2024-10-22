@@ -73,14 +73,12 @@
 
             transaction.oncomplete = function() {
               console.log('1000 Sensors random data have been added!!!');
-              visualizeSensorStatus(db);
             };
             transaction.onerror = function() {
               console.error('Error writing data to object store');
             };
           } else {
             console.log(`Database already contains ${countRequest.result} records, stop data generation.`);
-            visualizeSensorStatus(db);
           }
         };
         countRequest.onerror = function() {
