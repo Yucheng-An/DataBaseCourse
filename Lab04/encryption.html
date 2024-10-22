@@ -71,7 +71,7 @@
         sensorStatus: generateRandomStatus()
       };
     }
-    if (allSensors.length < 1000) {
+    if (allSensors.length === 0) {
       allSensors.push(generateObject());
     }else{
       console.log("1000 sensors data have been added!!!");
