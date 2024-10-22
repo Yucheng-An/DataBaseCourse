@@ -25,7 +25,6 @@
   let iv = null;
   let db = "IndexDB";
   const allSensors = [];
-  
   function openDatabase() {
     const request = indexedDB.open("IndexDB", 1);
     request.onupgradeneeded = function(event) {
@@ -42,7 +41,6 @@
       console.error("Database error: ", event.target.errorCode);
     };
   }
-  
   function generate1000Object(){
     function getCurrentTimestamp() {
       return new Date().toISOString();
