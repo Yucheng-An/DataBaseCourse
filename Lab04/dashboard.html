@@ -54,7 +54,73 @@
 </div>
 
 <script>
-  function displayChart()
+  function displayChart(){
+    const svg = document.getElementById('statusChart');
+
+    // Chart dimensions and settings
+    const chartHeight = 250;
+    const barWidth = 50;
+    const barSpacing = 80;
+    const startX = 80;
+    const maxTaskCount = Math.max(...taskData.map(task => task.count));
+
+    // Generate bars dynamically based on the JSON data
+    taskData.forEach((task, index) => {
+      const barHeight = (task.count / maxTaskCount) * 200;
+
+      // Create a rectangle (bar)
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", startX + index * barSpacing);
+      rect.setAttribute("y", chartHeight - barHeight);
+      rect.setAttribute("width", barWidth);
+      rect.setAttribute("height", barHeight);
+      rect.setAttribute("fill", task.color);
+      svg.appendChild(rect);
+
+      // Add label under each bar (status)
+      const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      label.setAttribute("x", startX + index * barSpacing + 10);
+      label.setAttribute("y", chartHeight + 20);
+      label.setAttribute("class", "bar-label");
+      label.textContent = task.status;
+      svg.appendChild(label);
+
+      // Add count on top of each bar
+      const countLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      countLabel.setAttribute("x", startX + index * barSpacing + 15);
+      countLabel.setAttribute("y", chartHeight - barHeight - 10);
+      countLabel.setAttribute("class", "bar-label");
+      countLabel.textContent = task.count;
+      svg.appendChild(countLabel);
+    });
+
+    // Y Axis Labels (for example: 0, 50, 100, 150, 200)
+    for (let i = 0; i <= maxTaskCount; i += 50) {
+      const yLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      yLabel.setAttribute("x", 20);
+      yLabel.setAttribute("y", chartHeight - (i / maxTaskCount) * 200);
+      yLabel.setAttribute("class", "axis-label");
+      yLabel.textContent = i;
+      svg.appendChild(yLabel);
+    }
+
+    // X Axis Label (Task Status)
+    const xAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    xAxisLabel.setAttribute("x", 180);
+    xAxisLabel.setAttribute("y", 290);
+    xAxisLabel.setAttribute("class", "axis-label");
+    xAxisLabel.textContent = "Task Status";
+    svg.appendChild(xAxisLabel);
+
+    // Y Axis Label (Number of Tasks)
+    const yAxisLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    yAxisLabel.setAttribute("x", 10);
+    yAxisLabel.setAttribute("y", 30);
+    yAxisLabel.setAttribute("class", "axis-label");
+    yAxisLabel.setAttribute("transform", "rotate(-90 20,100)");
+    yAxisLabel.textContent = "Number of Tasks";
+    svg.appendChild(yAxisLabel);
+  }
 </script>
 
   </body>
