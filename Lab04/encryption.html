@@ -80,7 +80,7 @@
     const end = performance.now();  // End measuring time
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
-    const transaction = db.transaction(storeName, "readwrite");
+    const transaction = db.transaction("Sensor", "readwrite");
     const store = transaction.objectStore(storeName);
     store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
 
