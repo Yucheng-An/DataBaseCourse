@@ -52,7 +52,7 @@
     }
     let allSensors = [];
     for (let i = 0; i < 1000; i++) {
-      promises.push(sensorObjectStoreWrite.add(generateObject()));
+      allSensors.push(generateObject());
     }
     function startGenerate() {
       let req = indexedDB.open("IndexDB", 1);
