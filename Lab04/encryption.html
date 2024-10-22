@@ -66,11 +66,9 @@
             let transaction = db.transaction("Sensor", "readwrite");
             let sensorObjectStoreWrite = transaction.objectStore("Sensor");
             let promises = [];
-
             for (let i = 0; i < 1000; i++) {
               promises.push(sensorObjectStoreWrite.add(generateObject()));
             }
-
             transaction.oncomplete = function() {
               console.log('1000 Sensors random data have been added!!!');
             };
