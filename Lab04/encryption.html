@@ -33,8 +33,6 @@
       );
       iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
     }
-
-    // Encrypt the data (JSON array)
     async function encryptData() {
       if (!key) await generateKey();
 
