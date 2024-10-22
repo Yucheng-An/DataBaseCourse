@@ -84,7 +84,7 @@
     const store = transaction.objectStore("Sensor");
     store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
     transaction.oncomplete = function() {
-      console.log("Data stored in IndexedDB");
+      console.log("encrypted Data stored in IndexedDB");
     };
 
     transaction.onerror = function(event) {
