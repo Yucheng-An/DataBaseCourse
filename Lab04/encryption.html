@@ -58,7 +58,9 @@
 
   // Sample array of JSON objects (to-do items) with UUID and status
   const allSensors = [];
-
+  for (let i = 0; i < 1000; i++) {
+    allSensors.push(generateObject());
+  }
   // Generate a cryptographic key
   async function generateKey() {
     key = await crypto.subtle.generateKey(
