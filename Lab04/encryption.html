@@ -50,6 +50,7 @@
         sensorStatus: generateRandomStatus()
       };
     }
+    let all
     function startGenerate() {
       let req = indexedDB.open("IndexDB", 1);
       req.onupgradeneeded = function(event) {
