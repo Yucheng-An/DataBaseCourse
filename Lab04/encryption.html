@@ -79,6 +79,17 @@
     const end = performance.now();  // End measuring time
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
     document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
+    const transaction = db.transaction(storeName, "readwrite");
+    const store = transaction.objectStore(storeName);
+    store.put({ uuid: crypto.randomUUID(), encryptedTask: encryptedArray });
+
+    transaction.oncomplete = function() {
+      console.log("Data stored in IndexedDB");
+    };
+
+    transaction.onerror = function(event) {
+      console.error("Error storing data: ", event.target.errorCode);
+    };
   }
 
   // Decrypt the data
