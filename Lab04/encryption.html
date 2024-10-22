@@ -20,7 +20,68 @@
 
 
 <script>
-   
+  let encryptedArray = null;
+  let key = null;
+  let iv = null;
+
+  // Sample array of JSON objects (to-do items) with UUID and status
+  const todoItems = [
+    { uuid: crypto.randomUUID(), task: "Buy groceries", status: "progress" },
+    { uuid: crypto.randomUUID(), task: "Clean the house", status: "completed" },
+    { uuid: crypto.randomUUID(), task: "Finish homework", status: "progress" },
+    { uuid: crypto.randomUUID(), task: "Walk the dog", status: "completed" },
+  ];
+
+  // Generate a cryptographic key
+  async function generateKey() {
+    key = await crypto.subtle.generateKey(
+            { name: "AES-GCM", length: 256 },
+            true,
+            ["encrypt", "decrypt"]
+    );
+    iv = crypto.getRandomValues(new Uint8Array(12)); // Initialization vector
+  }
+
+  // Encrypt the data (JSON array)
+  async function encryptData() {
+    if (!key) await generateKey();
+
+    const encoder = new TextEncoder();
+    const encodedData = encoder.encode(JSON.stringify(todoItems));
+
+    const start = performance.now();  // Start measuring time
+
+    encryptedArray = await crypto.subtle.encrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            encodedData
+    );
+
+    const end = performance.now();  // End measuring time
+    document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
+
+    document.getElementById('encryptedData').textContent = new Uint8Array(encryptedArray).toString();
+  }
+
+  // Decrypt the data
+  async function decryptData() {
+    if (!encryptedArray) return;
+
+    const start = performance.now();  // Start measuring time
+
+    const decryptedArrayBuffer = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv: iv },
+            key,
+            encryptedArray
+    );
+
+    const end = performance.now();  // End measuring time
+    document.getElementById('decryptionTime').textContent = (end - start).toFixed(2);
+
+    const decoder = new TextDecoder();
+    const decryptedData = decoder.decode(decryptedArrayBuffer);
+    document.getElementById('decryptedData').textContent = decryptedData;
+  }
 </script>
 
 </body>
