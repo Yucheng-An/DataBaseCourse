@@ -47,39 +47,7 @@
     
   }
   
-  function getCurrentTimestamp() {
-    return new Date().toISOString();
-  }
-  function generateRandomID() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-  }
-  function generateRandomLocation() {
-    const latitude = (Math.random() * 180 - 90).toFixed(6);
-    const longitude = (Math.random() * 360 - 180).toFixed(6);
-    return { latitude, longitude };
-  }
-  function generateRandomStatus() {
-    const statuses = ['working', 'maintenance', 'error'];
-    return statuses[Math.floor(Math.random() * statuses.length)];
-  }
-  function generateObject() {
-    return {
-      uuid: crypto.randomUUID(),
-      sourceDB: "IndexedDB",
-      createdTime: getCurrentTimestamp(),
-      updatedTime: getCurrentTimestamp(),
-      sensorID: generateRandomID(),
-      sensorLocation: generateRandomLocation(),
-      sensorStatus: generateRandomStatus()
-    };
-  }
 
-  
-  for (let i = 0; i < 1000; i++) {
-    allSensors.push(generateObject());
-    console.log("Sensors data randomly generated");
-  }
 
   async function generateKey() {
     key = await crypto.subtle.generateKey(
