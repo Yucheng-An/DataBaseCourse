@@ -85,9 +85,7 @@
   // Decrypt the data
   async function decryptData() {
     if (!encryptedArray) return;
-
     const start = performance.now();  // Start measuring time
-
     const decryptedArrayBuffer = await crypto.subtle.decrypt(
             { name: "AES-GCM", iv: iv },
             key,
