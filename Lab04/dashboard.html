@@ -117,6 +117,34 @@
     }
     startGenerate()
   }
+
+  function visualizeSensorStatus(db) {
+    let transaction = db.transaction("Sensor", "readonly");
+    let sensorObjectStore = transaction.objectStore("Sensor");
+    let request = sensorObjectStore.getAll();
+
+    request.onsuccess = function() {
+      const sensors = request.result;
+      const statusCounts = { working: 0, maintenance: 0, error: 0 };
+
+      // Count the occurrences of each status
+      sensors.forEach(sensor => {
+        if (statusCounts[sensor.sensorStatus] !== undefined) {
+          statusCounts[sensor.sensorStatus]++;
+        }
+      });
+
+      // Prepare data for the chart
+      const chartData = [
+        { status: "working", count: statusCounts.working, color: "green" },
+        { status: "maintenance", count: statusCounts.maintenance, color: "orange" },
+        { status: "error", count: statusCounts.error, color: "red" }
+      ];
+
+      // Generate chart based on fetched data
+      generateChart(chartData);
+    };
+  }
   
   function displayChart(){
     const svg = document.getElementById('statusChart');
