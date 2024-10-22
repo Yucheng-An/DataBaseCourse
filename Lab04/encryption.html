@@ -71,9 +71,8 @@
         sensorStatus: generateRandomStatus()
       };
     }
-    for (let i = 0; i < 1000; i++) {
+    if length(allSensors) < 1000 {
       allSensors.push(generateObject());
-      console.log("Sensors data randomly generated");
     }
   }
   
