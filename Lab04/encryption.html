@@ -131,7 +131,7 @@
         const decryptedArrayBuffer = await crypto.subtle.decrypt(
                 { name: "AES-GCM", iv: iv },
                 key,
-                item.encryptedTask
+                item.encryptedData
         );
         const decoder = new TextDecoder();
         return decoder.decode(decryptedArrayBuffer);
