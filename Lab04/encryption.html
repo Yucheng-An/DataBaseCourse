@@ -23,37 +23,7 @@
 
 
   function generate1000Sensors(){
-    function getCurrentTimestamp() {
-      return new Date().toISOString();
-    }
-    function generateRandomID() {
-      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-      return Array.from({ length: 6 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-    }
-    function generateRandomLocation() {
-      const latitude = (Math.random() * 180 - 90).toFixed(6);
-      const longitude = (Math.random() * 360 - 180).toFixed(6);
-      return { latitude, longitude };
-    }
-    function generateRandomStatus() {
-      const statuses = ['working', 'maintenance', 'error'];
-      return statuses[Math.floor(Math.random() * statuses.length)];
-    }
-    function generateObject() {
-      return {
-        uuid: crypto.randomUUID(),
-        sourceDB: "IndexedDB",
-        createdTime: getCurrentTimestamp(),
-        updatedTime: getCurrentTimestamp(),
-        sensorID: generateRandomID(),
-        sensorLocation: generateRandomLocation(),
-        sensorStatus: generateRandomStatus()
-      };
-    }
-    let allSensors = [];
-    for (let i = 0; i < 1000; i++) {
-      allSensors.push(generateObject());
-    }
+
     function startGenerate() {
       let req = indexedDB.open("IndexDB", 1);
       req.onupgradeneeded = function(event) {
