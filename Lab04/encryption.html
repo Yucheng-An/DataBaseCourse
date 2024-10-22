@@ -118,13 +118,11 @@
     const encoder = new TextEncoder();
     const encodedData = encoder.encode(JSON.stringify(todoItems));
     const start = performance.now();  // Start measuring time
-
     encryptedArray = await crypto.subtle.encrypt(
             { name: "AES-GCM", iv: iv },
             key,
             encodedData
     );
-
     const end = performance.now();  // End measuring time
     document.getElementById('encryptionTime').textContent = (end - start).toFixed(2);
 
