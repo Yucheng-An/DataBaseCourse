@@ -50,7 +50,10 @@
         sensorStatus: generateRandomStatus()
       };
     }
-    let all
+    let allSensors = [];
+    for (let i = 0; i < 1000; i++) {
+      promises.push(sensorObjectStoreWrite.add(generateObject()));
+    }
     function startGenerate() {
       let req = indexedDB.open("IndexDB", 1);
       req.onupgradeneeded = function(event) {
