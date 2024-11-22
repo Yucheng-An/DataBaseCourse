@@ -3,64 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zip Code Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="warehouse.js"></script>
+  <title>Warehouse Dashboard</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
       margin: 20px;
+      background-color: #f4f4f9;
     }
-    #chartContainer {
+    h1 {
+      text-align: center;
+    }
+    table {
       width: 80%;
-      margin: auto;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: #ffffff;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .card {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
     }
   </style>
 </head>
 <body>
-  <h1>Data Dashboard: Count of Entries per Zip Code</h1>
-  <div id="chartContainer">
-    <canvas id="zipCodeChart"></canvas>
-  </div>
+<h1>Warehouse Dashboard</h1>
+<div class="card">
+  <table>
+    <thead>
+    <tr>
+      <th>Item ID</th>
+      <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody id="warehouse-data"></tbody>
+  </table>
+</div>
+<script>
+  const warehouse = {
+    "10001": 2,
+    "10002": 43,
+    "10003": 41,
+    "10004": 44,
+    "10005": 41
+  };
 
-  <script>
-    console.log("Warehouse Data:", warehouse);
+  const tbody = document.getElementById('warehouse-data');
+  for (const [itemId, quantity] of Object.entries(warehouse)) {
+    const row = document.createElement('tr');
+    const cell1 = document.createElement('td');
+    const cell2 = document.createElement('td');
 
-    const labels = Object.keys(warehouse);
-    const data = Object.values(warehouse);
+    cell1.textContent = itemId;
+    cell2.textContent = quantity;
 
-    const ctx = document.getElementById('zipCodeChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Count of Entries',
-          data: data,
-          backgroundColor: 'rgba(75, 192, 192, 0.5)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top'
-          },
-          title: {
-            display: true,
-            text: 'Count of Entries per Zip Code'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  </script>
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    tbody.appendChild(row);
+  }
+</script>
 </body>
 </html>
