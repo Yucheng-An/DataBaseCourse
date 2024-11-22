@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warehouse Dashboard</title>
+  <title>Warehouse Dashboard - Bar Chart</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,45 +13,56 @@
     h1 {
       text-align: center;
     }
-    table {
+    .chart-container {
       width: 80%;
       margin: 0 auto;
-      border-collapse: collapse;
-      background-color: #ffffff;
-    }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #4CAF50;
-      color: white;
-    }
-    tr:hover {
-      background-color: #f1f1f1;
-    }
-    .card {
-      width: 80%;
-      margin: 20px auto;
       padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       background-color: #ffffff;
+      border-radius: 8px;
+    }
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      height: 300px;
+      border-left: 2px solid #333;
+      border-bottom: 2px solid #333;
+      margin: 20px;
+      padding: 10px;
+      position: relative;
+    }
+    .bar {
+      width: 15%;
+      margin: 0 10px;
+      text-align: center;
+    }
+    .bar div {
+      height: 100%;
+      width: 100%;
+      background-color: #4CAF50;
+      border-radius: 4px;
+    }
+    .bar span {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .bar-label {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .y-axis {
+      position: absolute;
+      top: 0;
+      left: -30px;
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
-<h1>Warehouse Dashboard</h1>
-<div class="card">
-  <table>
-    <thead>
-    <tr>
-      <th>Item ID</th>
-      <th>Quantity</th>
-    </tr>
-    </thead>
-    <tbody id="warehouse-data"></tbody>
-  </table>
+<h1>Warehouse Dashboard - Bar Chart</h1>
+<div class="chart-container">
+  <div class="bar-chart" id="bar-chart"></div>
 </div>
 <script>
   const warehouse = {
@@ -62,18 +73,27 @@
     "10005": 41
   };
 
-  const tbody = document.getElementById('warehouse-data');
+  const barChart = document.getElementById('bar-chart');
+  const maxQuantity = Math.max(...Object.values(warehouse));
+
   for (const [itemId, quantity] of Object.entries(warehouse)) {
-    const row = document.createElement('tr');
-    const cell1 = document.createElement('td');
-    const cell2 = document.createElement('td');
+    const barContainer = document.createElement('div');
+    barContainer.className = 'bar';
 
-    cell1.textContent = itemId;
-    cell2.textContent = quantity;
+    const bar = document.createElement('div');
+    bar.style.height = `${(quantity / maxQuantity) * 100}%`;
 
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    tbody.appendChild(row);
+    const quantityLabel = document.createElement('span');
+    quantityLabel.textContent = quantity;
+
+    const barLabel = document.createElement('div');
+    barLabel.className = 'bar-label';
+    barLabel.textContent = itemId;
+
+    barContainer.appendChild(bar);
+    barContainer.appendChild(quantityLabel);
+    barContainer.appendChild(barLabel);
+    barChart.appendChild(barContainer);
   }
 </script>
 </body>
