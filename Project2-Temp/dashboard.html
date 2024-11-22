@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zip Code Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="warehouse.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    #chartContainer {
+      width: 80%;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Data Dashboard: Count of Entries per Zip Code</h1>
+  <div id="chartContainer">
+    <canvas id="zipCodeChart"></canvas>
+  </div>
+
+  <script>
+    console.log("Warehouse Data:", warehouse);
+
+    const labels = Object.keys(warehouse);
+    const data = Object.values(warehouse);
+
+    const ctx = document.getElementById('zipCodeChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Count of Entries',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.5)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top'
+          },
+          title: {
+            display: true,
+            text: 'Count of Entries per Zip Code'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
