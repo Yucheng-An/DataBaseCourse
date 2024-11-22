@@ -3,98 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warehouse Dashboard - Bar Chart</title>
+  <title>Zip Code Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="warehouse.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f9;
-    }
-    h1 {
       text-align: center;
+      margin: 20px;
     }
-    .chart-container {
+    #chartContainer {
       width: 80%;
-      margin: 0 auto;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background-color: #ffffff;
-      border-radius: 8px;
-    }
-    .bar-chart {
-      display: flex;
-      align-items: flex-end;
-      height: 300px;
-      border-left: 2px solid #333;
-      border-bottom: 2px solid #333;
-      margin: 20px;
-      padding: 10px;
-      position: relative;
-    }
-    .bar {
-      width: 15%;
-      margin: 0 10px;
-      text-align: center;
-    }
-    .bar div {
-      height: 100%;
-      width: 100%;
-      background-color: #4CAF50;
-      border-radius: 4px;
-    }
-    .bar span {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .bar-label {
-      text-align: center;
-      margin-top: 10px;
-    }
-    .y-axis {
-      position: absolute;
-      top: 0;
-      left: -30px;
-      font-size: 12px;
+      margin: auto;
     }
   </style>
 </head>
 <body>
-<h1>Warehouse Dashboard - Bar Chart</h1>
-<div class="chart-container">
-  <div class="bar-chart" id="bar-chart"></div>
+<h1>Data Dashboard: Count of Entries per Zip Code</h1>
+<div id="chartContainer">
+  <canvas id="zipCodeChart"></canvas>
 </div>
+
 <script>
-  const warehouse = {
-    "10001": 2,
-    "10002": 43,
-    "10003": 41,
-    "10004": 44,
-    "10005": 41
-  };
+  console.log("Warehouse Data:", warehouse);
 
-  const barChart = document.getElementById('bar-chart');
-  const maxQuantity = Math.max(...Object.values(warehouse));
+  const labels = Object.keys(warehouse);
+  const data = Object.values(warehouse);
 
-  for (const [itemId, quantity] of Object.entries(warehouse)) {
-    const barContainer = document.createElement('div');
-    barContainer.className = 'bar';
-
-    const bar = document.createElement('div');
-    bar.style.height = `${(quantity / maxQuantity) * 100}%`;
-
-    const quantityLabel = document.createElement('span');
-    quantityLabel.textContent = quantity;
-
-    const barLabel = document.createElement('div');
-    barLabel.className = 'bar-label';
-    barLabel.textContent = itemId;
-
-    barContainer.appendChild(bar);
-    barContainer.appendChild(quantityLabel);
-    barContainer.appendChild(barLabel);
-    barChart.appendChild(barContainer);
-  }
+  const ctx = document.getElementById('zipCodeChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Count of Entries',
+        data: data,
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        title: {
+          display: true,
+          text: 'Count of Entries per Zip Code'
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 </script>
 </body>
 </html>
