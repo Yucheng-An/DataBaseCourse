@@ -41,7 +41,6 @@ req.onsuccess = function(event) {
 // trigger when starting or refreshing the website
 req.onerror = function(event){}
 
-
 // MongoDB
 // Create a new database
 //use BookDB;
