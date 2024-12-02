@@ -1,2 +1,1 @@
-> **__Note:__** Temporary repo for Database Management System (DBMS).
-git
+> **__Note:__** Temporary repo for Database Management System (DBMS)
