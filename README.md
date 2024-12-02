@@ -1,2 +1,2 @@
-# DataBaseCourse
-This is temp repo for DataBaseCourse
+> **__Note:__** Temporary repo for Database Management System (DBMS).
+git
